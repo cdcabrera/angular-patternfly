@@ -1,0 +1,27 @@
+<div class="applauncher-pf">
+  <div class="dropdown dropdown-kebab-pf" uib-dropdown is-open="isOpen" on-toggle="toggled(open)">
+    <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-disabled="isDisabled()" href>
+      <span class="fa fa-th applauncher-pf-icon"></span>
+      <span class="applauncher-pf-title">
+        Application Launcher
+        <i class="caret" aria-hidden="true"></i>
+      </span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-right"
+        ng-class="{'applauncher-pf-list-default': !isList()}"
+        uib-dropdown-menu
+        role="menu"
+        aria-labelledby="domain-switcher-{{$id}}">
+      <li uib-tooltip="{{item.tooltip}}" tooltip-append-to-body="true" tooltip-placement="top"
+           class="applauncher-pf-entry"
+           role="menuitem"
+           ng-repeat="item in items()">
+        <a class="applauncher-pf-link" ng-href="{{item.href}}" target="_blank">
+          <i class="applauncher-pf-link-icon fa fa-3x" ng-class="item.iconClass" ng-if="!hiddenIcons()" aria-hidden="true"></i>
+          <span class="applauncher-pf-link-title">{{item.title}}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+

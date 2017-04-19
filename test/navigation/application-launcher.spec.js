@@ -45,7 +45,7 @@ describe('Directive:  pfApplicationLauncher', function () {
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('[role="menuitem"]');
-    expect(content.length).toBeGreaterThan(1);
+    expect(content.length).toBe(2);
   });
 
   it('should be open onload', function () {

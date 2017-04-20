@@ -45,7 +45,7 @@ describe('Directive:  pfApplicationLauncher', function () {
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('[role="menuitem"]');
-    expect(content.length).toBeGreaterThan(1);
+    expect(content.length).toBe(2);
   });
 
   it('should be open onload', function () {
@@ -68,7 +68,7 @@ describe('Directive:  pfApplicationLauncher', function () {
     var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="true" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
-    var content = element.find('.applauncher-pf-list-default');
+    var content = element.find('.applauncher-pf-block-list');
     expect(content.length).toBe(0);
   });
 

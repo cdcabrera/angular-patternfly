@@ -1,5 +1,9 @@
-<div class="applauncher-pf">
-  <div class="dropdown dropdown-kebab-pf" uib-dropdown is-open="isOpen" on-toggle="toggled(open)">
+<div>
+  <div class="applauncher-pf dropdown dropdown-kebab-pf" ng-class="{'applauncher-pf-block-list': !isList()}"
+       uib-dropdown
+       keyboard-nav="true"
+       is-open="isOpen"
+       on-toggle="toggled(open)">
     <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-disabled="isDisabled()" href>
       <span class="fa fa-th applauncher-pf-icon"></span>
       <span class="applauncher-pf-title">
@@ -8,16 +12,12 @@
       </span>
     </a>
     <ul class="dropdown-menu dropdown-menu-right"
-        ng-class="{'applauncher-pf-list-default': !isList()}"
         uib-dropdown-menu
         role="menu"
         aria-labelledby="domain-switcher-{{$id}}">
-      <li uib-tooltip="{{item.tooltip}}" tooltip-append-to-body="true" tooltip-placement="top"
-           class="applauncher-pf-entry"
-           role="menuitem"
-           ng-repeat="item in items()">
+      <li title="{{item.tooltip}}" class="applauncher-pf-entry" role="menuitem" ng-repeat="item in items()">
         <a class="applauncher-pf-link" ng-href="{{item.href}}" target="_blank">
-          <i class="applauncher-pf-link-icon fa fa-3x" ng-class="item.iconClass" ng-if="!hiddenIcons()" aria-hidden="true"></i>
+          <i class="applauncher-pf-link-icon fa fa-2x" ng-class="item.iconClass" ng-if="!hiddenIcons()" aria-hidden="true"></i>
           <span class="applauncher-pf-link-title">{{item.title}}</span>
         </a>
       </li>

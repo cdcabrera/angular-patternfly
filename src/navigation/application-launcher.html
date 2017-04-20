@@ -4,7 +4,7 @@
        keyboard-nav="true"
        is-open="isOpen"
        on-toggle="toggled(open)">
-    <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-disabled="isDisabled()" href>
+    <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-class="{'disabled': isDisabled() || !items().length}" href>
       <span class="fa fa-th applauncher-pf-icon"></span>
       <span class="applauncher-pf-title">
         Application Launcher

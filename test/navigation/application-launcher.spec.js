@@ -60,7 +60,7 @@ describe('Directive:  pfApplicationLauncher', function () {
     var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="true" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
-    var content = element.find('[id*="domain-switcher"][disabled="disabled"]');
+    var content = element.find('[id*="domain-switcher"].disabled');
     expect(content.length).toBe(1);
   });
 

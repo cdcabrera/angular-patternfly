@@ -1,23 +1,23 @@
-<div class="applauncher-pf">
-  <div class="dropdown dropdown-kebab-pf" uib-dropdown is-open="$ctrl.isOpen" on-toggle="$ctrl.toggled(open)">
-    <a id="domain-switcher-{{$ctrl.$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-disabled="$ctrl.isDisabled" href>
-      <span class="fa fa-th applauncher-pf-icon"></span>
-      <span class="applauncher-pf-title">
+<div>
+  <div class="applauncher-pf dropdown dropdown-kebab-pf" ng-class="{'applauncher-pf-block-list': !$ctrl.isList}"
+       uib-dropdown
+       uib-keyboard-nav="true"
+       is-open="$ctrl.isOpen"
+       on-toggle="$ctrl.toggled(open)">
+    <a id="domain-switcher-{{$ctrl.$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-class="{'disabled': $ctrl.isDisabled || !$ctrl.items.length}" href>
+      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">Application Launcher</span></i>
+      <span class="applauncher-pf-title" aria-hidden="true">
         Application Launcher
-        <i class="caret" aria-hidden="true"></i>
+        <span class="caret"></span>
       </span>
     </a>
     <ul class="dropdown-menu dropdown-menu-right"
-        ng-class="{'applauncher-pf-list-default': !$ctrl.isList}"
         uib-dropdown-menu
         role="menu"
         aria-labelledby="domain-switcher-{{$ctrl.$id}}">
-      <li uib-tooltip="{{item.tooltip}}" tooltip-append-to-body="true" tooltip-placement="top"
-           class="applauncher-pf-entry"
-           role="menuitem"
-           ng-repeat="item in $ctrl.items">
-        <a class="applauncher-pf-link" ng-href="{{item.href}}" target="_blank">
-          <i class="applauncher-pf-link-icon fa fa-3x" ng-class="item.iconClass" ng-if="!$ctrl.hiddenIcons" aria-hidden="true"></i>
+      <li class="applauncher-pf-entry" role="menuitem" ng-repeat="item in $ctrl.items">
+        <a class="applauncher-pf-link" ng-href="{{item.href}}" target="{{item.target || '_blank'}}" title="{{item.tooltip}}">
+          <i class="applauncher-pf-link-icon fa fa-2x" ng-class="item.iconClass" ng-if="!$ctrl.hiddenIcons" aria-hidden="true"></i>
           <span class="applauncher-pf-link-title">{{item.title}}</span>
         </a>
       </li>

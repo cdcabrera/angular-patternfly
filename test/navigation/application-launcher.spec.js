@@ -1,4 +1,4 @@
-describe('Directive:  pfApplicationLauncher', function () {
+describe('Component:  pfApplicationLauncher', function () {
 
   var $scope;
   var $compile;
@@ -59,8 +59,8 @@ describe('Directive:  pfApplicationLauncher', function () {
   it('should be disabled', function () {
     var htmlTmp = '<pf-application-launcher items="sites" is-open="false" is-disabled="true" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
-
-    var content = element.find('[id*="domain-switcher"][disabled="disabled"]');
+    
+    var content = element.find('[id*="domain-switcher"].disabled');
     expect(content.length).toBe(1);
   });
 

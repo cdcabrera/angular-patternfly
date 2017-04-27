@@ -3942,7 +3942,7 @@ angular.module('patternfly.modals')
  * @description
  * Directive for rendering application launcher dropdown.
  *
- * @param {boolean=} isOpen Override and determine open and closed state, default: false
+ * @param {string=} label Use a custom label for the launcher, default: Application Launcher
  * @param {boolean=} isDisabled Disable the application launcher button, default: false
  * @param {boolean=} isList Display items as a list instead of a grid, default: false
  * @param {boolean=} hiddenIcons Flag to not show icons on the launcher, default: false
@@ -3963,7 +3963,7 @@ angular.module('patternfly.modals')
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <div pf-application-launcher="" items="navigationItems" is-open="isOpen" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
+           <div pf-application-launcher="" items="navigationItems" label="label" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
          </li>
        </ul>
      </nav>
@@ -3999,6 +3999,7 @@ angular.module('patternfly.modals')
          }
        ];
 
+       $scope.label = 'Application Launcher';
        $scope.isDisabled = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
@@ -4014,6 +4015,7 @@ angular.module('patternfly.navigation').directive('pfApplicationLauncher', [
       restrict: 'A',
       scope: {
         items: '&',
+        label: '@?',
         isDisabled: '&?',
         isList: '&?',
         hiddenIcons: '&?'
@@ -10436,7 +10438,7 @@ angular.module('patternfly.wizard').directive('pfWizardSubstep', function () {
   'use strict';
 
   $templateCache.put('navigation/application-launcher.html',
-    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !isList()}\" uib-dropdown uib-keyboard-nav=true><a id=domain-switcher-{{$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': isDisabled() || !items().length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>Application Launcher</span></i> <span class=applauncher-pf-title aria-hidden=true>Application Launcher <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in items()\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!hiddenIcons() aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
+    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !isList()}\" uib-dropdown uib-keyboard-nav=true><a id=domain-switcher-{{$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': isDisabled() || !items().length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>{{label || 'Application Launcher'}}</span></i> <span class=applauncher-pf-title aria-hidden=true>{{label || 'Application Launcher'}} <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in items()\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!hiddenIcons() aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
   );
 
 

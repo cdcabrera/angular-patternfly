@@ -208,7 +208,7 @@ NG_DOCS={
       "type": "directive",
       "moduleName": "patternfly.navigation",
       "shortDescription": "Directive for rendering application launcher dropdown.",
-      "keywords": "$scope angular api application applicationlaunchercontroller badge button class classes click closed col-xs-12 controller default determine directive disable display displayed dropdown fa fa-dashboard false flag function grid hidden-icons hiddenicons href html icon iconclass icons indicator interface is-disabled is-list is-open isdisabled islist isopen item items js launch launcher link list list-style-type lorem menu module nav navbar navbar-collapse navbar-left navbar-pf navigate navigation navigationitems ng-controller open override patternfly pf-application-launcher pficon-build pficon-domain pficon-home pficon-storage-domain pre-demo-text recteque rendering row script style suavitate title tooltip user"
+      "keywords": "$scope angular api application applicationlaunchercontroller badge button class classes click col-xs-12 controller custom default directive disable display displayed dropdown fa fa-dashboard false flag function grid hidden-icons hiddenicons href html icon iconclass icons indicator interface is-disabled is-list isdisabled islist item items js label launch launcher link list list-style-type lorem menu module nav navbar navbar-collapse navbar-left navbar-pf navigate navigation navigationitems ng-controller patternfly pf-application-launcher pficon-build pficon-domain pficon-home pficon-storage-domain pre-demo-text recteque rendering row script style suavitate title tooltip user"
     },
     {
       "section": "api",

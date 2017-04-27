@@ -3,9 +3,9 @@
        uib-dropdown
        uib-keyboard-nav="true">
     <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-class="{'disabled': isDisabled() || !items().length}" href>
-      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">Application Launcher</span></i>
+      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">{{label || 'Application Launcher'}}</span></i>
       <span class="applauncher-pf-title" aria-hidden="true">
-        Application Launcher
+        {{label || 'Application Launcher'}}
         <span class="caret"></span>
       </span>
     </a>

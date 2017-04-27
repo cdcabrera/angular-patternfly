@@ -5,6 +5,7 @@
  * @description
  * Directive for rendering application launcher dropdown.
  *
+ * @param {string=} label Use a custom label for the launcher, default: Application Launcher
  * @param {boolean=} isDisabled Disable the application launcher button, default: false
  * @param {boolean=} isList Display items as a list instead of a grid, default: false
  * @param {boolean=} hiddenIcons Flag to not show icons on the launcher, default: false
@@ -25,7 +26,7 @@
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <div pf-application-launcher="" items="navigationItems" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
+           <div pf-application-launcher="" items="navigationItems" label="label" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
          </li>
        </ul>
      </nav>
@@ -61,6 +62,7 @@
          }
        ];
 
+       $scope.label = 'Application Launcher';
        $scope.isDisabled = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
@@ -76,6 +78,7 @@ angular.module('patternfly.navigation').directive('pfApplicationLauncher', [
       restrict: 'A',
       scope: {
         items: '&',
+        label: '@?',
         isDisabled: '&?',
         isList: '&?',
         hiddenIcons: '&?'

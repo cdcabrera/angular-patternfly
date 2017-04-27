@@ -63,7 +63,6 @@
        ];
 
        $scope.isDisabled = false;
-       $scope.isOpen = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
      }]);
@@ -72,24 +71,17 @@
  */
 angular.module('patternfly.navigation').directive('pfApplicationLauncher', [
   function () {
-
     'use strict';
 
     return {
       restrict: 'A',
       scope: {
         items: '&',
-        isOpen: '=?',
         isDisabled: '&?',
         isList: '&?',
         hiddenIcons: '&?'
       },
-      templateUrl: 'navigation/application-launcher.html',
-      controller: function ($scope) {
-        $scope.toggled = function (open) {
-          $scope.isOpen = open;
-        };
-      }
+      templateUrl: 'navigation/application-launcher.html'
     };
   }]);
 

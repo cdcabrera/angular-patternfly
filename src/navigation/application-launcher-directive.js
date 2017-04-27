@@ -26,7 +26,7 @@
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <div pf-application-launcher="" items="navigationItems" label="label" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
+           <div pf-application-launcher="" items="navigationItems" label="{{label}}" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
          </li>
        </ul>
      </nav>

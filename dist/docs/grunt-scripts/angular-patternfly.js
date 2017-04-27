@@ -4000,7 +4000,6 @@ angular.module('patternfly.modals')
        ];
 
        $scope.isDisabled = false;
-       $scope.isOpen = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
      }]);
@@ -4009,24 +4008,17 @@ angular.module('patternfly.modals')
  */
 angular.module('patternfly.navigation').directive('pfApplicationLauncher', [
   function () {
-
     'use strict';
 
     return {
       restrict: 'A',
       scope: {
         items: '&',
-        isOpen: '=?',
         isDisabled: '&?',
         isList: '&?',
         hiddenIcons: '&?'
       },
-      templateUrl: 'navigation/application-launcher.html',
-      controller: ["$scope", function ($scope) {
-        $scope.toggled = function (open) {
-          $scope.isOpen = open;
-        };
-      }]
+      templateUrl: 'navigation/application-launcher.html'
     };
   }]);
 
@@ -10444,7 +10436,7 @@ angular.module('patternfly.wizard').directive('pfWizardSubstep', function () {
   'use strict';
 
   $templateCache.put('navigation/application-launcher.html',
-    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !isList()}\" uib-dropdown uib-keyboard-nav=true is-open=isOpen on-toggle=toggled(open)><a id=domain-switcher-{{$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': isDisabled() || !items().length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>Application Launcher</span></i> <span class=applauncher-pf-title aria-hidden=true>Application Launcher <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in items()\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!hiddenIcons() aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
+    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !isList()}\" uib-dropdown uib-keyboard-nav=true><a id=domain-switcher-{{$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': isDisabled() || !items().length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>Application Launcher</span></i> <span class=applauncher-pf-title aria-hidden=true>Application Launcher <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in items()\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!hiddenIcons() aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
   );
 
 

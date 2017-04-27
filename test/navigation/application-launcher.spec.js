@@ -48,14 +48,6 @@ describe('Directive:  pfApplicationLauncher', function () {
     expect(content.length).toBe(2);
   });
 
-  it('should be open onload', function () {
-    var htmlTmp = '<div pf-application-launcher items="sites" is-open="true" is-disabled="false" is-list="false" hidden-icons="false"></div>';
-    compileHTML(htmlTmp, $scope);
-
-    var content = element.find('.open > .dropdown-menu');
-    expect(content.length).toBe(1);
-  });
-
   it('should be disabled', function () {
     var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="true" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);

@@ -41,7 +41,7 @@ describe('Directive:  pfApplicationLauncher', function () {
   });
 
   it('should have menu items', function () {
-    var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="false"></div>';
+    var htmlTmp = '<div pf-application-launcher items="sites" is-disabled="false" is-list="false"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('[role="menuitem"]');
@@ -49,7 +49,7 @@ describe('Directive:  pfApplicationLauncher', function () {
   });
 
   it('should be disabled', function () {
-    var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="true" is-list="false" hidden-icons="false"></div>';
+    var htmlTmp = '<div pf-application-launcher items="sites" is-disabled="true" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('[id*="domain-switcher"].disabled');
@@ -57,7 +57,7 @@ describe('Directive:  pfApplicationLauncher', function () {
   });
 
   it('should be displayed as a list', function () {
-    var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="true" hidden-icons="false"></div>';
+    var htmlTmp = '<div pf-application-launcher items="sites" is-disabled="false" is-list="true" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('.applauncher-pf-block-list');
@@ -65,7 +65,7 @@ describe('Directive:  pfApplicationLauncher', function () {
   });
 
   it('should have hidden application icons', function () {
-    var htmlTmp = '<div pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="true" hidden-icons="true"></div>';
+    var htmlTmp = '<div pf-application-launcher items="sites" is-disabled="false" is-list="true" hidden-icons="true"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('.applauncher-pf-link-icon');

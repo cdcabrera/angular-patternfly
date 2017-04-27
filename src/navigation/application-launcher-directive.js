@@ -5,7 +5,6 @@
  * @description
  * Directive for rendering application launcher dropdown.
  *
- * @param {boolean=} isOpen Override and determine open and closed state, default: false
  * @param {boolean=} isDisabled Disable the application launcher button, default: false
  * @param {boolean=} isList Display items as a list instead of a grid, default: false
  * @param {boolean=} hiddenIcons Flag to not show icons on the launcher, default: false
@@ -26,7 +25,7 @@
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <div pf-application-launcher="" items="navigationItems" is-open="isOpen" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
+           <div pf-application-launcher="" items="navigationItems" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></div>
          </li>
        </ul>
      </nav>

@@ -41,39 +41,39 @@ describe('Component:  pfApplicationLauncher', function () {
   });
 
   it('should have menu items', function () {
-    var htmlTmp = '<pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="false"></div>';
+    var htmlTmp = '<pf-application-launcher items="sites" label="" is-disabled="false" is-list="false"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('[role="menuitem"]');
     expect(content.length).toBe(2);
   });
 
-  it('should be open onload', function () {
-    var htmlTmp = '<pf-application-launcher items="sites" is-open="true" is-disabled="false" is-list="false" hidden-icons="false"></div>';
+  it('should have a custom label', function () {
+    var htmlTmp = '<pf-application-launcher items="sites" label="Product Launcher" is-disabled="false" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
-    var content = element.find('.open > .dropdown-menu');
-    expect(content.length).toBe(1);
+    var content = element.find('[id*="domain-switcher"]').text();
+    expect(content).toContain('Product Launcher');
   });
 
   it('should be disabled', function () {
-    var htmlTmp = '<pf-application-launcher items="sites" is-open="false" is-disabled="true" is-list="false" hidden-icons="false"></div>';
+    var htmlTmp = '<pf-application-launcher items="sites" label="" is-disabled="true" is-list="false" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
-    
+
     var content = element.find('[id*="domain-switcher"].disabled');
     expect(content.length).toBe(1);
   });
 
   it('should be displayed as a list', function () {
-    var htmlTmp = '<pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="true" hidden-icons="false"></div>';
+    var htmlTmp = '<pf-application-launcher items="sites" label="" is-disabled="false" is-list="true" hidden-icons="false"></div>';
     compileHTML(htmlTmp, $scope);
 
-    var content = element.find('.applauncher-pf-list-default');
+    var content = element.find('.applauncher-pf-block-list');
     expect(content.length).toBe(0);
   });
 
   it('should have hidden application icons', function () {
-    var htmlTmp = '<pf-application-launcher items="sites" is-open="false" is-disabled="false" is-list="true" hidden-icons="true"></div>';
+    var htmlTmp = '<pf-application-launcher items="sites" label="" is-disabled="false" is-list="true" hidden-icons="true"></div>';
     compileHTML(htmlTmp, $scope);
 
     var content = element.find('.applauncher-pf-link-icon');

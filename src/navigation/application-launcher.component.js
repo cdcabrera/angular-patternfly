@@ -6,7 +6,7 @@
  * @description
  * Component for rendering application launcher dropdown.
  *
- * @param {boolean=} isOpen Override and determine open and closed state, default: false
+ * @param {string=} label Use a custom label for the launcher, default: Application Launcher
  * @param {boolean=} isDisabled Disable the application launcher button, default: false
  * @param {boolean=} isList Display items as a list instead of a grid, default: false
  * @param {boolean=} hiddenIcons Flag to not show icons on the launcher, default: false
@@ -27,7 +27,7 @@
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <pf-application-launcher items="navigationItems" is-open="isOpen" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></pf-application-launcher>
+           <pf-application-launcher items="navigationItems" label="{{label}}" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></pf-application-launcher>
          </li>
        </ul>
      </nav>
@@ -63,8 +63,8 @@
          }
        ];
 
+       $scope.label = 'Application Launcher';
        $scope.isDisabled = false;
-       $scope.isOpen = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
      }]);
@@ -74,7 +74,7 @@
 angular.module('patternfly.navigation').component('pfApplicationLauncher', {
   bindings: {
     items: '<',
-    isOpen: '=?',
+    label: '@?',
     isDisabled: '<?',
     isList: '<?',
     hiddenIcons: '<?'
@@ -85,10 +85,6 @@ angular.module('patternfly.navigation').component('pfApplicationLauncher', {
     var ctrl = this;
 
     ctrl.$id = $scope.$id;
-
-    ctrl.toggled = function (open) {
-      ctrl.isOpen = open;
-    };
   }
 });
 

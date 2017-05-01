@@ -7736,7 +7736,7 @@ angular.module('patternfly.modals')
  * @description
  * Component for rendering application launcher dropdown.
  *
- * @param {boolean=} isOpen Override and determine open and closed state, default: false
+ * @param {string=} label Use a custom label for the launcher, default: Application Launcher
  * @param {boolean=} isDisabled Disable the application launcher button, default: false
  * @param {boolean=} isList Display items as a list instead of a grid, default: false
  * @param {boolean=} hiddenIcons Flag to not show icons on the launcher, default: false
@@ -7757,7 +7757,7 @@ angular.module('patternfly.modals')
      <nav class="navbar navbar-pf navbar-collapse">
        <ul class="nav navbar-left">
          <li>
-           <pf-application-launcher items="navigationItems" is-open="isOpen" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></pf-application-launcher>
+           <pf-application-launcher items="navigationItems" label="{{label}}" is-disabled="isDisabled" is-list="isList" hidden-icons="hiddenIcons"></pf-application-launcher>
          </li>
        </ul>
      </nav>
@@ -7793,8 +7793,8 @@ angular.module('patternfly.modals')
          }
        ];
 
+       $scope.label = 'Application Launcher';
        $scope.isDisabled = false;
-       $scope.isOpen = false;
        $scope.isList = false;
        $scope.hiddenIcons = false;
      }]);
@@ -7804,7 +7804,7 @@ angular.module('patternfly.modals')
 angular.module('patternfly.navigation').component('pfApplicationLauncher', {
   bindings: {
     items: '<',
-    isOpen: '=?',
+    label: '@?',
     isDisabled: '<?',
     isList: '<?',
     hiddenIcons: '<?'
@@ -7815,10 +7815,6 @@ angular.module('patternfly.navigation').component('pfApplicationLauncher', {
     var ctrl = this;
 
     ctrl.$id = $scope.$id;
-
-    ctrl.toggled = function (open) {
-      ctrl.isOpen = open;
-    };
   }]
 });
 
@@ -15691,7 +15687,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
   'use strict';
 
   $templateCache.put('navigation/application-launcher.html',
-    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !$ctrl.isList}\" uib-dropdown uib-keyboard-nav=true is-open=$ctrl.isOpen on-toggle=$ctrl.toggled(open)><a id=domain-switcher-{{$ctrl.$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': $ctrl.isDisabled || !$ctrl.items.length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>Application Launcher</span></i> <span class=applauncher-pf-title aria-hidden=true>Application Launcher <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$ctrl.$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in $ctrl.items\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!$ctrl.hiddenIcons aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
+    "<div><div class=\"applauncher-pf dropdown dropdown-kebab-pf\" ng-class=\"{'applauncher-pf-block-list': !$ctrl.isList}\" uib-dropdown uib-keyboard-nav=true><a id=domain-switcher-{{$ctrl.$id}} class=\"dropdown-toggle drawer-pf-trigger-icon\" uib-dropdown-toggle ng-class=\"{'disabled': $ctrl.isDisabled || !$ctrl.items.length}\" href><i class=\"fa fa-th applauncher-pf-icon\"><span class=sr-only>{{$ctrl.label || 'Application Launcher'}}</span></i> <span class=applauncher-pf-title aria-hidden=true>{{$ctrl.label || 'Application Launcher'}} <span class=caret></span></span></a><ul class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu role=menu aria-labelledby=domain-switcher-{{$ctrl.$id}}><li class=applauncher-pf-entry role=menuitem ng-repeat=\"item in $ctrl.items\"><a class=applauncher-pf-link ng-href={{item.href}} target=\"{{item.target || '_blank'}}\" title={{item.tooltip}}><i class=\"applauncher-pf-link-icon fa fa-2x\" ng-class=item.iconClass ng-if=!$ctrl.hiddenIcons aria-hidden=true></i> <span class=applauncher-pf-link-title>{{item.title}}</span></a></li></ul></div></div>"
   );
 
 

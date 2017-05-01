@@ -1,13 +1,11 @@
 <div>
   <div class="applauncher-pf dropdown dropdown-kebab-pf" ng-class="{'applauncher-pf-block-list': !$ctrl.isList}"
        uib-dropdown
-       uib-keyboard-nav="true"
-       is-open="$ctrl.isOpen"
-       on-toggle="$ctrl.toggled(open)">
+       uib-keyboard-nav="true">
     <a id="domain-switcher-{{$ctrl.$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-class="{'disabled': $ctrl.isDisabled || !$ctrl.items.length}" href>
-      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">Application Launcher</span></i>
+      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">{{$ctrl.label || 'Application Launcher'}}</span></i>
       <span class="applauncher-pf-title" aria-hidden="true">
-        Application Launcher
+        {{$ctrl.label || 'Application Launcher'}}
         <span class="caret"></span>
       </span>
     </a>

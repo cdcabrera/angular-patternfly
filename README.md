@@ -246,13 +246,16 @@ Please ensure that your PR provides the following:
 * Follows the style rules for [javascript](eslint.yaml) and [html](.htmlhintrc).
 * Rebased onto the latest master commit
 
-### Unit Testing
+### Unit Testing Required
 
-Applying a unit test, or an update to a unit test, as part of you contribution is a 
-contribution requirement. 
+Applying a unit test, or an update to a unit test, is a contribution requirement. 
 
 If you're unfamiliar with Angular unit testing, or just need a refresher, here
 are the overall [Angular 1x guidelines](https://docs.angularjs.org/guide/unit-testing).
  
 You can access the Angular PatternFly unit test ```spec``` files uner the ```test``` directory.
 
+To get started, some basic guidelines:
+* Provide a clear statement of what the component does. This encompasses what is expected, and what is produced.
+* The component has features, be clear and concise on what is expected, and what is produced from each.
+* Avoid unnecessary expectations. A test is a specification on how a feature should function, not your personal observations.

@@ -258,4 +258,3 @@ You can access the Angular PatternFly unit test ```spec``` files uner the ```tes
 To get started, some basic guidelines:
 * Provide a clear statement of what the component does. This encompasses what is expected, and what is produced.
 * The component has features, be clear and concise on what is expected, and what is produced from each.
-* Avoid unnecessary expectations. A test is a specification on how a feature should function, not your personal observations.

@@ -23,26 +23,26 @@ You have to install required software before you're able to use grunt:
 * Install npm - If npm is not already installed with Node.js, you have to install it manually. Find more information on [NPM](https://www.npmjs.org/)
 
 * Install Grunt globally - Find more information on [Grunt](http://gruntjs.com/)
-    ```shell
-    $ npm install -g grunt-cli
-    ```
+        ```shell
+        $ npm install -g grunt-cli
+        ```
 
 * Install npm dependencies with:
-    ```shell
-    $ npm install
-    ```
+        ```shell
+        $ npm install
+        ```
 
 You should have your environment ready now.
 
 Angular-PatternFly can now be built with:
-    ```shell
-    $ npm run build
-    ```
+        ```shell
+        $ npm run build
+        ```
 
 To see all the grunt tasks that are available:
-    ```shell
-    $npm run help
-    ```
+        ```shell
+        $ npm run help
+        ```
 
 ### Using Angular-PatternFly In Your Application
 
@@ -167,79 +167,71 @@ In order to use Angular-Patternfly in a Webpack-bundled application there are so
 #### Create an alias for the jQuery module
 
 In order to let Webpack find the correct jQuery module when assembling all the dependencies you need to create an alias for it in the webpack.conf.js file:
-    
-    ```
-    ...
-    resolve: {
-      alias: {
-        "jquery": "angular-patternfly/node_modules/patternfly/node_modules/jquery"
-      }
-    }
-    ...
-    ```
+        ```
+        ...
+        resolve: {
+          alias: {
+            "jquery": "angular-patternfly/node_modules/patternfly/node_modules/jquery"
+          }
+        }
+        ...
+        ```
 
 Additionally, you have to use the `webpack.ProvidePlugin` so the $ and the jQuery variables are added to the `window` object, making them available to the other modules (Patternfly included):
-    ```
-    ...
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "window.jQuery": "jquery",
-        "window.jquery": "jquery"
-      })
-    ]
-    ...
-    ```
+        ```
+        ...
+        plugins: [
+          new webpack.ProvidePlugin({
+            $: "jquery",
+            jQuery: "jquery",
+            "window.jQuery": "jquery",
+            "window.jquery": "jquery"
+          })
+        ]
+        ...
+        ```
 
 ## API documentation
 
 The API documentation can be built with:
-
-    ```shell
-    $ npm run ngdocs
-    ```
+        ```shell
+        $ npm run ngdocs
+        ```
 
 If you're interested in reading the docs right away, you can use special target, which will start a web server:
-
-    ```shell
-    $ npm run ngdocs:view
-    ```
+        ```shell
+        $ npm run ngdocs:view
+        ```
 
 After executing this tasks you'll be able to access the documentation at [http://localhost:8000/](http://localhost:8000/). If a different port is desired, it may be specified on as an option:
-
-    ```shell
-    npm run ngdocs:view -- --port=8002
-    ```
+        ```shell
+        npm run ngdocs:view -- --port=8002
+        ```
 
 ## Releasing
 
 Angular PatternFly is released through Bower and npm. To release a new version version of Angular PatternFly, edit `bower.json` and `package.json` accordingly.
 
 Update the version listed in `bower.json` by editing the file and changing the line:
-
-    ```
-    "version": "<new_version>"
-    ```
+        ```
+        "version": "<new_version>"
+        ```
 
 Update the patternfly reference version listed in `bower.json` by editing the file and changing the line below. Angular patternfly has a dependency on the patternfly reference implementation so the major and minor version numbers of the two project should be the same:
-
-    ```
-    "patternfly": "<new_version>"
-    ```
+        ```
+        "patternfly": "<new_version>"
+        ```
 
 
 Update the version listed in `package.json` by editing the file and changing the line:
-
-    ```
-    "version": "<new_version>"
-    ```
+        ```
+        "version": "<new_version>"
+        ```
 
 Commit the version bump:
-
-    ```shell
-    $ git commit -m "Version bump to <new_version>"
-    ```
+        ```shell
+        $ git commit -m "Version bump to <new_version>"
+        ```
 
 Publish a new set of release notes with ```new version``` as the tag version:
 https://github.com/patternfly/angular-patternfly/releases/new

@@ -23,14 +23,14 @@ You have to install required software before you're able to use grunt:
 * Install npm - If npm is not already installed with Node.js, you have to install it manually. Find more information on [NPM](https://www.npmjs.org/)
 
 * Install Grunt globally - Find more information on [Grunt](http://gruntjs.com/)
-```shell
-$ npm install -g grunt-cli
-```
+    ```shell
+    $ npm install -g grunt-cli
+    ```
 
 * Install npm dependencies with:
-```shell
-$ npm install
-```
+    ```shell
+    $ npm install
+    ```
 
 You should have your environment ready now.
 

@@ -245,3 +245,14 @@ Please ensure that your PR provides the following:
 * Detailed description of the proposed changes
 * Follows the style rules for [javascript](eslint.yaml) and [html](.htmlhintrc).
 * Rebased onto the latest master commit
+
+### Unit Testing
+
+Applying a unit test, or an update to a unit test, as part of you contribution is a 
+contribution requirement. 
+
+If you're unfamiliar with Angular unit testing, or just need a refresher, here
+are the overall [Angular 1x guidelines](https://docs.angularjs.org/guide/unit-testing).
+ 
+You can access the Angular PatternFly unit test ```spec``` files uner the ```test``` directory.
+

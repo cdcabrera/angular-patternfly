@@ -3,10 +3,10 @@
        uib-dropdown
        uib-keyboard-nav="true">
     <a id="domain-switcher-{{$id}}" class="dropdown-toggle drawer-pf-trigger-icon" uib-dropdown-toggle ng-class="{'disabled': isDisabled() || !items().length}" href>
-      <i class="fa fa-th applauncher-pf-icon"><span class="sr-only">{{label || 'Application Launcher'}}</span></i>
-      <span class="applauncher-pf-title" aria-hidden="true">
+      <i class="fa fa-th applauncher-pf-icon" aria-hidden="true"></i>
+      <span class="applauncher-pf-title">
         {{label || 'Application Launcher'}}
-        <span class="caret"></span>
+        <span class="caret" aria-hidden="true"></span>
       </span>
     </a>
     <ul class="dropdown-menu dropdown-menu-right"

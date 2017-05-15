@@ -21,11 +21,13 @@ dist/docs/img
 dist/docs/index.html
 
 
-/docs
+docs
 node_modules
 npm-debug.log
 lib
 .bower
+
+
 .openshift
 /misc
 /scripts
@@ -43,4 +45,3 @@ eslint.yaml
 grunt-ngdocs-index.tmpl
 Gruntfile.js
 /server.js
-

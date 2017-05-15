@@ -30,7 +30,7 @@ lib
 misc
 scripts
 src
-styles
+/styles
 test
 .bowerrc
 .editorconfig
@@ -42,5 +42,5 @@ deploy_key.enc
 eslint.yaml
 grunt-ngdocs-index.tmpl
 Gruntfile.js
-server.js
+/server.js
 

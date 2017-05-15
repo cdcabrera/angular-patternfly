@@ -24,10 +24,10 @@
     "eslint.yaml",
     "grunt-ngdocs-index.tmpl",
     "Gruntfile.js",
-    "index.js",
+    "/index.js",
     "npm-shrinkwrap.json",
     "package.json",
-    "server.js"
+    "/server.js"
   ],
   "main": [
     "dist/angular-patternfly.js",

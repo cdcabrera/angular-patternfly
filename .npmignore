@@ -21,7 +21,7 @@ dist/docs/img
 dist/docs/index.html
 
 
-docs/
+docs
 node_modules
 npm-debug.log
 lib
@@ -36,6 +36,7 @@ lib
 test
 .bowerrc
 .editorconfig
+.gitattributes
 .htmlhintrc
 .travis.yml
 bower.json

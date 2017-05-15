@@ -1,4 +1,4 @@
-<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/wizard/wizard.component.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/caae675/src/wizard/wizard.component.js#L302" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfWizard</code>
+<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/wizard/wizard.component.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/54ee2f1/src/wizard/wizard.component.js#L309" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfWizard</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">patternfly.wizard</code>
 </span>
 </div>
@@ -23,6 +23,13 @@ The basic structure should be:
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;pf-wizard
        title="{string}"
        [hide-indicators="{boolean}"]
+       [hide-sidebar="{boolean}"]
+       [hide-header="{boolean}"]
+       [hide-back-button="{boolean}"]
+       [step-class="{string}"]
+       [sidebar-class="{string}"]
+       [content-height="{string}"]
+       [hide-indicators="{boolean}"]
        [current-step="{string}"]
        [cancel-title="{string}"]
        [back-title="{string}"]
@@ -35,11 +42,17 @@ The basic structure should be:
        [wizard-done="{boolean}"]
        loading-wizard-title="{string}"
        [loading-secondary-information="{string}"]
-       [content-height="{string}"]
        [embed-in-page="{boolean}"]
        [on-step-changed="{function(step, index)}"]&gt;
 &lt;/pf-wizard&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>title</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The wizard title displayed in the header</p>
+</div></td></tr><tr><td>hideIndicators <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Hides the step indicators in the header of the wizard</p>
+</div></td></tr><tr><td>hideSidebar <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Hides page navigation sidebar on the wizard pages</p>
+</div></td></tr><tr><td>hideHeader <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Optional value to hide the title bar. Default is false.</p>
+</div></td></tr><tr><td>hideBackButton <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Optional value to hide the back button, useful in 2 step wizards. Default is false.</p>
+</div></td></tr><tr><td>stepClass <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Optional CSS class to be given to the steps page container. Used for the sidebar panel as well unless a sidebarClass is provided.</p>
+</div></td></tr><tr><td>sidebarClass <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Optional CSS class to be give to the sidebar panel. Only used if the stepClass is also provided.</p>
+</div></td></tr><tr><td>contentHeight <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The height the wizard content should be set to. This is used ONLY if the stepClass is not given. This defaults to 300px if the property is not supplied.</p>
 </div></td></tr><tr><td>hideIndicators <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Hides the step indicators in the header of the wizard</p>
 </div></td></tr><tr><td>currentStep <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The current step can be changed externally - this is the title of the step to switch the wizard to</p>
 </div></td></tr><tr><td>cancelTitle <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The text to display on the cancel button</p>
@@ -53,16 +66,15 @@ The basic structure should be:
 </div></td></tr><tr><td>wizardDone <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Value that is set when the wizard is done</p>
 </div></td></tr><tr><td>loadingWizardTitle</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The text displayed when the wizard is loading</p>
 </div></td></tr><tr><td>loadingSecondaryInformation <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Secondary descriptive information to display when the wizard is loading</p>
-</div></td></tr><tr><td>contentHeight <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>The height the wizard content should be set to.  This defaults to 300px if the property is not supplied.</p>
 </div></td></tr><tr><td>embedInPage <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Value that indicates wizard is embedded in a page (not a modal).  This moves the navigation buttons to the left hand side of the footer and removes the close button.</p>
 </div></td></tr><tr><td>onStepChanged <div><em>(optional)</em></div></td><td><a href="" class="label type-hint type-hint-function">function(step, index</a></td><td><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><p>Called when the wizard step is changed, passes in the step and the step index of the step changed to</p>
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="patternfly-wizard-component-page patternfly-wizard-component-pfwizard-page"><h4 id="example_source">Source</h4>
-<div source-edit="patternfly.wizard" source-edit-deps="angular.js patternfly.form script.js" source-edit-html="index.html-79 wizard-container.html detail-page.html review-template.html review-second-template.html summary.html deployment.html" source-edit-css="" source-edit-js="script.js-80" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div source-edit="patternfly.wizard" source-edit-deps="angular.js patternfly.form script.js" source-edit-html="index.html-81 wizard-container.html detail-page.html review-template.html review-second-template.html summary.html deployment.html" source-edit-css="" source-edit-js="script.js-82" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
 <div class="tabbable"><div class="tab-pane" title="index.html">
-<pre class="prettyprint linenums" ng-set-text="index.html-79" ng-html-wrap-loaded="patternfly.wizard angular.js patternfly.form script.js"></pre>
-<script type="text/ng-template" id="index.html-79">
+<pre class="prettyprint linenums" ng-set-text="index.html-81" ng-html-wrap-loaded="patternfly.wizard angular.js patternfly.form script.js"></pre>
+<script type="text/ng-template" id="index.html-81">
   <div ng-controller="WizardModalController">
     <button ng-click="openWizardModel()" class="btn btn-default">Launch Wizard</button>
   </div>
@@ -79,7 +91,8 @@ The basic structure should be:
   next-callback="nextCallback"
   back-callback="backCallback"
   wizard-done="deployComplete || deployInProgress"
-  content-height="'600px'"
+  sidebar-class="example-wizard-sidebar"
+  step-class="example-wizard-step"
   loading-secondary-information="secondaryLoadInformation"
   on-step-changed="stepChanged(step, index)">
     <pf-wizard-step step-title="First Step" substeps="true" step-id="details" step-priority="0" show-review="true" show-review-details="true">
@@ -198,8 +211,8 @@ The basic structure should be:
 </script>
 </div>
 <div class="tab-pane" title="script.js">
-<pre class="prettyprint linenums" ng-set-text="script.js-80"></pre>
-<script type="text/ng-template" id="script.js-80">
+<pre class="prettyprint linenums" ng-set-text="script.js-82"></pre>
+<script type="text/ng-template" id="script.js-82">
 angular.module('patternfly.wizard').controller('WizardModalController', ['$scope', '$timeout', '$uibModal', '$rootScope',
   function ($scope, $timeout, $uibModal, $rootScope) {
     $scope.openWizardModel = function () {
@@ -343,6 +356,6 @@ angular.module('patternfly.wizard').controller('DeploymentController', ['$rootSc
 </script>
 </div>
 </div><h4 id="example_demo">Demo</h4>
-<div class="well doc-example-live animate-container" ng-embed-app="patternfly.wizard" ng-set-html="index.html-79" ng-eval-javascript="script.js-80"></div>
+<div class="well doc-example-live animate-container" ng-embed-app="patternfly.wizard" ng-set-html="index.html-81" ng-eval-javascript="script.js-82"></div>
 </div></div>
 </div>

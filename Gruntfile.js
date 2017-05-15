@@ -82,6 +82,12 @@ module.exports = function (grunt) {
           src: ['canvas-dot-grid.png'],
           dest: 'dist/imgs',
           expand: true
+        },
+        distless: {
+          cwd: 'styles/',
+          src: ['*.less'],
+          dest: 'dist/less',
+          expand: true
         }
       },
       less: {
@@ -298,7 +304,7 @@ module.exports = function (grunt) {
       }
     });
 
-    grunt.registerTask('copymain', ['copy:docdata', 'copy:fa', 'copy:img', 'copy:distimg']);
+    grunt.registerTask('copymain', ['copy:docdata', 'copy:fa', 'copy:img', 'copy:distimg', 'copy:distless']);
 
     // You can specify which modules to build as arguments of the build task.
     grunt.registerTask('build', 'Create bootstrap build files', function () {
@@ -333,7 +339,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('check', ['lint', 'test']);
     grunt.registerTask('help', ['availabletasks']);
-    grunt.registerTask('server', ['ngdocs:view']);
+    grunt.registerTask('serve', ['ngdocs:view']);
     grunt.registerTask('ngdocs:publish', ['remove:published', 'copy:publish']);
 
   }

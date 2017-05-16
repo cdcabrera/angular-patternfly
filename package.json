@@ -74,8 +74,8 @@
     "test": "grunt test",
     "check": "grunt check",
     "help": "grunt help",
-    "server": "grunt server",
-    "start": "grunt server"
+    "serve": "grunt serve",
+    "start": "grunt serve"
   },
   "repository": {
     "type": "git",

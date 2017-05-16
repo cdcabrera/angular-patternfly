@@ -26,7 +26,6 @@
     "Gruntfile.js",
     "/index.js",
     "npm-shrinkwrap.json",
-    "package.json",
     "/server.js"
   ],
   "main": [

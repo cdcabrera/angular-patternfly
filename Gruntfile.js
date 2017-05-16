@@ -339,7 +339,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('check', ['lint', 'test']);
     grunt.registerTask('help', ['availabletasks']);
-    grunt.registerTask('server', ['ngdocs:view']);
+    grunt.registerTask('serve', ['ngdocs:view']);
     grunt.registerTask('ngdocs:publish', ['remove:published', 'copy:publish']);
 
   }

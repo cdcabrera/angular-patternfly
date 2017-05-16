@@ -259,3 +259,7 @@ To get started, some basic guidelines:
 * Provide a clear statement of what the component does. This encompasses what is expected, and what is produced.
 * The component has features, be clear and concise on what is expected, and what is produced from each.
 
+### Browser Support
+
+Since PatternFly is based on Bootstrap, [PatternFly generally supports the same browsers](http://www.patternfly.org/get-started/frequently-asked-questions/), see also
+[Bootstrap browser support](http://getbootstrap.com/getting-started/#support).

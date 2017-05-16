@@ -84,10 +84,10 @@ module.exports = function (grunt) {
           expand: true
         },
         distless: {
-          cwd: 'styles/',
-          src: ['*.less'],
+          src: ['styles/**/*.less', 'src/**/*.less'],
           dest: 'dist/less',
-          expand: true
+          expand: true,
+          flatten: true
         }
       },
       less: {

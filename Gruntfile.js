@@ -90,6 +90,22 @@ module.exports = function (grunt) {
           flatten: true
         }
       },
+      'string-replace': {
+        dist: {
+          files: [{
+            cwd: 'dist/less/',
+            src: ['angular-patternfly.less'],
+            dest: 'dist/less',
+            expand: true
+          }],
+          options: {
+            replacements: [{
+              pattern: /\.\.\/src\/(.*?)+\//g,
+              replacement: ''
+            }]
+          }
+        }
+      },
       less: {
         patternfly: {
           files: {
@@ -324,13 +340,13 @@ module.exports = function (grunt) {
         concatSrc = 'src/**/*.js';
       }
 
-      grunt.task.run(['clean', 'lint', 'test', 'ngtemplates', 'concat', 'ngAnnotate', 'uglify:build', 'less', 'cssmin', 'copymain', 'ngdocs', 'clean:templates']);
+      grunt.task.run(['clean', 'lint', 'test', 'ngtemplates', 'concat', 'ngAnnotate', 'uglify:build', 'less', 'cssmin', 'copymain', 'string-replace', 'ngdocs', 'clean:templates']);
     });
 
     // Runs all the tasks of build with the exception of tests
     grunt.registerTask('deploy', 'Prepares the project for deployment. Does not run unit tests', function () {
       var concatSrc = 'src/**/*.js';
-      grunt.task.run(['clean', 'lint', 'ngtemplates', 'concat', 'ngAnnotate', 'uglify:build', 'less', 'cssmin', 'copymain', 'ngdocs', 'clean:templates']);
+      grunt.task.run(['clean', 'lint', 'ngtemplates', 'concat', 'ngAnnotate', 'uglify:build', 'less', 'cssmin', 'copymain', 'string-replace', 'ngdocs', 'clean:templates']);
     });
 
     grunt.registerTask('default', ['build']);

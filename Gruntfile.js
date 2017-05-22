@@ -88,6 +88,12 @@ module.exports = function (grunt) {
           dest: 'dist/less',
           expand: true,
           flatten: true
+        },
+        distlessDependencies: {
+          src: ['node_modules/patternfly/dist/less/color-variables.less'],
+          dest: 'dist/less/dependencies/patternfly',
+          expand: true,
+          flatten: true
         }
       },
       'string-replace': {
@@ -102,6 +108,9 @@ module.exports = function (grunt) {
             replacements: [{
               pattern: /\.\.\/src\/(.*?)+\//g,
               replacement: ''
+            },{
+              pattern: '../node_modules/patternfly/dist/less',
+              replacement: 'dependencies/patternfly'
             }]
           }
         }
@@ -320,7 +329,7 @@ module.exports = function (grunt) {
       }
     });
 
-    grunt.registerTask('copymain', ['copy:docdata', 'copy:fa', 'copy:img', 'copy:distimg', 'copy:distless']);
+    grunt.registerTask('copymain', ['copy:docdata', 'copy:fa', 'copy:img', 'copy:distimg', 'copy:distless', 'copy:distlessDependencies']);
 
     // You can specify which modules to build as arguments of the build task.
     grunt.registerTask('build', 'Create bootstrap build files', function () {

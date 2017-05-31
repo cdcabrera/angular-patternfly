@@ -4700,7 +4700,7 @@ angular.module('patternfly.charts').component('pfHeatmap', {
       ctrl.showLegend = ctrl.showLegend || (ctrl.showLegend === undefined);
       ctrl.loadingDone = false;
 
-      angular.element($window).bind('resize', function () {
+      angular.element($window).on('resize', function () {
         setSizes();
         redraw();
       });
@@ -7762,7 +7762,7 @@ angular.module('patternfly.filters').component('pfFilterResults', {
         checkCharactersRemaining();
       });
 
-      $element.bind('keypress', function (event) {
+      $element.on('keypress', function (event) {
         // Once the charsMaxLimit has been met or exceeded, prevent all keypresses from working
         if (blockInputAtMaxLimit && $element.val().length >= charsMaxLimit) {
           // Except backspace
@@ -9318,7 +9318,7 @@ angular.module('patternfly.navigation').component('pfApplicationLauncher', {
       checkNavState();
 
       // Need to bind to resize event
-      angular.element($window).bind('resize', function () {
+      angular.element($window).on('resize', function () {
         checkNavState();
       });
     };
@@ -9330,7 +9330,6 @@ angular.module('patternfly.navigation').component('pfApplicationLauncher', {
     };
   }],
 });
-
 ;/**
  * @ngdoc directive
  * @name patternfly.notification.component:pfInlineNotification
@@ -13014,10 +13013,10 @@ angular.module('patternfly.utils').directive('pfFixedAccordion', ["$window", "$t
       }, 100);
 
       // Update on window resizing
-      $element.bind('resize', function () {
+      $element.on('resize', function () {
         setCollapseHeights();
       });
-      angular.element($window).bind('resize', function () {
+      angular.element($window).on('resize', function () {
         setCollapseHeights();
       });
     }

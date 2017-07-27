@@ -6734,6 +6734,195 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 });
 ;/**
  * @ngdoc directive
+ * @name patternfly.charts.directive:pfUtilizationDonut
+ * @restrict E
+ *
+ * @description
+ *   Component for rendering a utilization bar chart
+ *   There are three possible fill colors for Used Percentage, dependent on whether or not there are thresholds:<br/>
+ *   <ul>
+ *   <li>When no thresholds exist, or if the used percentage has not surpassed any thresholds, the indicator is blue.
+ *   <li>When the used percentage has surpassed the warning threshold, but not the error threshold, the indicator is orange.
+ *   <li>When the used percentage has surpassed the error threshold, the indicator is is red.
+ *   </ul>
+ *
+ * @param {object} chartData the data to be shown in the utilization bar chart<br/>
+ * <ul style='list-style-type: none'>
+ * <li>.used          - number representing the amount used
+ * <li>.total         - number representing the total amount
+ * <li>.dataAvailable - Flag if there is data available - default: true
+ * </ul>
+ *
+ * @param {object=} chart-title The title displayed on the left-hand side of the chart
+ * @param {object=} chart-footer The label displayed on the right-hand side of the chart.  If chart-footer is not
+ * specified, the automatic footer-label-format will be used.
+ * @param {object=} layout Various alternative layouts the utilization bar chart may have:<br/>
+ * <ul style='list-style-type: none'>
+ * <li>.type - The type of layout to use.  Valid values are 'regular' (default) displays the standard chart layout,
+ * and 'inline' displays a smaller, inline layout.</li>
+ * <li>.titleLabelWidth - Width of the left-hand title label when using 'inline' layout. Example values are "120px", "20%", "10em", etc..</li>
+ * <li>.footerLabelWidth - Width of the right-hand used label when using 'inline' layout. Example values are "120px", "20%", "10em", etc..</li>
+ * </ul>
+ * @param {string=} footer-label-format The auto-format of the label on the right side of the bar chart when chart-footer
+ * has not been specified. Values may be:<br/>
+ * <ul style='list-style-type: none'>
+ * <li>'actual' - (default) displays the standard label of '(n) of (m) (units) Used'.
+ * <li>'percent' - displays a percentage label of '(n)% Used'.</li>
+ * </ul>
+ * @param {object=} units to be displayed on the chart. Examples: "GB", "MHz", "I/Ops", etc...
+ * @param {string=} threshold-error The percentage used, when reached, denotes an error.  Valid values are 1-100. When the error threshold
+ * has been reached, the used donut arc will be red.
+ * @param {string=} threshold-warning The percentage usage, when reached, denotes a warning.  Valid values are 1-100. When the warning threshold
+ * has been reached, the used donut arc will be orange.
+ *
+ * @example
+ <example module="patternfly.example">
+   <file name="index.html">
+     <div ng-controller="ChartCtrl">
+
+       <label class="label-title">Default Layout, no Thresholds</label>
+       <pf-utilization-bar-chart chart-data=data1 chart-title=title1 units=units1></pf-utilization-bar-chart>
+       <br>
+       <label class="label-title">Inline Layouts with Error, Warning, and Ok Thresholds</label>
+       <pf-utilization-bar-chart chart-data=data5 chart-title=title5 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-bar-chart>
+       <pf-utilization-bar-chart chart-data=data3 chart-title=title3 layout=layoutInline units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-bar-chart chart-data=data2 chart-title=title2 layout=layoutInline units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <br>
+       <label class="label-title">layout='inline', footer-label-format='percent', and custom chart-footer labels</label>
+       <pf-utilization-bar-chart chart-data=data2 chart-title=title2 layout=layoutInline footer-label-format='percent' units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-bar-chart chart-data=data3 chart-title=title3 layout=layoutInline footer-label-format='percent' units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-bar-chart chart-data=data4 chart-title=title4 chart-footer=footer1 layout=layoutInline units=units4 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-bar-chart chart-data=data5 chart-title=title5 chart-footer=footer2 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <div class="row">
+         <div class="col-md-6">
+           <form role="form"">
+             <div class="form-group">
+               <label class="checkbox-inline">
+                 <input type="checkbox" ng-model="data1.dataAvailable">Data Available</input>
+               </label>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </file>
+
+   <file name="script.js">
+   angular.module( 'patternfly.example', ['patternfly.charts', 'patternfly.card']);
+
+   angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
+
+    $scope.title1 = 'RAM Usage';
+    $scope.units1 = 'MB';
+
+    $scope.data1 = {
+      'dataAvailable': true,
+      'used': '8',
+      'total': '24'
+    };
+
+    $scope.title2      = 'Memory';
+    $scope.units2      = 'GB';
+
+    $scope.data2 = {
+      'used': '25',
+      'total': '100'
+    };
+
+    $scope.title3 = 'CPU Usage';
+    $scope.units3 = 'MHz';
+
+    $scope.data3 = {
+      'used': '420',
+      'total': '500',
+    };
+
+    $scope.title4 = 'Disk Usage';
+    $scope.units4 = 'TB';
+    $scope.data4 = {
+      'used': '350',
+      'total': '500',
+    };
+
+    $scope.title5 = 'Disk I/O';
+    $scope.units5 = 'I/Ops';
+    $scope.data5 = {
+      'used': '450',
+      'total': '500',
+    };
+
+    $interval(function () {
+      $scope.data5.used = Number($scope.data5.used) + 40;
+      if ($scope.data5.used > 500) {
+        $scope.data5.used = 10;
+      }
+    }, 1000);
+
+    $scope.layoutInline = {
+      'type': 'inline'
+    };
+
+    $scope.footer1 = '<strong>500 TB</strong> Total';
+    $scope.footer2 = '<strong>450 of 500</strong> Total';
+
+   });
+   </file>
+ </example>
+*/
+
+angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
+  bindings: {
+    chartData: '=',
+    chartTitle: '=',
+    chartFooter: '=',
+    units: '=',
+    thresholdError: '=?',
+    thresholdWarning: '=?',
+    footerLabelFormat: '@?',
+    layout: '=?'
+  },
+
+  templateUrl: 'charts/utilization-bar/utilization-donut-chart.html',
+  controller: ["$timeout", function ($timeout) {
+    'use strict';
+    var ctrl = this, prevChartData, prevLayout;
+
+    /*ctrl.updateAll = function () {
+      // Need to deep watch changes
+      prevChartData = angular.copy(ctrl.chartData);
+      prevLayout = angular.copy(ctrl.layout);
+
+      //Calculate the percentage used
+      ctrl.chartData.percentageUsed = Math.round(100 * (ctrl.chartData.used / ctrl.chartData.total));
+
+      if (ctrl.thresholdError || ctrl.thresholdWarning) {
+        ctrl.isError = (ctrl.chartData.percentageUsed >= ctrl.thresholdError);
+        ctrl.isWarn  = (ctrl.chartData.percentageUsed >= ctrl.thresholdWarning &&
+                         ctrl.chartData.percentageUsed < ctrl.thresholdError);
+        ctrl.isOk    = (ctrl.chartData.percentageUsed < ctrl.thresholdWarning);
+      }
+
+      //Animate in the chart load.
+      ctrl.animate = true;
+      $timeout(function () {
+        ctrl.animate = false;
+      }, 0);
+    };
+
+    ctrl.$onChanges = function (changesObj) {
+      ctrl.updateAll();
+    };
+
+    ctrl.$doCheck = function () {
+      // do a deep compare on chartData and layout
+      if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
+        ctrl.updateAll();
+      }
+    };*/
+  }]
+});
+;/**
+ * @ngdoc directive
  * @name patternfly.charts.directive:pfUtilizationTrendChart
  * @restrict E
  *
@@ -16714,6 +16903,46 @@ angular.module('patternfly.wizard').component('pfWizard', {
   $templateCache.put('charts/utilization-bar/utilization-bar-chart.html',
     "<div class=utilization-bar-chart-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\"><div ng-if=$ctrl.chartTitle class=progress-description>{{$ctrl.chartTitle}}</div><div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\"><div class=progress-bar aria-valuenow={{$ctrl.chartData.percentageUsed}} aria-valuemin=0 aria-valuemax=100 ng-class=\"{'animate': animate,\n" +
     "           'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\" ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\"><span ng-if=$ctrl.chartFooter ng-bind-html=$ctrl.chartFooter></span> <span ng-if=\"!$ctrl.chartFooter && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\"><strong>{{$ctrl.chartData.used}} of {{$ctrl.chartData.total}} {{$ctrl.units}}</strong> Used</span> <span ng-if=\"!$ctrl.chartFooter && $ctrl.footerLabelFormat === 'percent'\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span></div><div class=\"progress-bar progress-bar-remaining\" ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\"></div></div></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\"><div class=\"progress-container progress-description-left progress-label-right\" ng-style=\"{'padding-left':$ctrl.layout.titleLabelWidth, 'padding-right':$ctrl.layout.footerLabelWidth}\"><div ng-if=$ctrl.chartTitle class=progress-description ng-style=\"{'max-width':$ctrl.layout.titleLabelWidth}\">{{$ctrl.chartTitle}}</div><div class=progress ng-if=\"$ctrl.chartData.dataAvailable !== false\"><div class=progress-bar aria-valuenow={{$ctrl.chartData.percentageUsed}} aria-valuemin=0 aria-valuemax=100 ng-class=\"{'animate': $ctrl.animate, 'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\" ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\"><span ng-if=$ctrl.chartFooter ng-bind-html=$ctrl.chartFooter></span> <span ng-if=\"(!$ctrl.chartFooter) && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.used}} {{$ctrl.units}}</strong> Used</span> <span ng-if=\"(!$ctrl.chartFooter) && $ctrl.footerLabelFormat === 'percent'\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span></div><div class=\"progress-bar progress-bar-remaining\" ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\"></div></div></div></span><pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" chart-height=45></pf-empty-chart></div>"
+  );
+
+
+  $templateCache.put('charts/utilization-donut/utilization-donut.html',
+    "<div class=utilization-donut-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\"></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\"></span></div><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
+    "  <span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">\n" +
+    "    <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\">{{$ctrl.chartTitle}}</div>\n" +
+    "    <div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +
+    "      <div class=\"progress-bar\" aria-valuenow=\"{{$ctrl.chartData.percentageUsed}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-class=\"{'animate': animate,\n" +
+    "           'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\"\n" +
+    "           ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\" >\n" +
+    "        <span ng-if=\"$ctrl.chartFooter\" ng-bind-html=\"$ctrl.chartFooter\"></span>\n" +
+    "        <span ng-if=\"!$ctrl.chartFooter && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\"><strong>{{$ctrl.chartData.used}} of {{$ctrl.chartData.total}} {{$ctrl.units}}</strong> Used</span>\n" +
+    "        <span ng-if=\"!$ctrl.chartFooter && $ctrl.footerLabelFormat === 'percent'\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>\n" +
+    "      </div>\n" +
+    "      <div class=\"progress-bar progress-bar-remaining\"\n" +
+    "           ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\">\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </span>\n" +
+    "  <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">\n" +
+    "    <div class=\"progress-container progress-description-left progress-label-right\"\n" +
+    "         ng-style=\"{'padding-left':$ctrl.layout.titleLabelWidth, 'padding-right':$ctrl.layout.footerLabelWidth}\">\n" +
+    "      <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\"  ng-style=\"{'max-width':$ctrl.layout.titleLabelWidth}\">{{$ctrl.chartTitle}}</div>\n" +
+    "      <div class=\"progress\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +
+    "        <div class=\"progress-bar\" aria-valuenow=\"{{$ctrl.chartData.percentageUsed}}\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n" +
+    "             ng-class=\"{'animate': $ctrl.animate, 'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\"\n" +
+    "             ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\">\n" +
+    "          <span ng-if=\"$ctrl.chartFooter\" ng-bind-html=\"$ctrl.chartFooter\"></span>\n" +
+    "          <span ng-if=\"(!$ctrl.chartFooter) && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.used}} {{$ctrl.units}}</strong> Used</span>\n" +
+    "          <span ng-if=\"(!$ctrl.chartFooter) && $ctrl.footerLabelFormat === 'percent'\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>\n" +
+    "        </div>\n" +
+    "        <div class=\"progress-bar progress-bar-remaining\"\n" +
+    "             ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\">\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </span>\n" +
+    "  <pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" chart-height=\"45\"></pf-empty-chart>\n" +
+    "</div>-->"
   );
 
 

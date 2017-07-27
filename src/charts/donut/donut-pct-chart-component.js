@@ -24,6 +24,10 @@ angular.module('patternfly.charts').component('pfDonutPctChart', {
       ctrl.data.available = ctrl.data.total - ctrl.data.used;
     };
 
+    ctrl.updatePercentage = function () {
+      ctrl.data.percent = Math.round(ctrl.data.used / ctrl.data.total * 100.0);
+    };
+
     ctrl.getStatusColor = function (used, thresholds) {
       var threshold = "none";
       var color = pfUtils.colorPalette.blue;
@@ -127,6 +131,7 @@ angular.module('patternfly.charts').component('pfDonutPctChart', {
 
       ctrl.config = pfUtils.merge(patternfly.c3ChartDefaults().getDefaultDonutConfig(), ctrl.config);
       ctrl.updateAvailable();
+      ctrl.updatePercentage();
       ctrl.config.data = pfUtils.merge(ctrl.config.data, ctrl.getDonutData());
       ctrl.config.color = ctrl.statusDonutColor(ctrl);
       ctrl.config.tooltip = ctrl.donutTooltip();

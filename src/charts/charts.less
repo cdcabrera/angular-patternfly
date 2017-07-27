@@ -11,6 +11,32 @@ pf-c3-chart {
     width: 100%;
   }
 }
+.pct-donut-chart-pf {
+
+  .pct-donut-chart-pf-block {
+    .pct-donut-chart-pf-label {
+      display: block;
+    }
+  }
+
+  .pct-donut-chart-pf-left,
+  .pct-donut-chart-pf-right {
+
+    pf-c3-chart {
+      display: inline-block;
+    }
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pct-donut-chart-pf-left {
+    flex-direction: row-reverse;
+  }
+}
+
 .utilization-trend-chart-pf {
   .donut-chart-pf {
     float: left;

@@ -6883,10 +6883,30 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
   },
 
   templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
-  controller: ["$timeout", function ($timeout) {
+  controller: ["$scope", "$timeout", function ($scope, $timeout) {
     'use strict';
     var ctrl = this, prevChartData, prevLayout;
 
+    ctrl.$id = $scope.$id;
+
+    //ctrl.custLayout = {
+    //  'type': 'inline'
+    //};
+
+    ctrl.custConfig = {
+      'chartId': '_' + ctrl.$id,
+      'units': 'GB',
+      'thresholds':{'warning':'60','error':'90'}
+    };
+
+    //ctrl.custData = {
+      //'used': '350',
+      //'total': '1000'
+    //};
+
+    eval('console.log("data= "+ctrl.custData)');
+
+    /*
     ctrl.custData = {
       'dataAvailable': true,
       'used': '670',
@@ -6894,12 +6914,12 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     };
 
     ctrl.custConfig = {
-      'chartId': 'custChart',
+      //'chartId': 'custChart',
       'units': 'MHz',
       'thresholds':{'warning':'60','error':'90'},
       "legend":{"show":true},
       'tooltipFn': function (d) {
-        return '<span class="donut-tooltip-pf"style="white-space: nowrap;">' +
+        return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
           d[0].value + ' ' + d[0].name +
           '</span>';
       },
@@ -6909,11 +6929,11 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       'onClickFn': function (d, i) {
         alert("You Clicked On The Donut!");
       }
-    };
+    };*/
 
     ctrl.custLabel = "percent";
 
-    ctrl.updateAll = function () {
+    /*ctrl.updateAll = function () {
       // Need to deep watch changes
       prevChartData = angular.copy(ctrl.chartData);
       prevLayout = angular.copy(ctrl.layout);
@@ -6943,7 +6963,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
         ctrl.updateAll();
       }
-    };
+    };*/
   }]
 });
 ;/**
@@ -16932,7 +16952,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
 
 
   $templateCache.put('charts/utilization-donut/utilization-donut-chart.html',
-    "<div class=utilization-donut-chart-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">REGULAR<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.custData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>center-label = ' none'</label></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">INLINE<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.custData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>center-label = ' none'</label></span><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
+    "<div class=utilization-donut-chart-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">REGULAR<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.chartData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>center-label = ' none'</label></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">INLINE<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.chartData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>Label Goes Here</label></span><pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" chart-height=$ctrl.chartHeight></pf-empty-chart><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
     "  <span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">\n" +
     "    <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\">{{$ctrl.chartTitle}}</div>\n" +
     "    <div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +

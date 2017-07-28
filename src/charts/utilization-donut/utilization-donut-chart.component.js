@@ -149,10 +149,30 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
   },
 
   templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
-  controller: function ($timeout) {
+  controller: function ($scope, $timeout) {
     'use strict';
     var ctrl = this, prevChartData, prevLayout;
 
+    ctrl.$id = $scope.$id;
+
+    //ctrl.custLayout = {
+    //  'type': 'inline'
+    //};
+
+    ctrl.custConfig = {
+      'chartId': '_' + ctrl.$id,
+      'units': 'GB',
+      'thresholds':{'warning':'60','error':'90'}
+    };
+
+    //ctrl.custData = {
+      //'used': '350',
+      //'total': '1000'
+    //};
+
+    eval('console.log("data= "+ctrl.custData)');
+
+    /*
     ctrl.custData = {
       'dataAvailable': true,
       'used': '670',
@@ -160,12 +180,12 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     };
 
     ctrl.custConfig = {
-      'chartId': 'custChart',
+      //'chartId': 'custChart',
       'units': 'MHz',
       'thresholds':{'warning':'60','error':'90'},
       "legend":{"show":true},
       'tooltipFn': function (d) {
-        return '<span class="donut-tooltip-pf"style="white-space: nowrap;">' +
+        return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
           d[0].value + ' ' + d[0].name +
           '</span>';
       },
@@ -175,11 +195,11 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       'onClickFn': function (d, i) {
         alert("You Clicked On The Donut!");
       }
-    };
+    };*/
 
     ctrl.custLabel = "percent";
 
-    ctrl.updateAll = function () {
+    /*ctrl.updateAll = function () {
       // Need to deep watch changes
       prevChartData = angular.copy(ctrl.chartData);
       prevLayout = angular.copy(ctrl.layout);
@@ -209,6 +229,6 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
         ctrl.updateAll();
       }
-    };
+    };*/
   }
 });

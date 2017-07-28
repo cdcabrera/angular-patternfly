@@ -6781,18 +6781,18 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
      <div ng-controller="ChartCtrl">
 
        <label class="label-title">Default Layout, no Thresholds</label>
-       <pf-utilization-bar-chart chart-data=data1 chart-title=title1 units=units1></pf-utilization-bar-chart>
+       <pf-utilization-donut-chart chart-data=data1 chart-title=title1 units=units1></pf-utilization-donut-chart>
        <br>
        <label class="label-title">Inline Layouts with Error, Warning, and Ok Thresholds</label>
-       <pf-utilization-bar-chart chart-data=data5 chart-title=title5 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-bar-chart>
-       <pf-utilization-bar-chart chart-data=data3 chart-title=title3 layout=layoutInline units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
-       <pf-utilization-bar-chart chart-data=data2 chart-title=title2 layout=layoutInline units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-donut-chart chart-data=data5 chart-title=title5 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
        <br>
        <label class="label-title">layout='inline', footer-label-format='percent', and custom chart-footer labels</label>
-       <pf-utilization-bar-chart chart-data=data2 chart-title=title2 layout=layoutInline footer-label-format='percent' units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
-       <pf-utilization-bar-chart chart-data=data3 chart-title=title3 layout=layoutInline footer-label-format='percent' units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
-       <pf-utilization-bar-chart chart-data=data4 chart-title=title4 chart-footer=footer1 layout=layoutInline units=units4 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
-       <pf-utilization-bar-chart chart-data=data5 chart-title=title5 chart-footer=footer2 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60"></pf-utilization-bar-chart>
+       <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline footer-label-format='percent' units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline footer-label-format='percent' units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data=data4 chart-title=title4 chart-footer=footer1 layout=layoutInline units=units4 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data=data5 chart-title=title5 chart-footer=footer2 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
        <div class="row">
          <div class="col-md-6">
            <form role="form"">
@@ -6834,21 +6834,21 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 
     $scope.data3 = {
       'used': '420',
-      'total': '500',
+      'total': '500'
     };
 
     $scope.title4 = 'Disk Usage';
     $scope.units4 = 'TB';
     $scope.data4 = {
       'used': '350',
-      'total': '500',
+      'total': '500'
     };
 
     $scope.title5 = 'Disk I/O';
     $scope.units5 = 'I/Ops';
     $scope.data5 = {
       'used': '450',
-      'total': '500',
+      'total': '500'
     };
 
     $interval(function () {
@@ -6882,12 +6882,12 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     layout: '=?'
   },
 
-  templateUrl: 'charts/utilization-bar/utilization-donut-chart.html',
+  templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
   controller: ["$timeout", function ($timeout) {
     'use strict';
     var ctrl = this, prevChartData, prevLayout;
 
-    /*ctrl.updateAll = function () {
+    ctrl.updateAll = function () {
       // Need to deep watch changes
       prevChartData = angular.copy(ctrl.chartData);
       prevLayout = angular.copy(ctrl.layout);
@@ -6897,8 +6897,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
 
       if (ctrl.thresholdError || ctrl.thresholdWarning) {
         ctrl.isError = (ctrl.chartData.percentageUsed >= ctrl.thresholdError);
-        ctrl.isWarn  = (ctrl.chartData.percentageUsed >= ctrl.thresholdWarning &&
-                         ctrl.chartData.percentageUsed < ctrl.thresholdError);
+        ctrl.isWarn  = (ctrl.chartData.percentageUsed >= ctrl.thresholdWarning && ctrl.chartData.percentageUsed < ctrl.thresholdError);
         ctrl.isOk    = (ctrl.chartData.percentageUsed < ctrl.thresholdWarning);
       }
 
@@ -6918,7 +6917,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
         ctrl.updateAll();
       }
-    };*/
+    };
   }]
 });
 ;/**
@@ -16906,8 +16905,8 @@ angular.module('patternfly.wizard').component('pfWizard', {
   );
 
 
-  $templateCache.put('charts/utilization-donut/utilization-donut.html',
-    "<div class=utilization-donut-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\"></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\"></span></div><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
+  $templateCache.put('charts/utilization-donut/utilization-donut-chart.html',
+    "<div class=utilization-donut-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">woot</span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">NOT woot</span><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
     "  <span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">\n" +
     "    <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\">{{$ctrl.chartTitle}}</div>\n" +
     "    <div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +
@@ -16942,7 +16941,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
     "    </div>\n" +
     "  </span>\n" +
     "  <pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" chart-height=\"45\"></pf-empty-chart>\n" +
-    "</div>-->"
+    "</div>--></div>"
   );
 
 

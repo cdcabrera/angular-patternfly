@@ -1,9 +1,13 @@
-<div class="utilization-donut-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">
+<div class="utilization-donut-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">
   <span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">
-    woot
+    REGULAR
+    <pf-donut-pct-chart config="$ctrl.custConfig" data="$ctrl.custData" center-label="$ctrl.custLabel"></pf-donut-pct-chart>
+    <label>center-label = ' none'</label>
   </span>
   <span ng-if="$ctrl.layout && $ctrl.layout.type === 'inline'">
-    NOT woot
+    INLINE
+    <pf-donut-pct-chart config="$ctrl.custConfig" data="$ctrl.custData" center-label="$ctrl.custLabel"></pf-donut-pct-chart>
+    <label>center-label = ' none'</label>
   </span>
 
 

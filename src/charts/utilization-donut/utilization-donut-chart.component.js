@@ -153,6 +153,32 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     'use strict';
     var ctrl = this, prevChartData, prevLayout;
 
+    ctrl.custData = {
+      'dataAvailable': true,
+      'used': '670',
+      'total': '1000'
+    };
+
+    ctrl.custConfig = {
+      'chartId': 'custChart',
+      'units': 'MHz',
+      'thresholds':{'warning':'60','error':'90'},
+      "legend":{"show":true},
+      'tooltipFn': function (d) {
+        return '<span class="donut-tooltip-pf"style="white-space: nowrap;">' +
+          d[0].value + ' ' + d[0].name +
+          '</span>';
+      },
+      'centerLabelFn': function () {
+        return ctrl.custData.available + " GB";
+      },
+      'onClickFn': function (d, i) {
+        alert("You Clicked On The Donut!");
+      }
+    };
+
+    ctrl.custLabel = "percent";
+
     ctrl.updateAll = function () {
       // Need to deep watch changes
       prevChartData = angular.copy(ctrl.chartData);

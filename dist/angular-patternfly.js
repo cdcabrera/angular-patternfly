@@ -6887,6 +6887,32 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     'use strict';
     var ctrl = this, prevChartData, prevLayout;
 
+    ctrl.custData = {
+      'dataAvailable': true,
+      'used': '670',
+      'total': '1000'
+    };
+
+    ctrl.custConfig = {
+      'chartId': 'custChart',
+      'units': 'MHz',
+      'thresholds':{'warning':'60','error':'90'},
+      "legend":{"show":true},
+      'tooltipFn': function (d) {
+        return '<span class="donut-tooltip-pf"style="white-space: nowrap;">' +
+          d[0].value + ' ' + d[0].name +
+          '</span>';
+      },
+      'centerLabelFn': function () {
+        return ctrl.custData.available + " GB";
+      },
+      'onClickFn': function (d, i) {
+        alert("You Clicked On The Donut!");
+      }
+    };
+
+    ctrl.custLabel = "percent";
+
     ctrl.updateAll = function () {
       // Need to deep watch changes
       prevChartData = angular.copy(ctrl.chartData);
@@ -16906,7 +16932,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
 
 
   $templateCache.put('charts/utilization-donut/utilization-donut-chart.html',
-    "<div class=utilization-donut-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">woot</span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">NOT woot</span><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
+    "<div class=utilization-donut-chart-pf ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\"><span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">REGULAR<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.custData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>center-label = ' none'</label></span> <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">INLINE<pf-donut-pct-chart config=$ctrl.custConfig data=$ctrl.custData center-label=$ctrl.custLabel></pf-donut-pct-chart><label>center-label = ' none'</label></span><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
     "  <span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">\n" +
     "    <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\">{{$ctrl.chartTitle}}</div>\n" +
     "    <div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +

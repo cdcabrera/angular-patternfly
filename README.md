@@ -67,21 +67,21 @@ Note:
 
     ```html
     <!-- Angular -->
-    <script src="node_modules/angular-patternfly/node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular/angular.min.js"></script>
     
     <!-- Angular-Bootstrap -->
-    <script src="node_modules/angular-patternfly/node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
-    <script src="node_modules/angular-patternfly/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
     
     <!-- Angular-Sanitize -->
-    <script src="node_modules/angular-patternfly/node_modules/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="node_modules/angular-sanitize/angular-sanitize.min.js"></script>
     
     <!-- Angular-PatternFly  -->
     <script src="node_modules/angular-patternfly/dist/angular-patternfly.min.js"></script>
     
     <!-- C3, D3 - Charting Libraries. Only required if you are using the 'patternfly.charts' module-->
-    <script src="node_modules/angular-patternfly/node_modules/patternfly/node_modules/c3/c3.min.js"></script>
-    <script src="node_modules/angular-patternfly/node_modules/patternfly/node_modules/d3/d3.min.js"></script>
+    <script src="node_modules/patternfly/node_modules/c3/c3.min.js"></script>
+    <script src="node_modules/patternfly/node_modules/d3/d3.min.js"></script>
     ```
 
 5. (optional) The 'patternfly.charts' module is not a dependency in the default angular 'patternfly' module.
@@ -120,8 +120,8 @@ Note:
    <script src="node_modules/jquery/dist/jquery.js"></script>
    <script src="node_modules/datatables.net/js/jquery.dataTables.js"></script>
    <script src="node_modules/datatables.net-select/js/dataTables.select.js"></script>
-   <script src="node_modules/angular-datatables/dist/angular-datatables.min.js"></script>
-   <script src="node_modules/angular-datatables/dist/plugins/select/angular-datatables.select.min.js"></script>
+   <script src="node_modules/angularjs-datatables/dist/angular-datatables.min.js"></script>
+   <script src="node_modules/angularjs-datatables/dist/plugins/select/angular-datatables.select.min.js"></script>
    ```
 7. (optional) The 'patternfly.canvas' module is not a dependency in the default angular 'patternfly' module.
    In order to use pfCanvasEditor or pfCanvas, you must add 'patternfly.canvas' as a dependency in your application:
@@ -171,7 +171,7 @@ In order to let Webpack find the correct jQuery module when assembling all the d
 ...
 resolve: {
   alias: {
-    "jquery": "angular-patternfly/node_modules/patternfly/node_modules/jquery"
+    "jquery": "patternfly/node_modules/jquery"
   }
 }
 ...

@@ -1,4 +1,4 @@
-<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/notification/examples/notification-drawer.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/e5a5200/src/notification/examples/notification-drawer.js#L458" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfNotificationDrawer</code>
+<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/notification/examples/notification-drawer.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/d4ddf65/src/notification/examples/notification-drawer.js#L458" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfNotificationDrawer</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">patternfly.notification</code>
 </span>
 </div>
@@ -32,7 +32,7 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
 <div class="usage">as element:<pre class="prettyprint linenums">&lt;pf-notification-drawer
        drawer-hidden="{boolean}"
        allow-expand="{boolean}"
-       draw-expanded="{boolean}"
+       drawer-expanded="{boolean}"
        drawer-title="{string}"
        notification-groups="{object}"
        on-close="{function}"
@@ -52,7 +52,7 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
 &lt;/pf-notification-drawer&gt;</pre>
 <h4 id="usage_parameters">Parameters</h4><table class="variables-matrix table table-bordered table-striped"><thead><tr><th>Param</th><th>Type</th><th>Details</th></tr></thead><tbody><tr><td>drawerHidden</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Flag if the drawer is currently hidden</p>
 </div></td></tr><tr><td>allowExpand</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Flag if the drawer can be expanded. Optional, default: false</p>
-</div></td></tr><tr><td>drawExpanded</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Flag if the drawer is expanded (only valid if allowExpand is true). Optional, default: false</p>
+</div></td></tr><tr><td>drawerExpanded</td><td><a href="" class="label type-hint type-hint-boolean">boolean</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Flag if the drawer is expanded (only valid if allowExpand is true). Optional, default: false</p>
 </div></td></tr><tr><td>drawerTitle</td><td><a href="" class="label type-hint type-hint-string">string</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Title to display for the drawer (leaving this blank will remove the provided expand capability)</p>
 </div></td></tr><tr><td>notificationGroups</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>Collection notification groups to add to the drawer. Alternatively, a single group object can be given if categorization is not used.</p>
 </div></td></tr><tr><td>onClose</td><td><a href="" class="label type-hint type-hint-function">function</a></td><td><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><p>function() Callback for the close button. Close button is shown if this callback is supplied. Callback should set drawerHidden to true to close the drawer.</p>
@@ -72,10 +72,10 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
 </div></td></tr></tbody></table></div>
 <h2 id="example">Example</h2>
 <div class="example"><div class="patternfly-notification-component-page patternfly-notification-component-pfnotificationdrawer-page"><h4 id="example_source">Source</h4>
-<div source-edit="patternfly.notification.demo" source-edit-deps="angular.js patternfly.utils patternfly.filters patternfly.sort patternfly.views modules.js script.js" source-edit-html="index.html-49 heading.html subheading.html notification-footer.html notification-body.html" source-edit-css="" source-edit-js="modules.js script.js-50" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
+<div source-edit="patternfly.notification.demo" source-edit-deps="angular.js patternfly.utils patternfly.filters patternfly.sort patternfly.views modules.js script.js" source-edit-html="index.html-51 heading.html subheading.html notification-footer.html notification-body.html" source-edit-css="" source-edit-js="modules.js script.js-52" source-edit-json="" source-edit-unit="" source-edit-scenario=""></div>
 <div class="tabbable"><div class="tab-pane" title="index.html">
-<pre class="prettyprint linenums" ng-set-text="index.html-49" ng-html-wrap-loaded="patternfly.notification.demo angular.js patternfly.utils patternfly.filters patternfly.sort patternfly.views modules.js script.js"></pre>
-<script type="text/ng-template" id="index.html-49">
+<pre class="prettyprint linenums" ng-set-text="index.html-51" ng-html-wrap-loaded="patternfly.notification.demo angular.js patternfly.utils patternfly.filters patternfly.sort patternfly.views modules.js script.js"></pre>
+<script type="text/ng-template" id="index.html-51">
   <div ng-controller="DrawerCtrl" class="row example-container">
     <div class="col-md-12 pre-demo-text">
       <label>Click the notifications indicator to show the Notification Drawer: </label>
@@ -146,7 +146,7 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
       </li>
     </ul>
   </div>
- <span ng-if="notification.status" class="{{'pull-left ' + $ctrl.customScope.getNotficationStatusIconClass(notification)}}" ng-click="$ctrl.customScope.markRead(notification)"></span>
+  <span ng-if="notification.status" class="{{'pull-left ' + $ctrl.customScope.getNotficationStatusIconClass(notification)}}" ng-click="$ctrl.customScope.markRead(notification)"></span>
   <div class="drawer-pf-notification-content" ng-click="$ctrl.customScope.markRead(notification)">
     <span class="drawer-pf-notification-message" tooltip-append-to-body="true" tooltip-popup-delay="500" tooltip-placement="bottom" tooltip="{{notification.message}}">
      {{notification.message}}
@@ -165,8 +165,8 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
 </script>
 </div>
 <div class="tab-pane" title="script.js">
-<pre class="prettyprint linenums" ng-set-text="script.js-50"></pre>
-<script type="text/ng-template" id="script.js-50">
+<pre class="prettyprint linenums" ng-set-text="script.js-52"></pre>
+<script type="text/ng-template" id="script.js-52">
   angular.module('patternfly.notification.demo').controller('DrawerCtrl', ['$scope',
     function ($scope) {
       var currentTime = (new Date()).getTime();
@@ -495,6 +495,6 @@ text given will be used for the group if that is supplied. Otherwise, the defaul
 </script>
 </div>
 </div><h4 id="example_demo">Demo</h4>
-<div class="well doc-example-live animate-container" ng-embed-app="patternfly.notification.demo" ng-set-html="index.html-49" ng-eval-javascript="modules.js script.js-50"></div>
+<div class="well doc-example-live animate-container" ng-embed-app="patternfly.notification.demo" ng-set-html="index.html-51" ng-eval-javascript="modules.js script.js-52"></div>
 </div></div>
 </div>

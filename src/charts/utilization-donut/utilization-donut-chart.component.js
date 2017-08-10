@@ -45,20 +45,44 @@
  <example module="patternfly.example">
    <file name="index.html">
      <div ng-controller="ChartCtrl">
+     <div class="row">
+       <div class="col-md-3 text-center">
+         <label>Error Threshold</label>
+         <pf-utilization-donut-chart chart-data="dataErr" chart-title="titleErr" layout="" units="unitsErr" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr" center-label="labelErr" center-label-only="true"></pf-utilization-donut-chart>
+       </div>
+       <div class="col-md-3 text-center"">
+         <label>Warning Threshold</label>
+         <pf-utilization-donut-chart chart-data="dataWarn" chart-title="titleWarn" layout="" units="unitsWarn" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn" center-label="labelWarn" center-label-only="true"></pf-utilization-donut-chart>
+       </div>
+       <div class="col-md-3 text-center"">
+         <label class="camelcase">{{threshLabel}} Threshold</label>
+         <pf-utilization-donut-chart chart-data="dataDynamic" chart-title="titleDynamic" layout="" units="unitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" center-label="labelDynamic" center-label-only="true" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+       </div>
+       <div class="col-md-3 text-center"">
+         <label>No Threshold</label>
+         <pf-utilization-donut-chart chart-data="dataNoThresh" units="unitsNoThresh" center-label-only="true"></pf-utilization-donut-chart>
+         </div>
+       </div>
 
        <label class="label-title">Default Layout, no Thresholds</label>
-       <pf-utilization-donut-chart chart-data=data1 chart-title=title1 units=units1></pf-utilization-donut-chart>
        <br>
+       <pf-utilization-donut-chart chart-data="data1" units="units1"></pf-utilization-donut-chart>
+       <br>
+
        <label class="label-title">Inline Layouts with Error, Warning, and Ok Thresholds</label>
-       <pf-utilization-donut-chart chart-data=data5 chart-title=title5 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
        <br>
+       <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <br>
+
        <label class="label-title">layout='inline', footer-label-format='percent', and custom chart-footer labels</label>
-       <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline footer-label-format='percent' units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline footer-label-format='percent' units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data=data4 chart-title=title4 chart-footer=footer1 layout=layoutInline units=units4 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data=data5 chart-title=title5 chart-footer=footer2 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+       <br>
+       <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data="data4" chart-title="title4" layout="layoutInline" units="units4" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+
        <div class="row">
          <div class="col-md-6">
            <form role="form"">
@@ -74,78 +98,175 @@
    </file>
 
    <file name="script.js">
-   angular.module( 'patternfly.example', ['patternfly.charts', 'patternfly.card']);
+     angular.module( 'patternfly.example', ['patternfly.charts', 'patternfly.card']);
 
-   angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
+     angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
 
-    $scope.title1 = 'RAM Usage';
-    $scope.units1 = 'MB';
+       $scope.layoutInline = {
+        'type': 'inline'
+       };
 
-    $scope.data1 = {
-      'dataAvailable': true,
-      'used': '8',
-      'total': '24'
-    };
+       $scope.dataErr = {
+         'used': '950',
+         'total': '1000'
+       };
+       $scope.titleErr = '';
+       $scope.unitsErr = 'GB';
+       $scope.thresholdErrorErr = '90';
+       $scope.thresholdWarningErr = '90';
+       $scope.labelErr = undefined;
 
-    $scope.title2      = 'Memory';
-    $scope.units2      = 'GB';
+       $scope.dataWarn = {
+         'used': '650',
+         'total': '1000'
+       };
+       $scope.titleWarn = '';
+       $scope.unitsWarn = 'GB';
+       $scope.thresholdErrorWarn = '90';
+       $scope.thresholdWarningWarn = '60';
+       $scope.labelWarn = undefined;
 
-    $scope.data2 = {
-      'used': '25',
-      'total': '100'
-    };
+       $scope.dataDynamic = {
+         'used': '550',
+         'total': '1000'
+       };
+       $scope.titleDynamic = '';
+       $scope.unitsDynamic = 'GB';
+       $scope.thresholdErrorDynamic = '90';
+       $scope.thresholdWarningDynamic = '60';
+       $scope.labelDyanmic = 'used';
 
-    $scope.title3 = 'CPU Usage';
-    $scope.units3 = 'MHz';
+       $scope.thresholdChanged = function(threshold) {
+          $scope.threshLabel = threshold;
+       };
 
-    $scope.data3 = {
-      'used': '420',
-      'total': '500'
-    };
+       $interval(function () {
+         $scope.dataDynamic.used = Number($scope.dataDynamic.used) + 40;
+         if ($scope.dataDynamic.used > 1000) {
+           $scope.dataDynamic.used = 10;
+         }
 
-    $scope.title4 = 'Disk Usage';
-    $scope.units4 = 'TB';
-    $scope.data4 = {
-      'used': '350',
-      'total': '500'
-    };
+         if ($scope.dataDynamic.used < 500) {
+           $scope.labelDynamic = 'used';
+         } else {
+           $scope.labelDynamic = 'percent';
+         }
+       }, 1000);
 
-    $scope.title5 = 'Disk I/O';
-    $scope.units5 = 'I/Ops';
-    $scope.data5 = {
-      'used': '450',
-      'total': '500'
-    };
+       $scope.dataNoThresh = {
+         'used': '750',
+         'total': '1000'
+       };
+       $scope.unitsNoThresh = 'GB';
 
-    $interval(function () {
-      $scope.data5.used = Number($scope.data5.used) + 40;
-      if ($scope.data5.used > 500) {
-        $scope.data5.used = 10;
-      }
-    }, 1000);
+       $scope.ChartErr = {};
 
-    $scope.layoutInline = {
-      'type': 'inline'
-    };
+      $scope.title1 = 'RAM Usage';
+      $scope.units1 = 'MB';
+      $scope.data1 = {
+        'dataAvailable': true,
+        'used': '8',
+        'total': '24'
+      };
 
-    $scope.footer1 = '<strong>500 TB</strong> Total';
-    $scope.footer2 = '<strong>450 of 500</strong> Total';
+      $scope.title2      = 'Memory';
+      $scope.units2      = 'GB';
+      $scope.data2 = {
+        'dataAvailable': true,
+        'used': '25',
+        'total': '100'
+      };
 
-   });
+      $scope.title3 = 'CPU Usage';
+      $scope.units3 = 'MHz';
+      $scope.data3 = {
+        'dataAvailable': true,
+        'used': '420',
+        'total': '500'
+      };
+
+      $scope.title4 = 'Disk Usage';
+      $scope.units4 = 'TB';
+      $scope.data4 = {
+        'dataAvailable': true,
+        'used': '350',
+        'total': '500'
+      };
+
+      $scope.title5 = 'Disk I/O';
+      $scope.units5 = 'I/Ops';
+      $scope.data5 = {
+        'dataAvailable': true,
+        'used': '450',
+        'total': '500'
+      };
+
+      $interval(function () {
+        $scope.data5.used = Number($scope.data5.used) + 40;
+        if ($scope.data5.used > 500) {
+          $scope.data5.used = 10;
+        }
+      }, 1000);
+
+      $scope.footer1 = '<strong>500 TB</strong> Total';
+      $scope.footer2 = '<strong>450 of 500</strong> Total';
+
+     });
    </file>
  </example>
 */
 
 angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
   bindings: {
-    chartData: '=',
-    chartTitle: '=',
-    chartFooter: '=',
-    units: '=',
-    thresholdError: '=?',
-    thresholdWarning: '=?',
+    chartData: '<',
+    chartTitle: '<?',
+    chartFooter: '<?',
+    units: '<',
+    thresholdError: '<?',
+    thresholdWarning: '<?',
     footerLabelFormat: '@?',
-    layout: '=?'
+    layout: '<?',
+    onThreshholdChange: '&?',
+    centerLabel: '<?',
+    centerLabelOnly: '<?'
+    //centerLabelFn: '&?'
+
+
+    //chartData: '<',
+    //config: '<',
+    //centerLabel: '<?',
+    //chartHeight: '<?',
+    //chartTitle: '<',
+    //chartFooter: '<',
+    //units: '<?'
+    //thresholdError: '<?',
+    //thresholdWarning: '<?',
+    //footerLabelFormat: '@?',
+    //layout: '=?'
+
+
+    //data: '<',
+    //chartHeight: '<?',
+    //centerLabel: '<?',
+    //onThresholdChange: '&'
+
+    //chartData: '<',
+    //config: '<',
+    //centerLabel: '<?',
+    //donutConfig: '<',
+    //sparklineConfig: '<',
+    //sparklineChartHeight: '<?',
+    //showSparklineXAxis: '<?',
+    //showSparklineYAxis: '<?'
+
+    //chartData: '=',
+    //chartTitle: '=',
+    //chartFooter: '=',
+    //units: '=',
+    //thresholdError: '=?',
+    //thresholdWarning: '=?',
+    //footerLabelFormat: '@?',
+    //layout: '=?'
   },
 
   templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
@@ -154,23 +275,98 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     var ctrl = this, prevChartData, prevLayout;
 
     ctrl.$id = $scope.$id;
+    ctrl.chartDataTotal = null;
+    ctrl.chartDataUsed = null;
+    ctrl.chartDataAvailable = null;
 
     //ctrl.custLayout = {
     //  'type': 'inline'
     //};
 
-    ctrl.custConfig = {
+    ctrl.config = {
+      chartId: '_' + ctrl.$id,
+      units: ctrl.units
+      /*thresholds: {
+        warning: ctrl.thresholdWarning || null,
+        error: ctrl.thresholdError || null
+      }*//*,
+      centerLabelFn: function () {
+        eval('console.log(ctrl.chartData)');
+        ctrl.chartDataTotal = ctrl.chartData.total;
+        ctrl.chartDataUsed = ctrl.chartData.used;
+        ctrl.chartDataAvailable = ctrl.chartData.available;
+
+        if (ctrl.centerLabelOnly === true) {
+          return ctrl.chartData.used + ' ' + ctrl.units;
+        }
+      }*/
+      /*,centerLabelFn: function () {
+        eval('console.log(ctrl.chartData)');
+        //return ctrl.chartData.available + ' ' + ctrl.units;
+        return ctrl.chartData.used + ' ' + ctrl.units;
+      }*/
+    };
+
+    /*if (ctrl.centerLabelOnly === true) {
+      ctrl.config.centerLabelFn = function () {
+        return ctrl.chartData.used + ' ' + ctrl.units;
+      };
+    }*/
+
+    /*if (angular.isFunction(ctrl.centerLabelFn)) {
+      ctrl.config.centerLabelFn = function () {
+        return ctrl.centerLabelFn.call(ctrl.chartData);
+      };
+    }*/
+
+    ctrl.$onChanges = function (changesObj) {
+      if (changesObj.thresholdWarning || changesObj.thresholdError) {
+        ctrl.config.thresholds = {
+          warning: ctrl.thresholdWarning || null,
+          error: ctrl.thresholdError || null
+        };
+      }
+
+      if (changesObj.chartData && ctrl.chartData) {
+        ctrl.chartDataTotal = ctrl.chartData.total;
+        ctrl.chartDataUsed = ctrl.chartData.used;
+        ctrl.chartDataAvailable = ctrl.chartData.available;
+        //ctrl.updateAll();
+        //eval("console.log('inside=', ctrl.chartData, changesObj.chartData, changesObj.chartData.total)");
+      }
+
+      if (changesObj.centerLabelOnly && ctrl.centerLabelOnly === true) {
+        ctrl.config.centerLabelFn = function () {
+          ctrl.chartDataTotal = ctrl.chartData.total;
+          ctrl.chartDataUsed = ctrl.chartData.used;
+          ctrl.chartDataAvailable = ctrl.chartData.available;
+          return ctrl.chartData.used + ' ' + ctrl.units;
+        };
+      }
+
+      //eval("console.log('outside=', ctrl.chartData, changesObj)");
+    };
+
+    /*ctrl.$doCheck = function (a,b,c) {
+      // do a deep compare on chartData and layout
+      //if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
+        //ctrl.updateAll();
+      //}
+      eval("console.log('DOCHECK outside=', ctrl.chartData)");
+    };*/
+
+    /*ctrl.custConfig = {
       'chartId': '_' + ctrl.$id,
       'units': 'GB',
       'thresholds':{'warning':'60','error':'90'}
-    };
+    };*/
 
     //ctrl.custData = {
       //'used': '350',
       //'total': '1000'
     //};
 
-    eval('console.log("data= "+ctrl.custData)');
+    //eval('console.log("data= "+ctrl.custData)');
 
     /*
     ctrl.custData = {
@@ -197,7 +393,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       }
     };*/
 
-    ctrl.custLabel = "percent";
+    //ctrl.custLabel = "percent";
 
     /*ctrl.updateAll = function () {
       // Need to deep watch changes

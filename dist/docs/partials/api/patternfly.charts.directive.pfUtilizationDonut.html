@@ -1,4 +1,4 @@
-<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/utilization-donut/utilization-donut-chart.component.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/d4ddf65/src/charts/utilization-donut/utilization-donut-chart.component.js#L138" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfUtilizationDonut</code>
+<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/utilization-donut/utilization-donut-chart.component.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/30e96a8/src/charts/utilization-donut/utilization-donut-chart.component.js#L218" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfUtilizationDonut</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">patternfly.charts</code>
 </span>
 </div>
@@ -54,20 +54,44 @@ has been reached, the used donut arc will be orange.</p>
 <pre class="prettyprint linenums" ng-set-text="index.html-29" ng-html-wrap-loaded="patternfly.example angular.js script.js"></pre>
 <script type="text/ng-template" id="index.html-29">
   <div ng-controller="ChartCtrl">
+  <div class="row">
+    <div class="col-md-3 text-center">
+      <label>Error Threshold</label>
+      <pf-utilization-donut-chart chart-data="dataErr" chart-title="titleErr" layout="" units="unitsErr" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr" center-label="labelErr" center-label-only="true"></pf-utilization-donut-chart>
+    </div>
+    <div class="col-md-3 text-center"">
+      <label>Warning Threshold</label>
+      <pf-utilization-donut-chart chart-data="dataWarn" chart-title="titleWarn" layout="" units="unitsWarn" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn" center-label="labelWarn" center-label-only="true"></pf-utilization-donut-chart>
+    </div>
+    <div class="col-md-3 text-center"">
+      <label class="camelcase">{{threshLabel}} Threshold</label>
+      <pf-utilization-donut-chart chart-data="dataDynamic" chart-title="titleDynamic" layout="" units="unitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" center-label="labelDynamic" center-label-only="true" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+    </div>
+    <div class="col-md-3 text-center"">
+      <label>No Threshold</label>
+      <pf-utilization-donut-chart chart-data="dataNoThresh" units="unitsNoThresh" center-label-only="true"></pf-utilization-donut-chart>
+      </div>
+    </div>
 
     <label class="label-title">Default Layout, no Thresholds</label>
-    <pf-utilization-donut-chart chart-data=data1 chart-title=title1 units=units1></pf-utilization-donut-chart>
     <br>
+    <pf-utilization-donut-chart chart-data="data1" units="units1"></pf-utilization-donut-chart>
+    <br>
+
     <label class="label-title">Inline Layouts with Error, Warning, and Ok Thresholds</label>
-    <pf-utilization-donut-chart chart-data=data5 chart-title=title5 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
-    <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-    <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
     <br>
+    <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
+    <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+    <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+    <br>
+
     <label class="label-title">layout='inline', footer-label-format='percent', and custom chart-footer labels</label>
-    <pf-utilization-donut-chart chart-data=data2 chart-title=title2 layout=layoutInline footer-label-format='percent' units=units2 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-    <pf-utilization-donut-chart chart-data=data3 chart-title=title3 layout=layoutInline footer-label-format='percent' units=units3 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-    <pf-utilization-donut-chart chart-data=data4 chart-title=title4 chart-footer=footer1 layout=layoutInline units=units4 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
-    <pf-utilization-donut-chart chart-data=data5 chart-title=title5 chart-footer=footer2 layout=layoutInline units=units5 threshold-error="85" threshold-warning="60"></pf-utilization-donut-chart>
+    <br>
+    <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+    <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+    <pf-utilization-donut-chart chart-data="data4" chart-title="title4" layout="layoutInline" units="units4" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+    <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+
     <div class="row">
       <div class="col-md-6">
         <form role="form"">
@@ -85,64 +109,120 @@ has been reached, the used donut arc will be orange.</p>
 <div class="tab-pane" title="script.js">
 <pre class="prettyprint linenums" ng-set-text="script.js-30"></pre>
 <script type="text/ng-template" id="script.js-30">
-angular.module( 'patternfly.example', ['patternfly.charts', 'patternfly.card']);
+  angular.module( 'patternfly.example', ['patternfly.charts', 'patternfly.card']);
 
-angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
+  angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
 
- $scope.title1 = 'RAM Usage';
- $scope.units1 = 'MB';
+    $scope.layoutInline = {
+     'type': 'inline'
+    };
 
- $scope.data1 = {
-   'dataAvailable': true,
-   'used': '8',
-   'total': '24'
- };
+    $scope.dataErr = {
+      'used': '950',
+      'total': '1000'
+    };
+    $scope.titleErr = '';
+    $scope.unitsErr = 'GB';
+    $scope.thresholdErrorErr = '90';
+    $scope.thresholdWarningErr = '90';
+    $scope.labelErr = undefined;
 
- $scope.title2      = 'Memory';
- $scope.units2      = 'GB';
+    $scope.dataWarn = {
+      'used': '650',
+      'total': '1000'
+    };
+    $scope.titleWarn = '';
+    $scope.unitsWarn = 'GB';
+    $scope.thresholdErrorWarn = '90';
+    $scope.thresholdWarningWarn = '60';
+    $scope.labelWarn = undefined;
 
- $scope.data2 = {
-   'used': '25',
-   'total': '100'
- };
+    $scope.dataDynamic = {
+      'used': '550',
+      'total': '1000'
+    };
+    $scope.titleDynamic = '';
+    $scope.unitsDynamic = 'GB';
+    $scope.thresholdErrorDynamic = '90';
+    $scope.thresholdWarningDynamic = '60';
+    $scope.labelDyanmic = 'used';
 
- $scope.title3 = 'CPU Usage';
- $scope.units3 = 'MHz';
+    $scope.thresholdChanged = function(threshold) {
+       $scope.threshLabel = threshold;
+    };
 
- $scope.data3 = {
-   'used': '420',
-   'total': '500'
- };
+    $interval(function () {
+      $scope.dataDynamic.used = Number($scope.dataDynamic.used) + 40;
+      if ($scope.dataDynamic.used > 1000) {
+        $scope.dataDynamic.used = 10;
+      }
 
- $scope.title4 = 'Disk Usage';
- $scope.units4 = 'TB';
- $scope.data4 = {
-   'used': '350',
-   'total': '500'
- };
+      if ($scope.dataDynamic.used < 500) {
+        $scope.labelDynamic = 'used';
+      } else {
+        $scope.labelDynamic = 'percent';
+      }
+    }, 1000);
 
- $scope.title5 = 'Disk I/O';
- $scope.units5 = 'I/Ops';
- $scope.data5 = {
-   'used': '450',
-   'total': '500'
- };
+    $scope.dataNoThresh = {
+      'used': '750',
+      'total': '1000'
+    };
+    $scope.unitsNoThresh = 'GB';
 
- $interval(function () {
-   $scope.data5.used = Number($scope.data5.used) + 40;
-   if ($scope.data5.used > 500) {
-     $scope.data5.used = 10;
-   }
- }, 1000);
+    $scope.ChartErr = {};
 
- $scope.layoutInline = {
-   'type': 'inline'
- };
+   $scope.title1 = 'RAM Usage';
+   $scope.units1 = 'MB';
+   $scope.data1 = {
+     'dataAvailable': true,
+     'used': '8',
+     'total': '24'
+   };
 
- $scope.footer1 = '<strong>500 TB</strong> Total';
- $scope.footer2 = '<strong>450 of 500</strong> Total';
+   $scope.title2      = 'Memory';
+   $scope.units2      = 'GB';
+   $scope.data2 = {
+     'dataAvailable': true,
+     'used': '25',
+     'total': '100'
+   };
 
-});
+   $scope.title3 = 'CPU Usage';
+   $scope.units3 = 'MHz';
+   $scope.data3 = {
+     'dataAvailable': true,
+     'used': '420',
+     'total': '500'
+   };
+
+   $scope.title4 = 'Disk Usage';
+   $scope.units4 = 'TB';
+   $scope.data4 = {
+     'dataAvailable': true,
+     'used': '350',
+     'total': '500'
+   };
+
+   $scope.title5 = 'Disk I/O';
+   $scope.units5 = 'I/Ops';
+   $scope.data5 = {
+     'dataAvailable': true,
+     'used': '450',
+     'total': '500'
+   };
+
+   $interval(function () {
+     $scope.data5.used = Number($scope.data5.used) + 40;
+     if ($scope.data5.used > 500) {
+       $scope.data5.used = 10;
+     }
+   }, 1000);
+
+   $scope.footer1 = '<strong>500 TB</strong> Total';
+   $scope.footer2 = '<strong>450 of 500</strong> Total';
+
+  });
 </script>
 </div>
 </div><h4 id="example_demo">Demo</h4>

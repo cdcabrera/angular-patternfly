@@ -1,15 +1,32 @@
-<div class="utilization-donut-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">
-  <span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">
-    REGULAR
-    <pf-donut-pct-chart config="$ctrl.custConfig" data="$ctrl.chartData" center-label="$ctrl.custLabel"></pf-donut-pct-chart>
-    <label>center-label = ' none'</label>
-  </span>
-  <span ng-if="$ctrl.layout && $ctrl.layout.type === 'inline'">
+<!--<div class="utilization-donut-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">-->
+<div class="utilization-donut-chart-pf" ng-class="{'utilization-donut-chart-pf-block': !$ctrl.layout || $ctrl.layout.type === 'regular', 'utilization-donut-chart-pf-inline': $ctrl.layout && $ctrl.layout.type === 'inline'}">
+  <!--<span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">-->
+    <span class="utilization-donut-chart-pf-item">
+      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.config" data="$ctrl.chartData" center-label="$ctrl.centerLabel" center-label-only="$ctrl.centerLabelOnly" on-threshold-change="$ctrl.onThresholdChange()"></pf-donut-pct-chart>
+      <pf-empty-chart ng-if="!$ctrl.chartData" ></pf-empty-chart>
+    </span>
+    <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-item">
+      {{$ctrl.chartTitle}}
+      <span ng-if="$ctrl.chartData" ng-switch="$ctrl.centerLabel">
+        <span ng-switch-when="'none'"></span>
+        <span ng-switch-when="'available'">{{$ctrl.chartDataAvailable}} {{$ctrl.units}} available</span>
+        <span ng-switch-when="'percent'">{{$ctrl.chartDataUsed}}&#37; used</span>
+        <span ng-switch-default="">{{$ctrl.chartDataUsed}} {{$ctrl.units}} of {{$ctrl.chartDataTotal}} {{$ctrl.units}} used</span>
+      </span>
+    </span>
+    <!--{{$ctrl.chartTitle}}<br/>
+    {{$ctrl.chartDataTotal}}<br/>
+    {{$ctrl.chartDataUsed}}<br/>
+    {{$ctrl.chartDataAvailable}}-->
+  <!--</span>-->
+  <!--<span ng-if="$ctrl.layout && $ctrl.layout.type === 'inline'">
     INLINE
     <pf-donut-pct-chart config="$ctrl.custConfig" data="$ctrl.chartData" center-label="$ctrl.custLabel"></pf-donut-pct-chart>
     <label>Label Goes Here</label>
-  </span>
-  <pf-empty-chart ng-if="$ctrl.chartData.dataAvailable === false" chart-height="$ctrl.chartHeight"></pf-empty-chart>
+  </span>-->
+  <!--<span>
+    <pf-empty-chart ng-if="$ctrl.chartData.dataAvailable === false" ></pf-empty-chart>
+  </span>-->
 
 
 <!--<div class="utilization-bar-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">

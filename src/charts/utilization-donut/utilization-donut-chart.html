@@ -1,19 +1,22 @@
 <!--<div class="utilization-donut-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">-->
-<div class="utilization-donut-chart-pf" ng-class="{'utilization-donut-chart-pf-block': !$ctrl.layout || $ctrl.layout.type === 'regular', 'utilization-donut-chart-pf-inline': $ctrl.layout && $ctrl.layout.type === 'inline'}">
+<div class="utilization-donut-chart-pf">
   <!--<span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">-->
+  <span ng-class="{'utilization-donut-chart-pf-block': $ctrl.chartLayout !== 'inline', 'utilization-donut-chart-pf-inline': $ctrl.chartLayout === 'inline'}">
     <span class="utilization-donut-chart-pf-item">
-      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.config" data="$ctrl.chartData" center-label="$ctrl.centerLabel" center-label-only="$ctrl.centerLabelOnly" on-threshold-change="$ctrl.onThresholdChange()"></pf-donut-pct-chart>
-      <pf-empty-chart ng-if="!$ctrl.chartData" ></pf-empty-chart>
+      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.config" data="$ctrl.chartData" center-label="$ctrl.centerLabel" on-threshold-change="$ctrl.onThresholdChange()"></pf-donut-pct-chart>
+      <!--<pf-donut-pct-chart ng-if="$ctrl.chartData.dataAvailable !== false" config="$ctrl.donutConfig" data="$ctrl.chartData" center-label="$ctrl.centerLabel"></pf-donut-pct-chart>-->
+      <pf-empty-chart ng-if="!$ctrl.chartData" chart-height="$ctrl.chartHeight"></pf-empty-chart>
     </span>
     <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-item">
       {{$ctrl.chartTitle}}
-      <span ng-if="$ctrl.chartData" ng-switch="$ctrl.centerLabel">
-        <span ng-switch-when="'none'"></span>
-        <span ng-switch-when="'available'">{{$ctrl.chartDataAvailable}} {{$ctrl.units}} available</span>
-        <span ng-switch-when="'percent'">{{$ctrl.chartDataUsed}}&#37; used</span>
-        <span ng-switch-default="">{{$ctrl.chartDataUsed}} {{$ctrl.units}} of {{$ctrl.chartDataTotal}} {{$ctrl.units}} used</span>
+      <span ng-if="$ctrl.chartData" ng-switch="$ctrl.labelLabel">
+        <span ng-switch-when="none"></span>
+        <span ng-switch-when="available">{{$ctrl.chartDataAvailable}} {{$ctrl.labelUnits}} available</span>
+        <span ng-switch-when="percent">{{$ctrl.chartDataPercent}}&#37; used</span>
+        <span ng-switch-default="">{{$ctrl.chartDataUsed}} {{$ctrl.labelUnits}} of {{$ctrl.chartDataTotal}} {{$ctrl.labelUnits}} used</span>
       </span>
     </span>
+  </span>
     <!--{{$ctrl.chartTitle}}<br/>
     {{$ctrl.chartDataTotal}}<br/>
     {{$ctrl.chartDataUsed}}<br/>

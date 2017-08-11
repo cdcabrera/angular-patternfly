@@ -61,7 +61,7 @@
        <div class="col-md-3 text-center"">
          <label class="camelcase">{{threshLabel}} Threshold</label>
          <p>
-           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
          </p>
        </div>
        <div class="col-md-3 text-center"">
@@ -79,25 +79,25 @@
          <div class="col-md-3 text-center">
            <label>center-label = 'used'</label>
            <p>
-             <pf-utilization-donut-chart chart-data="dataUsed" chart-size="110" center-units="centerUnitsUsed" center-label="centerLabelUsed" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+             <pf-utilization-donut-chart chart-data="dataUsed" chart-size="130" center-units="centerUnitsUsed" center-label="centerLabelUsed" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
            </p>
          </div>
          <div class="col-md-3 text-center">
            <label>center-label = 'available'</label>
            <p>
-             <pf-utilization-donut-chart chart-data="dataAvail" chart-size="110" center-units="centerUnitsAvail" center-label="centerLabelAvail" center-units-only="true"  threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+             <pf-utilization-donut-chart chart-data="dataAvail" chart-size="130" center-units="centerUnitsAvail" center-label="centerLabelAvail" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
            </p>
          </div>
          <div class="col-md-3 text-center">
            <label>center-label = 'percent'</label>
            <p>
-             <pf-utilization-donut-chart chart-data="dataPct" chart-size="110" center-units="centerUnitsPct" center-label="centerLabelPct" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+             <pf-utilization-donut-chart chart-data="dataPct" chart-size="130" center-units="centerUnitsPct" center-label="centerLabelPct" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
            </p>
          </div>
          <div class="col-md-3 text-center">
            <label>center-label = 'none'</label>
            <p>
-             <pf-utilization-donut-chart chart-data="dataNone" chart-size="110" center-units="centerUnitsNone" center-label="centerLabelNone" center-units-only="true" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+             <pf-utilization-donut-chart chart-data="dataNone" chart-size="130" center-units="centerUnitsNone" center-label="centerLabelNone" center-units-only="true" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
            </p>
          </div>
        </div>
@@ -145,8 +145,7 @@
          'used': '950',
          'total': '1000'
        };
-       $scope.titleErr = 'some title';
-       $scope.centerUnitsErr = 'GB';
+       $scope.centerUnitsErr = 'MB';
        $scope.centerLabelErr = 'used';
        $scope.thresholdErrorErr = '90';
        $scope.thresholdWarningErr = '90';
@@ -156,7 +155,6 @@
          'used': '650',
          'total': '1000'
        };
-       $scope.titleWarn = '';
        $scope.centerUnitsWarn = 'GB';
        $scope.centerLabelWarn = 'used';
        $scope.thresholdErrorWarn = '90';
@@ -167,9 +165,9 @@
          'used': '550',
          'total': '1000'
        };
-       $scope.titleDynamic = '';
-       $scope.centerUnitsDynamic = '%';
+       $scope.centerUnitsDynamic = 'MB';
        $scope.centerLabelDynamic = "percent";
+       $scope.labelUnitsDynamic = 'MB';
        $scope.thresholdErrorDynamic = '90';
        $scope.thresholdWarningDynamic = '60';
 
@@ -197,44 +195,40 @@
          'used': '350',
          'total': '1000'
        };
-       $scope.titleUsed = '';
        $scope.centerUnitsUsed = 'GB';
+       $scope.centerLabelUsed = 'used';
        $scope.thresholdErrorUsed = '90';
        $scope.thresholdWarningUsed = '60';
-       //$scope.labelUsed = 'used';
 
        $scope.dataAvail = {
          'dataAvailable': $scope.dataAvailable,
          'used': '350',
          'total': '1000'
        };
-       $scope.titleAvail = '';
-       $scope.unitsAvail = 'GB';
+       $scope.centerUnitsAvail = 'GB';
+       $scope.centerLabelAvail = 'available';
        $scope.thresholdErrorAvail = '90';
        $scope.thresholdWarningAvail = '60';
-       $scope.labelAvail = 'available';
 
        $scope.dataPct = {
          'dataAvailable': $scope.dataAvailable,
          'used': '350',
          'total': '1000'
        };
-       $scope.titlePct = '';
-       $scope.unitsPct = 'GB';
+       $scope.centerUnitsPct = 'GB';
+       $scope.centerLabelPct = 'percent';
        $scope.thresholdErrorPct = '90';
        $scope.thresholdWarningPct = '60';
-       $scope.labelPct = 'percent';
 
        $scope.dataNone = {
          'dataAvailable': $scope.dataAvailable,
          'used': '350',
          'total': '1000'
        };
-       $scope.titleNone = '';
-       $scope.unitsNone = 'GB';
+       $scope.centerUnitsNone = 'GB';
+       $scope.centerLabelNone = 'none';
        $scope.thresholdErrorNone = '90';
        $scope.thresholdWarningNone = '60';
-       $scope.labelNone = 'none';
 
      });
    </file>
@@ -243,70 +237,23 @@
 
 angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
   bindings: {
-    chartData: '<',
-    chartTitle: '<?',
-    chartSize: '<?',
-    chartLayout: '@?',
-
-    centerUnits: '<',
     centerLabel: '<?',
-    //centerLabelOnly: '<?',
+    centerUnits: '<',
     centerUnitsOnly: '<?',
-
-    labelUnits: '<?',
+    chartData: '<',
+    chartLayout: '@?',
+    chartSize: '<?',
+    chartTitle: '<?',
     labelLabel: '<?',
-
+    labelUnits: '<?',
+    onThreshholdChange: '&?',
     thresholdError: '<?',
-    thresholdWarning: '<?',
-    //footerLabelFormat: '@?',
-    onThreshholdChange: '&?'
-
-    //chartHeight: '<?'
-
-    //centerLabelFn: '&?'
-
-    //chartFooter: '<?',
-    //chartData: '<',
-    //config: '<',
-    //centerLabel: '<?',
-    //chartHeight: '<?',
-    //chartTitle: '<',
-    //chartFooter: '<',
-    //units: '<?'
-    //thresholdError: '<?',
-    //thresholdWarning: '<?',
-    //footerLabelFormat: '@?',
-    //layout: '=?'
-
-
-    //data: '<',
-    //chartHeight: '<?',
-    //centerLabel: '<?',
-    //onThresholdChange: '&'
-
-    //chartData: '<',
-    //config: '<',
-    //centerLabel: '<?',
-    //donutConfig: '<',
-    //sparklineConfig: '<',
-    //sparklineChartHeight: '<?',
-    //showSparklineXAxis: '<?',
-    //showSparklineYAxis: '<?'
-
-    //chartData: '=',
-    //chartTitle: '=',
-    //chartFooter: '=',
-    //units: '=',
-    //thresholdError: '=?',
-    //thresholdWarning: '=?',
-    //footerLabelFormat: '@?',
-    //layout: '=?'
+    thresholdWarning: '<?'
   },
 
   templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
-  controller: function ($scope, $timeout) {
+  controller: function ($scope) {
     'use strict';
-    //var ctrl = this, prevChartData, prevLayout;
     var ctrl = this;
 
     ctrl.$id = $scope.$id;
@@ -315,51 +262,9 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     ctrl.chartDataAvailable = null;
     ctrl.chartDataPercent = null;
 
-    //ctrl.custLayout = {
-    //  'type': 'inline'
-    //};
-
-    //eval('console.log(ctrl.chartHeight)');
-
     ctrl.config = {
       chartId: '_' + ctrl.$id
-      /*units: ctrl.units,
-      size: {
-        height: ctrl.chartSize,
-        width: ctrl.chartSize
-      }*/
-      /*thresholds: {
-        warning: ctrl.thresholdWarning || null,
-        error: ctrl.thresholdError || null
-      }*//*,
-      centerLabelFn: function () {
-        eval('console.log(ctrl.chartData)');
-        ctrl.chartDataTotal = ctrl.chartData.total;
-        ctrl.chartDataUsed = ctrl.chartData.used;
-        ctrl.chartDataAvailable = ctrl.chartData.available;
-
-        if (ctrl.centerLabelOnly === true) {
-          return ctrl.chartData.used + ' ' + ctrl.units;
-        }
-      }*/
-      /*,centerLabelFn: function () {
-        eval('console.log(ctrl.chartData)');
-        //return ctrl.chartData.available + ' ' + ctrl.units;
-        return ctrl.chartData.used + ' ' + ctrl.units;
-      }*/
     };
-
-    /*if (ctrl.centerLabelOnly === true) {
-      ctrl.config.centerLabelFn = function () {
-        return ctrl.chartData.used + ' ' + ctrl.units;
-      };
-    }*/
-
-    /*if (angular.isFunction(ctrl.centerLabelFn)) {
-      ctrl.config.centerLabelFn = function () {
-        return ctrl.centerLabelFn.call(ctrl.chartData);
-      };
-    }*/
 
     ctrl.updateThresholds = function () {
       ctrl.config.thresholds = ctrl.config.thresholds || {};
@@ -391,12 +296,6 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     };
 
     ctrl.updateUnits = function () {
-      //if (!ctrl.centerUnitsOnly) {
-      //ctrl.labelUnits = ctrl.labelUnits || '';
-      //ctrl.centerUnits = ctrl.centerUnits || '';
-      //ctrl.labelUnits = ctrl.labelUnits || ctrl.centerUnits || '';
-      //ctrl.centerUnits = ctrl.centerUnits || ctrl.labelUnits || '';
-
       if (ctrl.labelLabel === 'percent' || ctrl.centerLabel === 'percent') {
         ctrl.labelUnits = ctrl.labelUnits || '';
         ctrl.centerUnits = ctrl.centerUnits || '';
@@ -404,35 +303,16 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
         ctrl.labelUnits = ctrl.labelUnits || ctrl.centerUnits || '';
         ctrl.centerUnits = ctrl.centerUnits || ctrl.labelUnits || '';
       }
-
-        //if (!ctrl.centerUnits && ctrl.labelUnits) {
-        /*if (!ctrl.centerUnits) {
-         ctrl.centerUnits = ctrl.labelUnits;
-         //} else if (!ctrl.labelUnits && ctrl.centerUnits) {
-         }
-
-         if (!ctrl.labelUnits) {
-         ctrl.labelUnits = ctrl.centerUnits;
-         }
-
-         if (!ctrl.centerUnits) {
-         ctrl.labelUnits = ctrl.centerUnits = 'none';
-         }*/
-      //}
-
-      //eval('console.log(ctrl.chartHeight)');
+      ctrl.config.units = ctrl.centerUnits;
     };
 
     ctrl.updateLabels = function () {
       ctrl.labelLabel = ctrl.labelLabel || '';
       ctrl.centerLabel = ctrl.centerLabel || '';
-
-      //ctrl.labelLabel = ctrl.labelLabel || ctrl.centerLabel || 'none';
-      //ctrl.centerLabel = ctrl.centerLabel || ctrl.labelLabel || 'none';
     };
 
     ctrl.updateCenterUnits = function () {
-      if (ctrl.centerUnitsOnly === true) {
+      if (ctrl.centerUnitsOnly === true && ctrl.centerLabel !== 'none') {
         ctrl.config.centerLabelFn = function () {
           var unitValue;
 
@@ -443,13 +323,13 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
 
           switch (ctrl.centerLabel) {
           case 'available':
-            unitValue = ctrl.chartDataAvailable + ctrl.centerUnits;
+            unitValue = ctrl.chartDataAvailable + ctrl.centerUnits || '';
             break;
           case 'percent':
             unitValue = ctrl.chartDataPercent + '%';
             break;
           default:
-            unitValue = ctrl.chartDataUsed + ctrl.centerUnits;
+            unitValue = ctrl.chartDataUsed + ctrl.centerUnits || '';
             break;
           }
 
@@ -457,25 +337,6 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
         };
       }
     };
-
-
-    /*ctrl.updateAll = function () {
-      ctrl.updateThresholds();
-    };
-
-    ctrl.$onChanges = function (changesObj) {
-      ctrl.updateAll();
-
-      if (changesObj.config || changesObj.data) {
-        ctrl.updateAll();
-      }
-      if (changesObj.chartHeight) {
-        ctrl.config.size.height = changesObj.chartHeight.currentValue;
-      }
-      if (changesObj.centerLabel) {
-        ctrl.setupDonutChartTitle();
-      }
-    };*/
 
     ctrl.$onChanges = function (changesObj) {
       if (changesObj.thresholdWarning || changesObj.thresholdError) {
@@ -495,139 +356,11 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
         ctrl.updateLabels();
         ctrl.updateCenterUnits();
       }
-
-      /*if (changesObj.thresholdWarning || changesObj.thresholdError) {
-        ctrl.updateThresholds();
-        //ctrl.config.thresholds = {
-        //  warning: ctrl.thresholdWarning || null,
-        //  error: ctrl.thresholdError || null
-        //};
-      }
-
-      if (changesObj.chartSize) {
-        ctrl.updateChartSize();
-      }
-
-      if (changesObj.chartData) {
-        ctrl.updateChartData();
-        //ctrl.chartDataTotal = ctrl.chartData.total;
-        //ctrl.chartDataUsed = ctrl.chartData.used;
-        //ctrl.chartDataAvailable = ctrl.chartData.available;
-        //ctrl.chartDataPercent = ctrl.chartData.percent;
-        //ctrl.updateAll();
-        //eval("console.log('inside=', ctrl.chartData, changesObj.chartData, changesObj.chartData.total)");
-      }
-
-      //if (changesObj.centerUnits || changesObj.labelUnits) {
-        //ctrl.updateUnits();
-      //}
-      if (changesObj.centerUnits || changesObj.labelUnits) {
-        ctrl.updateUnits();
-      }
-
-      if (changesObj.centerLabel || changesObj.labelLabel) {
-        ctrl.updateLabels();
-      }
-
-      if (changesObj.centerUnitsOnly) {
-        ctrl.updateCenterUnits();
-
-        //ctrl.config.centerLabelFn = function () {
-          //ctrl.chartDataTotal = ctrl.chartData.total;
-          //ctrl.chartDataUsed = ctrl.chartData.used;
-          //ctrl.chartDataAvailable = ctrl.chartData.available;
-          //ctrl.chartDataPercent = ctrl.chartData.percent;
-
-          //return (ctrl.units === 'percent') ? ctrl.chartDataPercent + '%' : ctrl.chartData.used; //+ ' ' + ctrl.units;
-        //};
-      }*/
-
-      //eval("console.log('outside=', ctrl.chartData, changesObj)");
     };
 
     /*ctrl.$doCheck = function () {
       if (!angular.equals(ctrl.config, prevConfig)) {
         ctrl.generateChart();
-      }
-    };*/
-
-    /*ctrl.$doCheck = function (a,b,c) {
-      // do a deep compare on chartData and layout
-      //if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
-        //ctrl.updateAll();
-      //}
-      eval("console.log('DOCHECK outside=', ctrl.chartData)");
-    };*/
-
-    /*ctrl.custConfig = {
-      'chartId': '_' + ctrl.$id,
-      'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'}
-    };*/
-
-    //ctrl.custData = {
-      //'used': '350',
-      //'total': '1000'
-    //};
-
-    //eval('console.log("data= "+ctrl.custData)');
-
-    /*
-    ctrl.custData = {
-      'dataAvailable': true,
-      'used': '670',
-      'total': '1000'
-    };
-
-    ctrl.custConfig = {
-      //'chartId': 'custChart',
-      'units': 'MHz',
-      'thresholds':{'warning':'60','error':'90'},
-      "legend":{"show":true},
-      'tooltipFn': function (d) {
-        return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
-          d[0].value + ' ' + d[0].name +
-          '</span>';
-      },
-      'centerLabelFn': function () {
-        return ctrl.custData.available + " GB";
-      },
-      'onClickFn': function (d, i) {
-        alert("You Clicked On The Donut!");
-      }
-    };*/
-
-    //ctrl.custLabel = "percent";
-
-    /*ctrl.updateAll = function () {
-      // Need to deep watch changes
-      prevChartData = angular.copy(ctrl.chartData);
-      prevLayout = angular.copy(ctrl.layout);
-
-      //Calculate the percentage used
-      ctrl.chartData.percentageUsed = Math.round(100 * (ctrl.chartData.used / ctrl.chartData.total));
-
-      if (ctrl.thresholdError || ctrl.thresholdWarning) {
-        ctrl.isError = (ctrl.chartData.percentageUsed >= ctrl.thresholdError);
-        ctrl.isWarn  = (ctrl.chartData.percentageUsed >= ctrl.thresholdWarning && ctrl.chartData.percentageUsed < ctrl.thresholdError);
-        ctrl.isOk    = (ctrl.chartData.percentageUsed < ctrl.thresholdWarning);
-      }
-
-      //Animate in the chart load.
-      ctrl.animate = true;
-      $timeout(function () {
-        ctrl.animate = false;
-      }, 0);
-    };
-
-    ctrl.$onChanges = function (changesObj) {
-      ctrl.updateAll();
-    };
-
-    ctrl.$doCheck = function () {
-      // do a deep compare on chartData and layout
-      if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
-        ctrl.updateAll();
       }
     };*/
   }

@@ -175,8 +175,8 @@
        $scope.chartLayoutErr = 'left';
        $scope.centerUnitsErr = 'MB';
        $scope.centerLabelErr = 'used';
-       $scope.thresholdErrorErr = '90';
-       $scope.thresholdWarningErr = '90';
+       $scope.thresholdErrorErr = 90;
+       $scope.thresholdWarningErr = 90;
 
        $scope.dataWarn = {
          'used': '650',
@@ -195,8 +195,8 @@
        $scope.centerUnitsDynamic = 'MB';
        $scope.centerLabelDynamic = "percent";
        $scope.labelUnitsDynamic = 'MB';
-       $scope.thresholdErrorDynamic = '90';
-       $scope.thresholdWarningDynamic = '60';
+       $scope.thresholdErrorDynamic = 90;
+       $scope.thresholdWarningDynamic = 60;
 
        $scope.thresholdChanged = function(threshold) {
           $scope.threshLabel = threshold;
@@ -224,7 +224,7 @@
        $scope.centerLabelUsed = 'used';
        $scope.labelLabelUsed = 'available';
        $scope.thresholdErrorUsed = '90';
-       $scope.thresholdWarningUsed = '60';
+       $scope.thresholdWarningUsed = 60;
 
        $scope.dataAvail = {
          'used': '350',

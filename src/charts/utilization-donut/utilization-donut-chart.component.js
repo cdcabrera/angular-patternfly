@@ -76,8 +76,8 @@
      <div class="row">
        <div class="col-md-3 text-center">
          <label>Error Threshold</label>
-         <p>
-           <pf-utilization-donut-chart chart-data="dataErr" chart-size="85" center-units="centerUnitsErr" center-label="centerLabelErr" center-units-only="true" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr"></pf-utilization-donut-chart>
+         <p class="text-right">
+           <pf-utilization-donut-chart chart-data="dataErr" chart-size="85" chart-layout="chartLayoutErr" center-units="centerUnitsErr" center-label="centerLabelErr" center-units-only="true" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr"></pf-utilization-donut-chart>
          </p>
        </div>
        <div class="col-md-3 text-center"">
@@ -88,8 +88,8 @@
        </div>
        <div class="col-md-3 text-center"">
          <label class="camelcase">{{threshLabel}} Threshold</label>
-         <p>
-           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+         <p class="text-left">
+           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" chart-layout="chartLayoutDynamic" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
          </p>
        </div>
        <div class="col-md-3 text-center"">
@@ -172,6 +172,7 @@
          'used': '950',
          'total': '1000'
        };
+       $scope.chartLayoutErr = 'left';
        $scope.centerUnitsErr = 'MB';
        $scope.centerLabelErr = 'used';
        $scope.thresholdErrorErr = '90';
@@ -190,6 +191,7 @@
          'used': '550',
          'total': '1000'
        };
+       $scope.chartLayoutDynamic = 'right';
        $scope.centerUnitsDynamic = 'MB';
        $scope.centerLabelDynamic = "percent";
        $scope.labelUnitsDynamic = 'MB';
@@ -262,7 +264,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     centerUnits: '<',
     centerUnitsOnly: '<?',
     chartData: '<',
-    chartLayout: '@?',
+    chartLayout: '<?',
     chartSize: '<?',
     chartTitle: '<?',
     labelLabel: '<?',

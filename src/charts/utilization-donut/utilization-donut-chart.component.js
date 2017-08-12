@@ -44,6 +44,13 @@
  *
  * @param {number=} chart-size the pixel dimensions of the chart, since it's square applies to both height and width.
  *
+ * @param {object=} config configuration properties for the donut chart:
+ * <br><strong>Values:</strong>
+ * <ul style='list-style-type: none'>
+ * <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
+ * <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
+ * </ul>
+ *
  * @param {string=} label-title the title displayed before the external label content.
  *
  * @param {string=} label-label specifies the content format for the donut's external label.

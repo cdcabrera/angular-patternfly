@@ -8,9 +8,9 @@
       {{$ctrl.chartTitle}}
       <span ng-if="$ctrl.chartData" ng-switch="$ctrl.labelLabel">
         <span ng-switch-when="none"></span>
-        <span ng-switch-when="available">{{$ctrl.chartDataAvailable}} {{$ctrl.labelUnits}} available</span>
-        <span ng-switch-when="percent">{{$ctrl.chartDataPercent}}&#37; used</span>
-        <span ng-switch-default="">{{$ctrl.chartDataUsed}} {{$ctrl.labelUnits}} of {{$ctrl.chartDataTotal}} {{$ctrl.labelUnits}} used</span>
+        <span ng-switch-when="available">{{$ctrl.doit}} {{$ctrl.chartData.available}} {{$ctrl.labelUnits}} available</span>
+        <span ng-switch-when="percent">{{$ctrl.chartData.percent}}&#37; used</span>
+        <span ng-switch-default="">{{$ctrl.chartData.used}} {{$ctrl.labelUnits}} of {{$ctrl.chartData.total}} {{$ctrl.labelUnits}} used</span>
       </span>
     </span>
   </span>

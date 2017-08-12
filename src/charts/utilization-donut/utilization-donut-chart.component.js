@@ -134,21 +134,32 @@
        </div>
        <div class="container-fluid">
          <div class="row">
-           <div class="col-md-3">
-             <form role="form"">
-               <div class="form-group">
-                 <label class="checkbox-inline">
-                   <input type="checkbox" ng-model="dataAvailable"/>Data Available
-                 </label>
-               </div>
-             </form>
-           </div>
-           <div class="col-md-3">
-             <form role="form" >
-               <div class="form-group">
-                 <label>Chart Height</label>
-                 <br>
-                 <input style="height:25px; width:60px;" type="number" ng-model="custChartHeight"/>
+           <div class="col-md-12 text-center">
+             <label>Custom Tooltip, Legend, Click handling, and Center Label</label><br>
+             <label><strong>Click on Donut Arc!</strong></label>
+             <div>
+               Chart...
+             </div>
+             <form role="form">
+               <div class="row">
+                 <div class="col-md-6 text-right">
+                   <div class="form-group">
+                     <p>
+                       <label>
+                         <input type="checkbox" ng-model="dataAvailable"/> Data Available
+                       </label>
+                     </p>
+                   </div>
+                 </div>
+                 <div class="col-md-6 text-left">
+                   <div class="form-group">
+                     <p>
+                       <label>
+                         <input style="height:25px; width:60px;" type="number" ng-model="custChartHeight"/> Chart Height
+                       </label>
+                     </p>
+                   </div>
+                 </div>
                </div>
              </form>
            </div>

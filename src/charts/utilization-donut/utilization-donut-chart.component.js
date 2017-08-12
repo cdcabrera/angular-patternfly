@@ -267,7 +267,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     chartTitle: '<?',
     labelLabel: '<?',
     labelUnits: '<?',
-    onThreshholdChange: '&?',
+    onThresholdChange: '&?',
     thresholdError: '<?',
     thresholdWarning: '<?'
   },
@@ -281,6 +281,12 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
 
     ctrl.config = {
       chartId: '_' + ctrl.$id
+    };
+
+    ctrl.passThresholdChange = function (threshold) {
+      if (angular.isFunction(ctrl.onThresholdChange)) {
+        ctrl.onThresholdChange({ threshold: threshold });
+      }
     };
 
     ctrl.updateThresholds = function () {

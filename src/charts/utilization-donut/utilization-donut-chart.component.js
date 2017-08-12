@@ -14,7 +14,7 @@
  *   <li>When the used percentage has surpassed the error threshold, the indicator is is red.
  *   </ul>
  *
- * @param {object} chart-data the data to be shown in the utilization chart
+ * @param {object} chart-data the data to be shown in the utilization chart.
  * <ul style='list-style-type: none'>
  * <li>.used          - number representing the amount used
  * <li>.total         - number representing the total amount
@@ -24,7 +24,7 @@
  * @param {string} center-units to be displayed on the chart. Examples: "GB", "MHz", "I/Ops", etc...
  *
  * @param {string=} center-label specifies the content format for the donut's center label.
- * <strong>Values:</strong>
+ * <br><strong>Values:</strong>
  * <ul style='list-style-type: none'>
  * <li> 'used'      - displays the Used amount in the center label (default)
  * <li> 'available' - displays the Available amount in the center label
@@ -32,22 +32,22 @@
  * <li> 'none'      - does not display the center label
  * </ul>
  *
- * @param {boolean=} center-units-only when true, only show the numeric value and unit
+ * @param {boolean=} center-units-only when true, only show the numeric value and unit.
  *
- * @param {string=} charts-layout indicates whether the external label should be centered, left, or right
- * <strong>Values:</strong>
+ * @param {string=} charts-layout indicates whether the external label should be centered, left, or right.
+ * <br><strong>Values:</strong>
  * <ul style='list-style-type: none'>
  * <li> 'centered'  - centers the external label
  * <li> 'left'      - place the external label to the left of the chart
  * <li> 'right'     - place the external label to the right of the chart
  * </ul>
  *
- * @param {number=} chart-size the pixel dimensions of the chart, since it's square applies to both height and width
+ * @param {number=} chart-size the pixel dimensions of the chart, since it's square applies to both height and width.
  *
- * @param {string=} chart-title The title displayed on the left-hand side of the chart
+ * @param {string=} label-title the title displayed before the external label content.
  *
  * @param {string=} label-label specifies the content format for the donut's external label.
- * <strong>Values:</strong>
+ * <br><strong>Values:</strong>
  * <ul style='list-style-type: none'>
  * <li> 'used'      - displays the Used amount in the center label (default)
  * <li> 'available' - displays the Available amount in the center label
@@ -57,17 +57,17 @@
  *
  * @param {string=} label-units to be displayed on the external label. Examples: "GB", "MHz", "I/Ops", etc...
  *
- * @param {function (threshold)=} on-threshold-change user defined function to handle when thresolds change
- * <strong>'threshold' Values:</strong>
+ * @param {function (threshold)=} on-threshold-change user defined function to handle when thresolds change.
+ * <br><strong>'threshold' Values:</strong>
  * <ul style='list-style-type: none'>
  * <li> 'ok'      - when ok threshold is set
  * <li> 'warning' - when warning threshold is set
  * <li> 'error'   - when error threshold is set
  * </ul>
  *
- * @param {number|string=} threshold-error error percentage threshold used to determine the Usage Percentage fill color
+ * @param {number|string=} threshold-error error percentage threshold used to determine the Usage Percentage fill color.
  *
- * @param {number|string=} threshold-warning warning percentage threshold used to determine the Usage Percentage fill color
+ * @param {number|string=} threshold-warning warning percentage threshold used to determine the Usage Percentage fill color.
  *
  * @example
  <example module="patternfly.example">
@@ -89,7 +89,7 @@
        <div class="col-md-3 text-center"">
          <label class="camelcase">{{threshLabel}} Threshold</label>
          <p class="text-left">
-           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" chart-layout="chartLayoutDynamic" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" chart-layout="chartLayoutDynamic" label-title="'Example'" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
          </p>
        </div>
        <div class="col-md-3 text-center"">
@@ -107,7 +107,7 @@
          <div class="col-md-3 text-center">
            <label>center-label = 'used'</label>
            <p>
-             <pf-utilization-donut-chart chart-data="dataUsed" chart-size="130" center-units="centerUnitsUsed" center-label="centerLabelUsed" label-label="labelLabelUsed"></pf-utilization-donut-chart>
+             <pf-utilization-donut-chart chart-data="dataUsed" chart-size="130" center-units="centerUnitsUsed" center-label="centerLabelUsed" label-title="'Example'" label-label="labelLabelUsed"></pf-utilization-donut-chart>
            </p>
          </div>
          <div class="col-md-3 text-center">
@@ -277,7 +277,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     chartData: '<',
     chartLayout: '<?',
     chartSize: '<?',
-    chartTitle: '<?',
+    labelTitle: '<?',
     labelLabel: '<?',
     labelUnits: '<?',
     onThresholdChange: '&?',
@@ -333,6 +333,10 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       ctrl.config.units = ctrl.centerUnits;
     };
 
+    ctrl.updateTitle = function () {
+      ctrl.labelTitle = ctrl.labelTitle || null;
+    };
+
     ctrl.updateLabels = function () {
       ctrl.labelLabel = ctrl.labelLabel || '';
       ctrl.centerLabel = ctrl.centerLabel || '';
@@ -370,6 +374,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
       }
 
       if (changesObj) {
+        ctrl.updateTitle();
         ctrl.updateUnits();
         ctrl.updateLabels();
         ctrl.updateCenterUnits();

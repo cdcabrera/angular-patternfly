@@ -5,7 +5,7 @@
       <pf-empty-chart ng-if="!$ctrl.chartData" chart-height="$ctrl.chartHeight"></pf-empty-chart>
     </span>
     <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-item">
-      {{$ctrl.chartTitle}}
+      {{$ctrl.labelTitle}}
       <span ng-if="$ctrl.chartData" ng-switch="$ctrl.labelLabel">
         <span ng-switch-when="none"></span>
         <span ng-switch-when="available">{{$ctrl.doit}} {{$ctrl.chartData.available}} {{$ctrl.labelUnits}} available</span>

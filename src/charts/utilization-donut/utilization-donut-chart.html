@@ -1,10 +1,10 @@
 <div class="utilization-donut-chart-pf">
   <span ng-class="{'utilization-donut-chart-pf-block': $ctrl.chartLayout !== 'left' && $ctrl.chartLayout !== 'right', 'utilization-donut-chart-pf-left': $ctrl.chartLayout === 'left', 'utilization-donut-chart-pf-right': $ctrl.chartLayout === 'right'}">
-    <span class="utilization-donut-chart-pf-item">
-      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.config" data="$ctrl.chartData" center-label="$ctrl.centerLabel" on-threshold-change="$ctrl.passThresholdChange(threshold)"></pf-donut-pct-chart>
-      <pf-empty-chart ng-if="!$ctrl.chartData" chart-height="$ctrl.chartHeight"></pf-empty-chart>
+    <span class="utilization-donut-chart-pf-chart">
+      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.chartConfig" data="$ctrl.chartData" center-label="$ctrl.centerLabel" chart-height="$ctrl.chartSize" on-threshold-change="$ctrl.passThresholdChange(threshold)"></pf-donut-pct-chart>
+      <pf-empty-chart ng-if="!$ctrl.chartData" chart-height="$ctrl.chartSize"></pf-empty-chart>
     </span>
-    <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-item">
+    <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-label">
       {{$ctrl.labelTitle}}
       <span ng-if="$ctrl.chartData" ng-switch="$ctrl.labelLabel">
         <span ng-switch-when="none"></span>

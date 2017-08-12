@@ -138,7 +138,7 @@
              <label>Custom Tooltip, Legend, Click handling, and Center Label</label><br>
              <label><strong>Click on Donut Arc!</strong></label>
              <div>
-               Chart...
+               <pf-utilization-donut-chart config="customConfig" chart-data="customData" chart-size="customChartHeight" chart-layout="'right'" center-units="centerUnitsWarn" center-label="centerLabelWarn" center-units-only="true" label-title="'Example'" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn"></pf-utilization-donut-chart>
              </div>
              <form role="form">
                <div class="row">
@@ -146,7 +146,7 @@
                    <div class="form-group">
                      <p>
                        <label>
-                         <input type="checkbox" ng-model="dataAvailable"/> Data Available
+                         <input type="checkbox" ng-model="customData.dataAvailable"/> Data Available
                        </label>
                      </p>
                    </div>
@@ -155,7 +155,7 @@
                    <div class="form-group">
                      <p>
                        <label>
-                         <input style="height:25px; width:60px;" type="number" ng-model="custChartHeight"/> Chart Height
+                         <input style="height:25px; width:60px;" type="number" ng-model="customChartHeight"/> Chart Width/Height
                        </label>
                      </p>
                    </div>
@@ -264,6 +264,25 @@
        $scope.thresholdErrorNone = '90';
        $scope.thresholdWarningNone = '60';
 
+       $scope.customData = {
+         'dataAvailable': true,
+         'used': '670',
+         'total': '1000'
+       };
+
+       $scope.customConfig = {
+         'legend': { 'show': false },
+         'tooltipFn': function (d) {
+           return '<span class="donut-tooltip-pf"style="white-space: nowrap;"> Custom ' +
+                    d[0].value + ' ' + d[0].name +
+                  '</span>';
+         },
+         'onClickFn': function (d, i) {
+           alert("You Clicked On The Donut!");
+         }
+       };
+
+       $scope.customChartHeight = 170;
      });
    </file>
  </example>
@@ -277,6 +296,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     chartData: '<',
     chartLayout: '<?',
     chartSize: '<?',
+    config: '<?',
     labelTitle: '<?',
     labelLabel: '<?',
     labelUnits: '<?',
@@ -292,33 +312,34 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
 
     ctrl.$id = $scope.$id;
 
-    ctrl.config = {
-      chartId: '_' + ctrl.$id
-    };
-
     ctrl.passThresholdChange = function (threshold) {
       if (angular.isFunction(ctrl.onThresholdChange)) {
         ctrl.onThresholdChange({ threshold: threshold });
       }
     };
 
+    ctrl.updateConfig = function () {
+      ctrl.chartConfig = ctrl.chartConfig || { chartId: '_' + ctrl.$id };
+      ctrl.chartConfig = angular.merge(ctrl.chartConfig, ctrl.config || {});
+    };
+
     ctrl.updateThresholds = function () {
-      ctrl.config.thresholds = ctrl.config.thresholds || {};
+      ctrl.chartConfig.thresholds = ctrl.chartConfig.thresholds || {};
 
       if (ctrl.thresholdWarning) {
-        ctrl.config.thresholds.warning = ctrl.thresholdWarning;
+        ctrl.chartConfig.thresholds.warning = ctrl.thresholdWarning;
       }
 
       if (ctrl.thresholdWarning) {
-        ctrl.config.thresholds.error = ctrl.thresholdError;
+        ctrl.chartConfig.thresholds.error = ctrl.thresholdError;
       }
     };
 
     ctrl.updateChartSize = function () {
-      ctrl.config.size = ctrl.config.size || {};
+      ctrl.chartConfig.size = ctrl.chartConfig.size || {};
 
       if (ctrl.chartSize) {
-        ctrl.config.size.width = ctrl.config.size.height = ctrl.chartSize;
+        ctrl.chartConfig.size.width = ctrl.chartConfig.size.height = ctrl.chartSize;
       }
     };
 
@@ -330,7 +351,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
         ctrl.labelUnits = ctrl.labelUnits || ctrl.centerUnits || '';
         ctrl.centerUnits = ctrl.centerUnits || ctrl.labelUnits || '';
       }
-      ctrl.config.units = ctrl.centerUnits;
+      ctrl.chartConfig.units = ctrl.centerUnits;
     };
 
     ctrl.updateTitle = function () {
@@ -344,7 +365,7 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
 
     ctrl.updateCenterUnits = function () {
       if (ctrl.centerUnitsOnly === true && ctrl.centerLabel !== 'none') {
-        ctrl.config.centerLabelFn = function () {
+        ctrl.chartConfig.centerLabelFn = function () {
           var unitValue;
 
           switch (ctrl.centerLabel) {
@@ -365,6 +386,10 @@ angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
     };
 
     ctrl.$onChanges = function (changesObj) {
+      if (changesObj) {
+        ctrl.updateConfig();
+      }
+
       if (ctrl.thresholdWarning || changesObj.thresholdError) {
         ctrl.updateThresholds();
       }

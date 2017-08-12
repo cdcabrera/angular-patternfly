@@ -122,6 +122,15 @@ NG_DOCS={
     },
     {
       "section": "api",
+      "id": "patternfly.charts.component:pfUtilizationDonutChart",
+      "shortName": "pfUtilizationDonutChart",
+      "type": "directive",
+      "moduleName": "patternfly.charts",
+      "shortDescription": "Focuses the pfDonutPctChart component, useful for rendering a percentage within a donut/radial chart.  The Used",
+      "keywords": "$interval $scope alert amount angular api applies arc blue camelcase card center center-label center-units center-units-only centered centerlabelavail centerlabeldynamic centerlabelerr centerlabelnone centerlabelpct centerlabelused centerlabelwarn centers centerunitsavail centerunitsdynamic centerunitserr centerunitsnone centerunitsnothresh centerunitsused centerunitswarn change chart chart-data chart-layout chart-size chartctrl chartlayoutdynamic chartlayouterr charts charts-layout checkbox class click clicked clockwise col-md-12 col-md-3 col-md-6 color colors component config configuration container-fluid content controller custom customchartheight customconfig customdata customize data dataavail dataavailable datadynamic dataerr datanone datanothresh datapct dataused datawarn default defined dependent determine dimensions directive display displayed displays donut donut-tooltip-pf error example examples exist external false fill flag focuses form form-group format function gb gray handle handling height html indicates indicator inline js label label-label label-title label-units labellabelused labelunitsdynamic labelunitspct layoutinline left legend list-style-type mb mhz module moves ng-controller ng-model nowrap number numeric on-threshold-change onclickfn orange patternfly percent percentage pfdonutpctchart pixel place portion properties red rendered rendering represented representing return role row script set specifies square starts style surpassed text-center text-left text-right three threshlabel threshold threshold-error threshold-warning thresholdchanged thresholderroravail thresholderrordynamic thresholderrorerr thresholderrornone thresholderrorpct thresholderrorused thresholderrorwarn thresholds thresholdwarningavail thresholdwarningdynamic thresholdwarningerr thresholdwarningnone thresholdwarningpct thresholdwarningused thresholdwarningwarn thresolds title tool tooltip tooltipfn total true type unit unitsnothresh usage user utilization values warning white-space width"
+    },
+    {
+      "section": "api",
       "id": "patternfly.charts.directive:pfHeatMap",
       "shortName": "pfHeatMap",
       "type": "directive",
@@ -146,15 +155,6 @@ NG_DOCS={
       "moduleName": "patternfly.charts",
       "shortDescription": "Component for rendering a utilization bar chart",
       "keywords": "$interval $scope actual alternative amount angular api arc auto-format automatic bar blue card chart chart-data chart-footer chart-title chartctrl chartdata charts checkbox checkbox-inline class col-md-6 colors component controller cpu custom data data1 data2 data3 data4 data5 dataavailable default denotes dependent directive disk displayed displays donut error example examples exist fill flag footer-label-format footer1 footer2 footerlabelwidth form form-group function gb html indicator inline js label label-title labels layout layoutinline layouts left-hand list-style-type mb memory mhz module ng-controller ng-model number orange patternfly percent percentage ram reached red regular rendering representing right-hand role row script side smaller standard style surpassed tb three threshold threshold-error threshold-warning thresholds title title1 title2 title3 title4 title5 titlelabelwidth total true type units units1 units2 units3 units4 units5 usage utilization valid values warning width"
-    },
-    {
-      "section": "api",
-      "id": "patternfly.charts.directive:pfUtilizationDonut",
-      "shortName": "pfUtilizationDonut",
-      "type": "directive",
-      "moduleName": "patternfly.charts",
-      "shortDescription": "Component for rendering a utilization bar chart",
-      "keywords": "$interval $scope actual alternative amount angular api arc auto-format automatic bar blue camelcase card center-label center-label-only chart chart-data chart-footer chart-title chartctrl chartdata charterr charts checkbox checkbox-inline class col-md-3 col-md-6 colors component controller cpu custom data data1 data2 data3 data4 data5 dataavailable datadynamic dataerr datanothresh datawarn default denotes dependent directive disk displayed displays donut error example examples exist fill flag footer-label-format footer1 footer2 footerlabelwidth form form-group function gb html indicator inline js label label-title labeldyanmic labeldynamic labelerr labels labelwarn layout layoutinline layouts left-hand list-style-type mb memory mhz module ng-controller ng-model number on-threshold-change orange patternfly percent percentage ram reached red regular rendering representing right-hand role row script side smaller standard style surpassed tb text-center three threshlabel threshold threshold-error threshold-warning thresholdchanged thresholderrordynamic thresholderrorerr thresholderrorwarn thresholds thresholdwarningdynamic thresholdwarningerr thresholdwarningwarn title title1 title2 title3 title4 title5 titledynamic titleerr titlelabelwidth titlewarn total true type undefined units units1 units2 units3 units4 units5 unitsdynamic unitserr unitsnothresh unitswarn usage utilization valid values warning width"
     },
     {
       "section": "api",

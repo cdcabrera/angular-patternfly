@@ -3729,6 +3729,10 @@ angular.module('patternfly.card').component('pfCard', {
       ctrl.data.available = ctrl.data.total - ctrl.data.used;
     };
 
+    ctrl.updatePercentage = function () {
+      ctrl.data.percent = Math.round(ctrl.data.used / ctrl.data.total * 100.0);
+    };
+
     ctrl.getStatusColor = function (used, thresholds) {
       var threshold = "none";
       var color = pfUtils.colorPalette.blue;
@@ -3832,6 +3836,7 @@ angular.module('patternfly.card').component('pfCard', {
 
       ctrl.config = pfUtils.merge(patternfly.c3ChartDefaults().getDefaultDonutConfig(), ctrl.config);
       ctrl.updateAvailable();
+      ctrl.updatePercentage();
       ctrl.config.data = pfUtils.merge(ctrl.config.data, ctrl.getDonutData());
       ctrl.config.color = ctrl.statusDonutColor(ctrl);
       ctrl.config.tooltip = ctrl.donutTooltip();
@@ -6734,11 +6739,13 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 });
 ;/**
  * @ngdoc directive
- * @name patternfly.charts.directive:pfUtilizationDonut
+ * @name patternfly.charts.component:pfUtilizationDonutChart
  * @restrict E
  *
  * @description
- *   Component for rendering a utilization bar chart
+ *   Focuses the pfDonutPctChart component, useful for rendering a percentage within a donut/radial chart.  The Used
+ *   Percentage fill starts at 12 o’clock and moves clockwise.  Whatever portion of the donut not Used, will
+ *   be represented as Available, and rendered as a gray fill.
  *   There are three possible fill colors for Used Percentage, dependent on whether or not there are thresholds:<br/>
  *   <ul>
  *   <li>When no thresholds exist, or if the used percentage has not surpassed any thresholds, the indicator is blue.
@@ -6746,34 +6753,67 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
  *   <li>When the used percentage has surpassed the error threshold, the indicator is is red.
  *   </ul>
  *
- * @param {object} chartData the data to be shown in the utilization bar chart<br/>
+ * @param {object} chart-data the data to be shown in the utilization chart.
  * <ul style='list-style-type: none'>
  * <li>.used          - number representing the amount used
  * <li>.total         - number representing the total amount
  * <li>.dataAvailable - Flag if there is data available - default: true
  * </ul>
  *
- * @param {object=} chart-title The title displayed on the left-hand side of the chart
- * @param {object=} chart-footer The label displayed on the right-hand side of the chart.  If chart-footer is not
- * specified, the automatic footer-label-format will be used.
- * @param {object=} layout Various alternative layouts the utilization bar chart may have:<br/>
+ * @param {string} center-units to be displayed on the chart. Examples: "GB", "MHz", "I/Ops", etc...
+ *
+ * @param {string=} center-label specifies the content format for the donut's center label.
+ * <br><strong>Values:</strong>
  * <ul style='list-style-type: none'>
- * <li>.type - The type of layout to use.  Valid values are 'regular' (default) displays the standard chart layout,
- * and 'inline' displays a smaller, inline layout.</li>
- * <li>.titleLabelWidth - Width of the left-hand title label when using 'inline' layout. Example values are "120px", "20%", "10em", etc..</li>
- * <li>.footerLabelWidth - Width of the right-hand used label when using 'inline' layout. Example values are "120px", "20%", "10em", etc..</li>
+ * <li> 'used'      - displays the Used amount in the center label (default)
+ * <li> 'available' - displays the Available amount in the center label
+ * <li> 'percent'   - displays the Usage Percent of the Total amount in the center label
+ * <li> 'none'      - does not display the center label
  * </ul>
- * @param {string=} footer-label-format The auto-format of the label on the right side of the bar chart when chart-footer
- * has not been specified. Values may be:<br/>
+ *
+ * @param {boolean=} center-units-only when true, only show the numeric value and unit.
+ *
+ * @param {string=} charts-layout indicates whether the external label should be centered, left, or right.
+ * <br><strong>Values:</strong>
  * <ul style='list-style-type: none'>
- * <li>'actual' - (default) displays the standard label of '(n) of (m) (units) Used'.
- * <li>'percent' - displays a percentage label of '(n)% Used'.</li>
+ * <li> 'centered'  - centers the external label
+ * <li> 'left'      - place the external label to the left of the chart
+ * <li> 'right'     - place the external label to the right of the chart
  * </ul>
- * @param {object=} units to be displayed on the chart. Examples: "GB", "MHz", "I/Ops", etc...
- * @param {string=} threshold-error The percentage used, when reached, denotes an error.  Valid values are 1-100. When the error threshold
- * has been reached, the used donut arc will be red.
- * @param {string=} threshold-warning The percentage usage, when reached, denotes a warning.  Valid values are 1-100. When the warning threshold
- * has been reached, the used donut arc will be orange.
+ *
+ * @param {number=} chart-size the pixel dimensions of the chart, since it's square applies to both height and width.
+ *
+ * @param {object=} config configuration properties for the donut chart:
+ * <br><strong>Values:</strong>
+ * <ul style='list-style-type: none'>
+ * <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
+ * <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
+ * </ul>
+ *
+ * @param {string=} label-title the title displayed before the external label content.
+ *
+ * @param {string=} label-label specifies the content format for the donut's external label.
+ * <br><strong>Values:</strong>
+ * <ul style='list-style-type: none'>
+ * <li> 'used'      - displays the Used amount in the center label (default)
+ * <li> 'available' - displays the Available amount in the center label
+ * <li> 'percent'   - displays the Usage Percent of the Total amount in the center label
+ * <li> 'none'      - does not display the center label
+ * </ul>
+ *
+ * @param {string=} label-units to be displayed on the external label. Examples: "GB", "MHz", "I/Ops", etc...
+ *
+ * @param {function (threshold)=} on-threshold-change user defined function to handle when thresolds change.
+ * <br><strong>'threshold' Values:</strong>
+ * <ul style='list-style-type: none'>
+ * <li> 'ok'      - when ok threshold is set
+ * <li> 'warning' - when warning threshold is set
+ * <li> 'error'   - when error threshold is set
+ * </ul>
+ *
+ * @param {number|string=} threshold-error error percentage threshold used to determine the Usage Percentage fill color.
+ *
+ * @param {number|string=} threshold-warning warning percentage threshold used to determine the Usage Percentage fill color.
  *
  * @example
  <example module="patternfly.example">
@@ -6782,50 +6822,93 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
      <div class="row">
        <div class="col-md-3 text-center">
          <label>Error Threshold</label>
-         <pf-utilization-donut-chart chart-data="dataErr" chart-title="titleErr" layout="" units="unitsErr" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr" center-label="labelErr" center-label-only="true"></pf-utilization-donut-chart>
+         <p class="text-right">
+           <pf-utilization-donut-chart chart-data="dataErr" chart-size="85" chart-layout="chartLayoutErr" center-units="centerUnitsErr" center-label="centerLabelErr" center-units-only="true" threshold-error="thresholdErrorErr" threshold-warning="thresholdWarningErr"></pf-utilization-donut-chart>
+         </p>
        </div>
        <div class="col-md-3 text-center"">
          <label>Warning Threshold</label>
-         <pf-utilization-donut-chart chart-data="dataWarn" chart-title="titleWarn" layout="" units="unitsWarn" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn" center-label="labelWarn" center-label-only="true"></pf-utilization-donut-chart>
+         <p>
+           <pf-utilization-donut-chart chart-data="dataWarn" chart-size="85" center-units="centerUnitsWarn" center-label="centerLabelWarn" center-units-only="true" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn"></pf-utilization-donut-chart>
+         </p>
        </div>
        <div class="col-md-3 text-center"">
          <label class="camelcase">{{threshLabel}} Threshold</label>
-         <pf-utilization-donut-chart chart-data="dataDynamic" chart-title="titleDynamic" layout="" units="unitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" center-label="labelDynamic" center-label-only="true" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+         <p class="text-left">
+           <pf-utilization-donut-chart chart-data="dataDynamic" chart-size="85" chart-layout="chartLayoutDynamic" label-title="'Example'" center-units="centerUnitsDynamic" center-label="centerLabelDynamic" center-units-only="true" label-units="labelUnitsDynamic" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic" on-threshold-change="thresholdChanged(threshold)"></pf-utilization-donut-chart>
+         </p>
        </div>
        <div class="col-md-3 text-center"">
          <label>No Threshold</label>
-         <pf-utilization-donut-chart chart-data="dataNoThresh" units="unitsNoThresh" center-label-only="true"></pf-utilization-donut-chart>
-         </div>
+         <p>
+           <pf-utilization-donut-chart chart-data="dataNoThresh" chart-size="85" center-units="centerUnitsNoThresh" center-units-only="true"></pf-utilization-donut-chart>
+         </p>
        </div>
 
-       <label class="label-title">Default Layout, no Thresholds</label>
-       <br>
-       <pf-utilization-donut-chart chart-data="data1" units="units1"></pf-utilization-donut-chart>
-       <br>
-
-       <label class="label-title">Inline Layouts with Error, Warning, and Ok Thresholds</label>
-       <br>
-       <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true">../utilization-trend/utilization-trend-chart-directive.js</pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
-       <br>
-
-       <label class="label-title">layout='inline', footer-label-format='percent', and custom chart-footer labels</label>
-       <br>
-       <pf-utilization-donut-chart chart-data="data2" chart-title="title2" layout="layoutInline" units="units2" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data="data3" chart-title="title3" layout="layoutInline" units="units3" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data="data4" chart-title="title4" layout="layoutInline" units="units4" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
-       <pf-utilization-donut-chart chart-data="data5" chart-title="title5" layout="layoutInline" units="units5" threshold-error="85" threshold-warning="60" center-label="'percent'" center-label-only="true"></pf-utilization-donut-chart>
+       <div class="col-md-12">
+         <hr>
+       </div>
 
        <div class="row">
-         <div class="col-md-6">
-           <form role="form"">
-             <div class="form-group">
-               <label class="checkbox-inline">
-                 <input type="checkbox" ng-model="data1.dataAvailable">Data Available</input>
-               </label>
+         <div class="col-md-3 text-center">
+           <label>center-label = 'used'</label>
+           <p>
+             <pf-utilization-donut-chart chart-data="dataUsed" chart-size="130" center-units="centerUnitsUsed" center-label="centerLabelUsed" label-title="'Example'" label-label="labelLabelUsed"></pf-utilization-donut-chart>
+           </p>
+         </div>
+         <div class="col-md-3 text-center">
+           <label>center-label = 'available'</label>
+           <p>
+             <pf-utilization-donut-chart chart-data="dataAvail" chart-size="130" center-units="centerUnitsAvail" center-label="centerLabelAvail" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+           </p>
+         </div>
+         <div class="col-md-3 text-center">
+           <label>center-label = 'percent'</label>
+           <p>
+             <pf-utilization-donut-chart chart-data="dataPct" chart-size="130" center-label="centerLabelPct" label-units="labelUnitsPct"></pf-utilization-donut-chart>
+           </p>
+         </div>
+         <div class="col-md-3 text-center">
+           <label>center-label = 'none'</label>
+           <p>
+             <pf-utilization-donut-chart chart-data="dataNone" chart-size="130" center-units="centerUnitsNone" center-label="centerLabelNone" center-units-only="true" threshold-error="thresholdErrorDynamic" threshold-warning="thresholdWarningDynamic"></pf-utilization-donut-chart>
+           </p>
+         </div>
+       </div>
+       <div class="col-md-12">
+         <hr>
+       </div>
+       <div class="container-fluid">
+         <div class="row">
+           <div class="col-md-12 text-center">
+             <label>Custom Tooltip, Legend, Click handling, and Center Label</label><br>
+             <label><strong>Click on Donut Arc!</strong></label>
+             <div>
+               <pf-utilization-donut-chart config="customConfig" chart-data="customData" chart-size="customChartHeight" chart-layout="'right'" center-units="centerUnitsWarn" center-label="centerLabelWarn" center-units-only="true" label-title="'Example'" threshold-error="thresholdErrorWarn" threshold-warning="thresholdWarningWarn"></pf-utilization-donut-chart>
              </div>
-           </form>
+             <form role="form">
+               <div class="row">
+                 <div class="col-md-6 text-right">
+                   <div class="form-group">
+                     <p>
+                       <label>
+                         <input type="checkbox" ng-model="customData.dataAvailable"/> Data Available
+                       </label>
+                     </p>
+                   </div>
+                 </div>
+                 <div class="col-md-6 text-left">
+                   <div class="form-group">
+                     <p>
+                       <label>
+                         <input style="height:25px; width:60px;" type="number" ng-model="customChartHeight"/> Chart Width/Height
+                       </label>
+                     </p>
+                   </div>
+                 </div>
+               </div>
+             </form>
+           </div>
          </div>
        </div>
      </div>
@@ -6836,6 +6919,8 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 
      angular.module( 'patternfly.example' ).controller( 'ChartCtrl', function( $scope, $interval ) {
 
+       $scope.dataAvailable = true;
+
        $scope.layoutInline = {
         'type': 'inline'
        };
@@ -6844,31 +6929,31 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
          'used': '950',
          'total': '1000'
        };
-       $scope.titleErr = '';
-       $scope.unitsErr = 'GB';
-       $scope.thresholdErrorErr = '90';
-       $scope.thresholdWarningErr = '90';
-       $scope.labelErr = undefined;
+       $scope.chartLayoutErr = 'left';
+       $scope.centerUnitsErr = 'MB';
+       $scope.centerLabelErr = 'used';
+       $scope.thresholdErrorErr = 90;
+       $scope.thresholdWarningErr = 90;
 
        $scope.dataWarn = {
          'used': '650',
          'total': '1000'
        };
-       $scope.titleWarn = '';
-       $scope.unitsWarn = 'GB';
+       $scope.centerUnitsWarn = 'GB';
+       $scope.centerLabelWarn = 'used';
        $scope.thresholdErrorWarn = '90';
        $scope.thresholdWarningWarn = '60';
-       $scope.labelWarn = undefined;
 
        $scope.dataDynamic = {
          'used': '550',
          'total': '1000'
        };
-       $scope.titleDynamic = '';
-       $scope.unitsDynamic = 'GB';
-       $scope.thresholdErrorDynamic = '90';
-       $scope.thresholdWarningDynamic = '60';
-       $scope.labelDyanmic = 'used';
+       $scope.chartLayoutDynamic = 'right';
+       $scope.centerUnitsDynamic = 'MB';
+       $scope.centerLabelDynamic = "percent";
+       $scope.labelUnitsDynamic = 'MB';
+       $scope.thresholdErrorDynamic = 90;
+       $scope.thresholdWarningDynamic = 60;
 
        $scope.thresholdChanged = function(threshold) {
           $scope.threshLabel = threshold;
@@ -6876,14 +6961,9 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 
        $interval(function () {
          $scope.dataDynamic.used = Number($scope.dataDynamic.used) + 40;
+
          if ($scope.dataDynamic.used > 1000) {
            $scope.dataDynamic.used = 10;
-         }
-
-         if ($scope.dataDynamic.used < 500) {
-           $scope.labelDynamic = 'used';
-         } else {
-           $scope.labelDynamic = 'percent';
          }
        }, 1000);
 
@@ -6893,58 +6973,62 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
        };
        $scope.unitsNoThresh = 'GB';
 
-       $scope.ChartErr = {};
+       $scope.dataUsed = {
+         'used': '350',
+         'total': '1000'
+       };
+       $scope.centerUnitsUsed = 'GB';
+       $scope.centerLabelUsed = 'used';
+       $scope.labelLabelUsed = 'available';
+       $scope.thresholdErrorUsed = '90';
+       $scope.thresholdWarningUsed = 60;
 
-      $scope.title1 = 'RAM Usage';
-      $scope.units1 = 'MB';
-      $scope.data1 = {
-        'dataAvailable': true,
-        'used': '8',
-        'total': '24'
-      };
+       $scope.dataAvail = {
+         'used': '350',
+         'total': '1000'
+       };
+       $scope.centerUnitsAvail = 'GB';
+       $scope.centerLabelAvail = 'available';
+       $scope.thresholdErrorAvail = '90';
+       $scope.thresholdWarningAvail = '60';
 
-      $scope.title2      = 'Memory';
-      $scope.units2      = 'GB';
-      $scope.data2 = {
-        'dataAvailable': true,
-        'used': '25',
-        'total': '100'
-      };
+       $scope.dataPct = {
+         'used': '350',
+         'total': '1000'
+       };
+       $scope.centerLabelPct = 'percent';
+       $scope.labelUnitsPct = 'GB';
+       $scope.thresholdErrorPct = '90';
+       $scope.thresholdWarningPct = '60';
 
-      $scope.title3 = 'CPU Usage';
-      $scope.units3 = 'MHz';
-      $scope.data3 = {
-        'dataAvailable': true,
-        'used': '420',
-        'total': '500'
-      };
+       $scope.dataNone = {
+         'used': '350',
+         'total': '1000'
+       };
+       $scope.centerUnitsNone = 'GB';
+       $scope.centerLabelNone = 'none';
+       $scope.thresholdErrorNone = '90';
+       $scope.thresholdWarningNone = '60';
 
-      $scope.title4 = 'Disk Usage';
-      $scope.units4 = 'TB';
-      $scope.data4 = {
-        'dataAvailable': true,
-        'used': '350',
-        'total': '500'
-      };
+       $scope.customData = {
+         'dataAvailable': true,
+         'used': '670',
+         'total': '1000'
+       };
 
-      $scope.title5 = 'Disk I/O';
-      $scope.units5 = 'I/Ops';
-      $scope.data5 = {
-        'dataAvailable': true,
-        'used': '450',
-        'total': '500'
-      };
+       $scope.customConfig = {
+         'legend': { 'show': false },
+         'tooltipFn': function (d) {
+           return '<span class="donut-tooltip-pf"style="white-space: nowrap;"> Custom ' +
+                    d[0].value + ' ' + d[0].name +
+                  '</span>';
+         },
+         'onClickFn': function (d, i) {
+           alert("You Clicked On The Donut!");
+         }
+       };
 
-      $interval(function () {
-        $scope.data5.used = Number($scope.data5.used) + 40;
-        if ($scope.data5.used > 500) {
-          $scope.data5.used = 10;
-        }
-      }, 1000);
-
-      $scope.footer1 = '<strong>500 TB</strong> Total';
-      $scope.footer2 = '<strong>450 of 500</strong> Total';
-
+       $scope.customChartHeight = 170;
      });
    </file>
  </example>
@@ -6952,214 +7036,121 @@ angular.module('patternfly.charts').component('pfUtilizationBarChart', {
 
 angular.module('patternfly.charts').component('pfUtilizationDonutChart', {
   bindings: {
-    chartData: '<',
-    chartTitle: '<?',
-    chartFooter: '<?',
-    units: '<',
-    thresholdError: '<?',
-    thresholdWarning: '<?',
-    footerLabelFormat: '@?',
-    layout: '<?',
-    onThreshholdChange: '&?',
     centerLabel: '<?',
-    centerLabelOnly: '<?'
-    //centerLabelFn: '&?'
-
-
-    //chartData: '<',
-    //config: '<',
-    //centerLabel: '<?',
-    //chartHeight: '<?',
-    //chartTitle: '<',
-    //chartFooter: '<',
-    //units: '<?'
-    //thresholdError: '<?',
-    //thresholdWarning: '<?',
-    //footerLabelFormat: '@?',
-    //layout: '=?'
-
-
-    //data: '<',
-    //chartHeight: '<?',
-    //centerLabel: '<?',
-    //onThresholdChange: '&'
-
-    //chartData: '<',
-    //config: '<',
-    //centerLabel: '<?',
-    //donutConfig: '<',
-    //sparklineConfig: '<',
-    //sparklineChartHeight: '<?',
-    //showSparklineXAxis: '<?',
-    //showSparklineYAxis: '<?'
-
-    //chartData: '=',
-    //chartTitle: '=',
-    //chartFooter: '=',
-    //units: '=',
-    //thresholdError: '=?',
-    //thresholdWarning: '=?',
-    //footerLabelFormat: '@?',
-    //layout: '=?'
+    centerUnits: '<',
+    centerUnitsOnly: '<?',
+    chartData: '<',
+    chartLayout: '<?',
+    chartSize: '<?',
+    config: '<?',
+    labelTitle: '<?',
+    labelLabel: '<?',
+    labelUnits: '<?',
+    onThresholdChange: '&?',
+    thresholdError: '<?',
+    thresholdWarning: '<?'
   },
 
   templateUrl: 'charts/utilization-donut/utilization-donut-chart.html',
-  controller: ["$scope", "$timeout", function ($scope, $timeout) {
+  controller: ["$scope", function ($scope) {
     'use strict';
-    var ctrl = this, prevChartData, prevLayout;
+    var ctrl = this;
 
     ctrl.$id = $scope.$id;
-    ctrl.chartDataTotal = null;
-    ctrl.chartDataUsed = null;
-    ctrl.chartDataAvailable = null;
 
-    //ctrl.custLayout = {
-    //  'type': 'inline'
-    //};
-
-    ctrl.config = {
-      chartId: '_' + ctrl.$id,
-      units: ctrl.units
-      /*thresholds: {
-        warning: ctrl.thresholdWarning || null,
-        error: ctrl.thresholdError || null
-      }*//*,
-      centerLabelFn: function () {
-        eval('console.log(ctrl.chartData)');
-        ctrl.chartDataTotal = ctrl.chartData.total;
-        ctrl.chartDataUsed = ctrl.chartData.used;
-        ctrl.chartDataAvailable = ctrl.chartData.available;
-
-        if (ctrl.centerLabelOnly === true) {
-          return ctrl.chartData.used + ' ' + ctrl.units;
-        }
-      }*/
-      /*,centerLabelFn: function () {
-        eval('console.log(ctrl.chartData)');
-        //return ctrl.chartData.available + ' ' + ctrl.units;
-        return ctrl.chartData.used + ' ' + ctrl.units;
-      }*/
+    ctrl.passThresholdChange = function (threshold) {
+      if (angular.isFunction(ctrl.onThresholdChange)) {
+        ctrl.onThresholdChange({ threshold: threshold });
+      }
     };
 
-    /*if (ctrl.centerLabelOnly === true) {
-      ctrl.config.centerLabelFn = function () {
-        return ctrl.chartData.used + ' ' + ctrl.units;
-      };
-    }*/
+    ctrl.updateConfig = function () {
+      ctrl.chartConfig = ctrl.chartConfig || { chartId: '_' + ctrl.$id };
+      ctrl.chartConfig = angular.merge(ctrl.chartConfig, ctrl.config || {});
+    };
 
-    /*if (angular.isFunction(ctrl.centerLabelFn)) {
-      ctrl.config.centerLabelFn = function () {
-        return ctrl.centerLabelFn.call(ctrl.chartData);
-      };
-    }*/
+    ctrl.updateThresholds = function () {
+      ctrl.chartConfig.thresholds = ctrl.chartConfig.thresholds || {};
 
-    ctrl.$onChanges = function (changesObj) {
-      if (changesObj.thresholdWarning || changesObj.thresholdError) {
-        ctrl.config.thresholds = {
-          warning: ctrl.thresholdWarning || null,
-          error: ctrl.thresholdError || null
+      if (ctrl.thresholdWarning) {
+        ctrl.chartConfig.thresholds.warning = ctrl.thresholdWarning;
+      }
+
+      if (ctrl.thresholdWarning) {
+        ctrl.chartConfig.thresholds.error = ctrl.thresholdError;
+      }
+    };
+
+    ctrl.updateChartSize = function () {
+      ctrl.chartConfig.size = ctrl.chartConfig.size || {};
+
+      if (ctrl.chartSize) {
+        ctrl.chartConfig.size.width = ctrl.chartConfig.size.height = ctrl.chartSize;
+      }
+    };
+
+    ctrl.updateUnits = function () {
+      if (ctrl.labelLabel === 'percent' || ctrl.centerLabel === 'percent') {
+        ctrl.labelUnits = ctrl.labelUnits || '';
+        ctrl.centerUnits = ctrl.centerUnits || '';
+      } else {
+        ctrl.labelUnits = ctrl.labelUnits || ctrl.centerUnits || '';
+        ctrl.centerUnits = ctrl.centerUnits || ctrl.labelUnits || '';
+      }
+      ctrl.chartConfig.units = ctrl.centerUnits;
+    };
+
+    ctrl.updateTitle = function () {
+      ctrl.labelTitle = ctrl.labelTitle || null;
+    };
+
+    ctrl.updateLabels = function () {
+      ctrl.labelLabel = ctrl.labelLabel || '';
+      ctrl.centerLabel = ctrl.centerLabel || '';
+    };
+
+    ctrl.updateCenterUnits = function () {
+      if (ctrl.centerUnitsOnly === true && ctrl.centerLabel !== 'none') {
+        ctrl.chartConfig.centerLabelFn = function () {
+          var unitValue;
+
+          switch (ctrl.centerLabel) {
+          case 'available':
+            unitValue = ctrl.chartData.available + ctrl.centerUnits || '';
+            break;
+          case 'percent':
+            unitValue = ctrl.chartData.percent + '%';
+            break;
+          default:
+            unitValue = ctrl.chartData.used + ctrl.centerUnits || '';
+            break;
+          }
+
+          return unitValue;
         };
       }
-
-      if (changesObj.chartData && ctrl.chartData) {
-        ctrl.chartDataTotal = ctrl.chartData.total;
-        ctrl.chartDataUsed = ctrl.chartData.used;
-        ctrl.chartDataAvailable = ctrl.chartData.available;
-        //ctrl.updateAll();
-        //eval("console.log('inside=', ctrl.chartData, changesObj.chartData, changesObj.chartData.total)");
-      }
-
-      if (changesObj.centerLabelOnly && ctrl.centerLabelOnly === true) {
-        ctrl.config.centerLabelFn = function () {
-          ctrl.chartDataTotal = ctrl.chartData.total;
-          ctrl.chartDataUsed = ctrl.chartData.used;
-          ctrl.chartDataAvailable = ctrl.chartData.available;
-          return ctrl.chartData.used + ' ' + ctrl.units;
-        };
-      }
-
-      //eval("console.log('outside=', ctrl.chartData, changesObj)");
-    };
-
-    /*ctrl.$doCheck = function (a,b,c) {
-      // do a deep compare on chartData and layout
-      //if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
-        //ctrl.updateAll();
-      //}
-      eval("console.log('DOCHECK outside=', ctrl.chartData)");
-    };*/
-
-    /*ctrl.custConfig = {
-      'chartId': '_' + ctrl.$id,
-      'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'}
-    };*/
-
-    //ctrl.custData = {
-      //'used': '350',
-      //'total': '1000'
-    //};
-
-    //eval('console.log("data= "+ctrl.custData)');
-
-    /*
-    ctrl.custData = {
-      'dataAvailable': true,
-      'used': '670',
-      'total': '1000'
-    };
-
-    ctrl.custConfig = {
-      //'chartId': 'custChart',
-      'units': 'MHz',
-      'thresholds':{'warning':'60','error':'90'},
-      "legend":{"show":true},
-      'tooltipFn': function (d) {
-        return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
-          d[0].value + ' ' + d[0].name +
-          '</span>';
-      },
-      'centerLabelFn': function () {
-        return ctrl.custData.available + " GB";
-      },
-      'onClickFn': function (d, i) {
-        alert("You Clicked On The Donut!");
-      }
-    };*/
-
-    //ctrl.custLabel = "percent";
-
-    /*ctrl.updateAll = function () {
-      // Need to deep watch changes
-      prevChartData = angular.copy(ctrl.chartData);
-      prevLayout = angular.copy(ctrl.layout);
-
-      //Calculate the percentage used
-      ctrl.chartData.percentageUsed = Math.round(100 * (ctrl.chartData.used / ctrl.chartData.total));
-
-      if (ctrl.thresholdError || ctrl.thresholdWarning) {
-        ctrl.isError = (ctrl.chartData.percentageUsed >= ctrl.thresholdError);
-        ctrl.isWarn  = (ctrl.chartData.percentageUsed >= ctrl.thresholdWarning && ctrl.chartData.percentageUsed < ctrl.thresholdError);
-        ctrl.isOk    = (ctrl.chartData.percentageUsed < ctrl.thresholdWarning);
-      }
-
-      //Animate in the chart load.
-      ctrl.animate = true;
-      $timeout(function () {
-        ctrl.animate = false;
-      }, 0);
     };
 
     ctrl.$onChanges = function (changesObj) {
-      ctrl.updateAll();
-    };
-
-    ctrl.$doCheck = function () {
-      // do a deep compare on chartData and layout
-      if (!angular.equals(ctrl.chartData, prevChartData) || !angular.equals(ctrl.layout, prevLayout)) {
-        ctrl.updateAll();
+      if (changesObj) {
+        ctrl.updateConfig();
       }
-    };*/
+
+      if (ctrl.thresholdWarning || changesObj.thresholdError) {
+        ctrl.updateThresholds();
+      }
+
+      if (changesObj.chartSize) {
+        ctrl.updateChartSize();
+      }
+
+      if (changesObj) {
+        ctrl.updateTitle();
+        ctrl.updateUnits();
+        ctrl.updateLabels();
+        ctrl.updateCenterUnits();
+      }
+    };
   }]
 });
 ;/**
@@ -17784,51 +17775,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
 
 
   $templateCache.put('charts/utilization-donut/utilization-donut-chart.html',
-    "<!--<div class=\"utilization-donut-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">--><div class=utilization-donut-chart-pf ng-class=\"{'utilization-donut-chart-pf-block': !$ctrl.layout || $ctrl.layout.type === 'regular', 'utilization-donut-chart-pf-inline': $ctrl.layout && $ctrl.layout.type === 'inline'}\"><!--<span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">--><span class=utilization-donut-chart-pf-item><pf-donut-pct-chart ng-if=$ctrl.chartData id=$ctrl.id config=$ctrl.config data=$ctrl.chartData center-label=$ctrl.centerLabel center-label-only=$ctrl.centerLabelOnly on-threshold-change=$ctrl.onThresholdChange()></pf-donut-pct-chart><pf-empty-chart ng-if=!$ctrl.chartData></pf-empty-chart></span> <span ng-if=\"$ctrl.chartData.dataAvailable !== false\" class=utilization-donut-chart-pf-item>{{$ctrl.chartTitle}} <span ng-if=$ctrl.chartData ng-switch=$ctrl.centerLabel><span ng-switch-when=\"'none'\"></span> <span ng-switch-when=\"'available'\">{{$ctrl.chartDataAvailable}} {{$ctrl.units}} available</span> <span ng-switch-when=\"'percent'\">{{$ctrl.chartDataUsed}}&#37; used</span> <span ng-switch-default=\"\">{{$ctrl.chartDataUsed}} {{$ctrl.units}} of {{$ctrl.chartDataTotal}} {{$ctrl.units}} used</span></span></span><!--{{$ctrl.chartTitle}}<br/>\n" +
-    "    {{$ctrl.chartDataTotal}}<br/>\n" +
-    "    {{$ctrl.chartDataUsed}}<br/>\n" +
-    "    {{$ctrl.chartDataAvailable}}--><!--</span>--><!--<span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">\n" +
-    "    INLINE\n" +
-    "    <pf-donut-pct-chart config=\"$ctrl.custConfig\" data=\"$ctrl.chartData\" center-label=\"$ctrl.custLabel\"></pf-donut-pct-chart>\n" +
-    "    <label>Label Goes Here</label>\n" +
-    "  </span>--><!--<span>\n" +
-    "    <pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" ></pf-empty-chart>\n" +
-    "  </span>--><!--<div class=\"utilization-bar-chart-pf\"  ng-class=\"{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}\">\n" +
-    "  <span ng-if=\"!$ctrl.layout || $ctrl.layout.type === 'regular'\">\n" +
-    "    <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\">{{$ctrl.chartTitle}}</div>\n" +
-    "    <div class=\"progress progress-label-top-right\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +
-    "      <div class=\"progress-bar\" aria-valuenow=\"{{$ctrl.chartData.percentageUsed}}\" aria-valuemin=\"0\" aria-valuemax=\"100\" ng-class=\"{'animate': animate,\n" +
-    "           'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\"\n" +
-    "           ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\" >\n" +
-    "        <span ng-if=\"$ctrl.chartFooter\" ng-bind-html=\"$ctrl.chartFooter\"></span>\n" +
-    "        <span ng-if=\"!$ctrl.chartFooter && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\"><strong>{{$ctrl.chartData.used}} of {{$ctrl.chartData.total}} {{$ctrl.units}}</strong> Used</span>\n" +
-    "        <span ng-if=\"!$ctrl.chartFooter && $ctrl.footerLabelFormat === 'percent'\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>\n" +
-    "      </div>\n" +
-    "      <div class=\"progress-bar progress-bar-remaining\"\n" +
-    "           ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\">\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </span>\n" +
-    "  <span ng-if=\"$ctrl.layout && $ctrl.layout.type === 'inline'\">\n" +
-    "    <div class=\"progress-container progress-description-left progress-label-right\"\n" +
-    "         ng-style=\"{'padding-left':$ctrl.layout.titleLabelWidth, 'padding-right':$ctrl.layout.footerLabelWidth}\">\n" +
-    "      <div ng-if=\"$ctrl.chartTitle\" class=\"progress-description\"  ng-style=\"{'max-width':$ctrl.layout.titleLabelWidth}\">{{$ctrl.chartTitle}}</div>\n" +
-    "      <div class=\"progress\" ng-if=\"$ctrl.chartData.dataAvailable !== false\">\n" +
-    "        <div class=\"progress-bar\" aria-valuenow=\"{{$ctrl.chartData.percentageUsed}}\" aria-valuemin=\"0\" aria-valuemax=\"100\"\n" +
-    "             ng-class=\"{'animate': $ctrl.animate, 'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}\"\n" +
-    "             ng-style=\"{width:$ctrl.chartData.percentageUsed + '%'}\" uib-tooltip=\"{{$ctrl.chartData.percentageUsed}}% Used\">\n" +
-    "          <span ng-if=\"$ctrl.chartFooter\" ng-bind-html=\"$ctrl.chartFooter\"></span>\n" +
-    "          <span ng-if=\"(!$ctrl.chartFooter) && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.used}} {{$ctrl.units}}</strong> Used</span>\n" +
-    "          <span ng-if=\"(!$ctrl.chartFooter) && $ctrl.footerLabelFormat === 'percent'\" ng-style=\"{'max-width':$ctrl.layout.footerLabelWidth}\"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>\n" +
-    "        </div>\n" +
-    "        <div class=\"progress-bar progress-bar-remaining\"\n" +
-    "             ng-style=\"{width:(100 - $ctrl.chartData.percentageUsed) + '%'}\" uib-tooltip=\"{{100 - $ctrl.chartData.percentageUsed}}% Available\">\n" +
-    "        </div>\n" +
-    "      </div>\n" +
-    "    </div>\n" +
-    "  </span>\n" +
-    "  <pf-empty-chart ng-if=\"$ctrl.chartData.dataAvailable === false\" chart-height=\"45\"></pf-empty-chart>\n" +
-    "</div>--></div>"
+    "<div class=utilization-donut-chart-pf><span ng-class=\"{'utilization-donut-chart-pf-block': $ctrl.chartLayout !== 'left' && $ctrl.chartLayout !== 'right', 'utilization-donut-chart-pf-left': $ctrl.chartLayout === 'left', 'utilization-donut-chart-pf-right': $ctrl.chartLayout === 'right'}\"><span class=utilization-donut-chart-pf-chart><pf-donut-pct-chart ng-if=$ctrl.chartData id=$ctrl.id config=$ctrl.chartConfig data=$ctrl.chartData center-label=$ctrl.centerLabel chart-height=$ctrl.chartSize on-threshold-change=$ctrl.passThresholdChange(threshold)></pf-donut-pct-chart><pf-empty-chart ng-if=!$ctrl.chartData chart-height=$ctrl.chartSize></pf-empty-chart></span> <span ng-if=\"$ctrl.chartData.dataAvailable !== false\" class=utilization-donut-chart-pf-label>{{$ctrl.labelTitle}} <span ng-if=$ctrl.chartData ng-switch=$ctrl.labelLabel><span ng-switch-when=none></span> <span ng-switch-when=available>{{$ctrl.doit}} {{$ctrl.chartData.available}} {{$ctrl.labelUnits}} available</span> <span ng-switch-when=percent>{{$ctrl.chartData.percent}}&#37; used</span> <span ng-switch-default=\"\">{{$ctrl.chartData.used}} {{$ctrl.labelUnits}} of {{$ctrl.chartData.total}} {{$ctrl.labelUnits}} used</span></span></span></span></div>"
   );
 
 

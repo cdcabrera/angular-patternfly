@@ -1,68 +1,17 @@
-<!--<div class="utilization-donut-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">-->
-<div class="utilization-donut-chart-pf" ng-class="{'utilization-donut-chart-pf-block': !$ctrl.layout || $ctrl.layout.type === 'regular', 'utilization-donut-chart-pf-inline': $ctrl.layout && $ctrl.layout.type === 'inline'}">
-  <!--<span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">-->
-    <span class="utilization-donut-chart-pf-item">
-      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.config" data="$ctrl.chartData" center-label="$ctrl.centerLabel" center-label-only="$ctrl.centerLabelOnly" on-threshold-change="$ctrl.onThresholdChange()"></pf-donut-pct-chart>
-      <pf-empty-chart ng-if="!$ctrl.chartData" ></pf-empty-chart>
+<div class="utilization-donut-chart-pf">
+  <span ng-class="{'utilization-donut-chart-pf-block': $ctrl.chartLayout !== 'left' && $ctrl.chartLayout !== 'right', 'utilization-donut-chart-pf-left': $ctrl.chartLayout === 'left', 'utilization-donut-chart-pf-right': $ctrl.chartLayout === 'right'}">
+    <span class="utilization-donut-chart-pf-chart">
+      <pf-donut-pct-chart ng-if="$ctrl.chartData" id="$ctrl.id" config="$ctrl.chartConfig" data="$ctrl.chartData" center-label="$ctrl.centerLabel" chart-height="$ctrl.chartSize" on-threshold-change="$ctrl.passThresholdChange(threshold)"></pf-donut-pct-chart>
+      <pf-empty-chart ng-if="!$ctrl.chartData" chart-height="$ctrl.chartSize"></pf-empty-chart>
     </span>
-    <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-item">
-      {{$ctrl.chartTitle}}
-      <span ng-if="$ctrl.chartData" ng-switch="$ctrl.centerLabel">
-        <span ng-switch-when="'none'"></span>
-        <span ng-switch-when="'available'">{{$ctrl.chartDataAvailable}} {{$ctrl.units}} available</span>
-        <span ng-switch-when="'percent'">{{$ctrl.chartDataUsed}}&#37; used</span>
-        <span ng-switch-default="">{{$ctrl.chartDataUsed}} {{$ctrl.units}} of {{$ctrl.chartDataTotal}} {{$ctrl.units}} used</span>
+    <span ng-if="$ctrl.chartData.dataAvailable !== false" class="utilization-donut-chart-pf-label">
+      {{$ctrl.labelTitle}}
+      <span ng-if="$ctrl.chartData" ng-switch="$ctrl.labelLabel">
+        <span ng-switch-when="none"></span>
+        <span ng-switch-when="available">{{$ctrl.doit}} {{$ctrl.chartData.available}} {{$ctrl.labelUnits}} available</span>
+        <span ng-switch-when="percent">{{$ctrl.chartData.percent}}&#37; used</span>
+        <span ng-switch-default="">{{$ctrl.chartData.used}} {{$ctrl.labelUnits}} of {{$ctrl.chartData.total}} {{$ctrl.labelUnits}} used</span>
       </span>
     </span>
-    <!--{{$ctrl.chartTitle}}<br/>
-    {{$ctrl.chartDataTotal}}<br/>
-    {{$ctrl.chartDataUsed}}<br/>
-    {{$ctrl.chartDataAvailable}}-->
-  <!--</span>-->
-  <!--<span ng-if="$ctrl.layout && $ctrl.layout.type === 'inline'">
-    INLINE
-    <pf-donut-pct-chart config="$ctrl.custConfig" data="$ctrl.chartData" center-label="$ctrl.custLabel"></pf-donut-pct-chart>
-    <label>Label Goes Here</label>
-  </span>-->
-  <!--<span>
-    <pf-empty-chart ng-if="$ctrl.chartData.dataAvailable === false" ></pf-empty-chart>
-  </span>-->
-
-
-<!--<div class="utilization-bar-chart-pf"  ng-class="{'data-unavailable-pf': $ctrl.chartData.dataAvailable === false}">
-  <span ng-if="!$ctrl.layout || $ctrl.layout.type === 'regular'">
-    <div ng-if="$ctrl.chartTitle" class="progress-description">{{$ctrl.chartTitle}}</div>
-    <div class="progress progress-label-top-right" ng-if="$ctrl.chartData.dataAvailable !== false">
-      <div class="progress-bar" aria-valuenow="{{$ctrl.chartData.percentageUsed}}" aria-valuemin="0" aria-valuemax="100" ng-class="{'animate': animate,
-           'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}"
-           ng-style="{width:$ctrl.chartData.percentageUsed + '%'}" uib-tooltip="{{$ctrl.chartData.percentageUsed}}% Used" >
-        <span ng-if="$ctrl.chartFooter" ng-bind-html="$ctrl.chartFooter"></span>
-        <span ng-if="!$ctrl.chartFooter && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')"><strong>{{$ctrl.chartData.used}} of {{$ctrl.chartData.total}} {{$ctrl.units}}</strong> Used</span>
-        <span ng-if="!$ctrl.chartFooter && $ctrl.footerLabelFormat === 'percent'"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>
-      </div>
-      <div class="progress-bar progress-bar-remaining"
-           ng-style="{width:(100 - $ctrl.chartData.percentageUsed) + '%'}" uib-tooltip="{{100 - $ctrl.chartData.percentageUsed}}% Available">
-      </div>
-    </div>
   </span>
-  <span ng-if="$ctrl.layout && $ctrl.layout.type === 'inline'">
-    <div class="progress-container progress-description-left progress-label-right"
-         ng-style="{'padding-left':$ctrl.layout.titleLabelWidth, 'padding-right':$ctrl.layout.footerLabelWidth}">
-      <div ng-if="$ctrl.chartTitle" class="progress-description"  ng-style="{'max-width':$ctrl.layout.titleLabelWidth}">{{$ctrl.chartTitle}}</div>
-      <div class="progress" ng-if="$ctrl.chartData.dataAvailable !== false">
-        <div class="progress-bar" aria-valuenow="{{$ctrl.chartData.percentageUsed}}" aria-valuemin="0" aria-valuemax="100"
-             ng-class="{'animate': $ctrl.animate, 'progress-bar-success': $ctrl.isOk, 'progress-bar-danger': $ctrl.isError, 'progress-bar-warning': $ctrl.isWarn}"
-             ng-style="{width:$ctrl.chartData.percentageUsed + '%'}" uib-tooltip="{{$ctrl.chartData.percentageUsed}}% Used">
-          <span ng-if="$ctrl.chartFooter" ng-bind-html="$ctrl.chartFooter"></span>
-          <span ng-if="(!$ctrl.chartFooter) && (!$ctrl.footerLabelFormat || $ctrl.footerLabelFormat === 'actual')" ng-style="{'max-width':$ctrl.layout.footerLabelWidth}"><strong>{{$ctrl.chartData.used}} {{$ctrl.units}}</strong> Used</span>
-          <span ng-if="(!$ctrl.chartFooter) && $ctrl.footerLabelFormat === 'percent'" ng-style="{'max-width':$ctrl.layout.footerLabelWidth}"><strong>{{$ctrl.chartData.percentageUsed}}%</strong> Used</span>
-        </div>
-        <div class="progress-bar progress-bar-remaining"
-             ng-style="{width:(100 - $ctrl.chartData.percentageUsed) + '%'}" uib-tooltip="{{100 - $ctrl.chartData.percentageUsed}}% Available">
-        </div>
-      </div>
-    </div>
-  </span>
-  <pf-empty-chart ng-if="$ctrl.chartData.dataAvailable === false" chart-height="45"></pf-empty-chart>
-</div>-->
 </div>

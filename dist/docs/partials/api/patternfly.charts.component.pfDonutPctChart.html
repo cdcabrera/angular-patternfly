@@ -1,4 +1,4 @@
-<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/donut/examples/donut-pct-chart.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/033d877/src/charts/donut/examples/donut-pct-chart.js#L292" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfDonutPctChart</code>
+<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/donut/examples/donut-pct-chart.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/7d25833/src/charts/donut/examples/donut-pct-chart.js#L350" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfDonutPctChart</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">patternfly.charts</code>
 </span>
 </div>
@@ -33,6 +33,15 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
 <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
 <li>.centerLabelFn  - user defined function to customize the text of the center label (optional)
 <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
+<li>.label          - object containing properties for external label (optional)
+  <ul>
+      <li>.orientation - string with possible values: &#39;left&#39;, &#39;right&#39; (optional)
+      <li>.title       - string representing a prefix or title (optional)
+      <li>.label       - similar in to the center-label parameter, which specifies the contents of the donut&#39;s external label, values: &#39;used&#39;, &#39;available&#39;, &#39;percent&#39;, &#39;none&#39; (optional)
+      <li>.units       - unit label for values, ex: &#39;MHz&#39;,&#39;GB&#39;, etc.. (optional)
+      <li>.labelFn     - function to customize the text of the external label (optional)
+  </ul>
+</li>
 </ul></div></td></tr><tr><td>data</td><td><a href="" class="label type-hint type-hint-object">object</a></td><td><div class="patternfly-charts-component-page patternfly-charts-component-pfdonutpctchart-page"><p>the Total and Used values for the donut chart.  Available is calculated as Total - Used.<br/></p>
 <ul style='list-style-type: none'>
 <li>.used          - number representing the amount used
@@ -64,7 +73,9 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
       <div class="row">
         <div class="col-md-3 text-center">
           <label>Error Threshold</label>
-          <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
+          <p class="text-right">
+            <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
+          </p>
         </div>
         <div class="col-md-3 text-center"">
           <label>Warning Threshold</label>
@@ -72,9 +83,11 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
         </div>
         <div class="col-md-3 text-center"">
           <label class="camelcase">{{threshLabel}} Threshold</label>
-          <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
-                              on-threshold-change="thresholdChanged(threshold)">
-          </pf-donut-pct-chart>
+          <p class="text-left">
+            <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
+                                on-threshold-change="thresholdChanged(threshold)">
+            </pf-donut-pct-chart>
+          </p>
         </div>
         <div class="col-md-3 text-center"">
           <label>No Threshold</label>
@@ -151,7 +164,20 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configErr = {
       'chartId': 'chartErr',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'}
+      'thresholds':{'warning':'60','error':'90'},
+      'label': {
+        'orientation': 'left',
+        'title': 'Example',
+        'label': 'used',
+        'units': 'GB'
+      },
+      'size': {
+        'height': 85,
+        'width': 85
+      },
+      'centerLabelFn': function () {
+        return $scope.dataErr.used + "GB";
+      }
     };
 
     $scope.dataErr = {
@@ -164,7 +190,18 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configWarn = {
       'chartId': 'chartWarn',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'}
+      'thresholds':{'warning':'60','error':'90'},
+      'label': {
+        'label': 'used',
+        'units': 'GB'
+      },
+      'size': {
+        'height': 115,
+        'width': 115
+      },
+      'centerLabelFn': function () {
+        return $scope.dataWarn.used + "GB";
+      }
     };
 
     $scope.dataWarn = {
@@ -175,7 +212,20 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configDynamic = {
       'chartId': 'chartOk',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'}
+      'thresholds':{'warning':'60','error':'90'},
+      'label': {
+        'orientation': 'right',
+        'labelFn': function () {
+          return "<strong>Custom</strong><br/>" + $scope.dataDynamic.used + " GB used";
+        }
+      },
+      'size': {
+        'height': 85,
+        'width': 85
+      },
+      'centerLabelFn': function () {
+        return $scope.dataDynamic.percent + "%";
+      }
     };
 
     $scope.dataDynamic = {
@@ -205,6 +255,14 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configNoThresh = {
       'chartId': 'chartNoThresh',
       'units': 'GB',
+      'label': {
+        'label': 'available',
+        'units': 'GB'
+      },
+      'size': {
+        'height': 115,
+        'width': 115
+      }
     };
 
     $scope.dataNoThresh = {

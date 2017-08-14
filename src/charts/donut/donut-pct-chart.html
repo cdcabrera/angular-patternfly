@@ -1,5 +1,22 @@
-<span>
-  <pf-c3-chart ng-if="$ctrl.data.dataAvailable !== false" id="{{$ctrl.donutChartId}}" config="$ctrl.config"
-               get-chart-callback="$ctrl.setChart"></pf-c3-chart>
-  <pf-empty-chart ng-if="$ctrl.data.dataAvailable === false" chart-height="$ctrl.chartHeight"></pf-empty-chart>
+<span class="pct-donut-chart-pf">
+  <span ng-class="{'pct-donut-chart-pf-block': $ctrl.config.label.orientation !== 'left' && $ctrl.config.label.orientation !== 'right', 'pct-donut-chart-pf-left': $ctrl.config.label.orientation === 'left', 'pct-donut-chart-pf-right': $ctrl.config.label.orientation === 'right'}">
+    <span class="pct-donut-chart-pf-chart">
+      <pf-c3-chart ng-if="$ctrl.data.dataAvailable !== false" id="{{$ctrl.donutChartId}}" config="$ctrl.config"
+                   get-chart-callback="$ctrl.setChart"></pf-c3-chart>
+      <pf-empty-chart ng-if="$ctrl.data.dataAvailable === false" chart-height="$ctrl.chartHeight"></pf-empty-chart>
+    </span>
+    <span ng-if="$ctrl.data.dataAvailable !== false && $ctrl.config.label && !$ctrl.config.label.labelFn()" class="pct-donut-chart-pf-label">
+      {{$ctrl.config.label.title}}
+      <span ng-if="$ctrl.data" ng-switch="$ctrl.config.label.label">
+        <span ng-switch-when="none"></span>
+        <span ng-switch-when="available">{{$ctrl.data.available}} {{$ctrl.config.label.units}} available</span>
+        <span ng-switch-when="percent">{{$ctrl.data.percent}}&#37; used</span>
+        <span ng-switch-default="">{{$ctrl.data.used}} {{$ctrl.config.label.units}} of {{$ctrl.data.total}} {{$ctrl.config.label.units}} used</span>
+      </span>
+    </span>
+    <span ng-if="$ctrl.data.dataAvailable !== false && $ctrl.config.label && $ctrl.config.label.labelFn()" class="pct-donut-chart-pf-label"
+          ng-bind-html="$ctrl.config.label.labelFn()">
+    </span>
+  </span>
 </span>
+

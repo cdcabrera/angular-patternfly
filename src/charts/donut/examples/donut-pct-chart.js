@@ -26,6 +26,15 @@
  * <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
  * <li>.centerLabelFn  - user defined function to customize the text of the center label (optional)
  * <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
+ * <li>.label          - object containing properties for external label (optional)
+ *   <ul>
+ *       <li>.orientation - string with possible values: 'left', 'right' (optional)
+ *       <li>.title       - string representing a prefix or title (optional)
+ *       <li>.label       - similar in to the center-label parameter, which specifies the contents of the donut's external label, values: 'used', 'available', 'percent', 'none' (optional)
+ *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional)
+ *       <li>.labelFn     - function to customize the text of the external label (optional)
+ *   </ul>
+ * </li>
  * </ul>
  *
  * @param {object} data the Total and Used values for the donut chart.  Available is calculated as Total - Used.<br/>
@@ -62,7 +71,9 @@
          <div class="row">
            <div class="col-md-3 text-center">
              <label>Error Threshold</label>
-             <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
+             <p class="text-right">
+               <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
+             </p>
            </div>
            <div class="col-md-3 text-center"">
              <label>Warning Threshold</label>
@@ -70,9 +81,11 @@
            </div>
            <div class="col-md-3 text-center"">
              <label class="camelcase">{{threshLabel}} Threshold</label>
-             <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
-                                 on-threshold-change="thresholdChanged(threshold)">
-             </pf-donut-pct-chart>
+             <p class="text-left">
+               <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
+                                   on-threshold-change="thresholdChanged(threshold)">
+               </pf-donut-pct-chart>
+             </p>
            </div>
            <div class="col-md-3 text-center"">
              <label>No Threshold</label>
@@ -147,7 +160,20 @@
        $scope.configErr = {
          'chartId': 'chartErr',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'}
+         'thresholds':{'warning':'60','error':'90'},
+         'label': {
+           'orientation': 'left',
+           'title': 'Example',
+           'label': 'used',
+           'units': 'GB'
+         },
+         'size': {
+           'height': 85,
+           'width': 85
+         },
+         'centerLabelFn': function () {
+           return $scope.dataErr.used + "GB";
+         }
        };
 
        $scope.dataErr = {
@@ -160,7 +186,18 @@
        $scope.configWarn = {
          'chartId': 'chartWarn',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'}
+         'thresholds':{'warning':'60','error':'90'},
+         'label': {
+           'label': 'used',
+           'units': 'GB'
+         },
+         'size': {
+           'height': 115,
+           'width': 115
+         },
+         'centerLabelFn': function () {
+           return $scope.dataWarn.used + "GB";
+         }
        };
 
        $scope.dataWarn = {
@@ -171,7 +208,20 @@
        $scope.configDynamic = {
          'chartId': 'chartOk',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'}
+         'thresholds':{'warning':'60','error':'90'},
+         'label': {
+           'orientation': 'right',
+           'labelFn': function () {
+             return "<strong>Custom</strong><br/>" + $scope.dataDynamic.used + " GB used";
+           }
+         },
+         'size': {
+           'height': 85,
+           'width': 85
+         },
+         'centerLabelFn': function () {
+           return $scope.dataDynamic.percent + "%";
+         }
        };
 
        $scope.dataDynamic = {
@@ -201,6 +251,14 @@
        $scope.configNoThresh = {
          'chartId': 'chartNoThresh',
          'units': 'GB',
+         'label': {
+           'label': 'available',
+           'units': 'GB'
+         },
+         'size': {
+           'height': 115,
+           'width': 115
+         }
        };
 
        $scope.dataNoThresh = {
@@ -289,3 +347,4 @@
    </file>
  </example>
  */
+

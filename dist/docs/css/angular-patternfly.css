@@ -84,23 +84,21 @@ pf-c3-chart {
   vertical-align: middle;
   width: 100%;
 }
-.utilization-donut-chart-pf {
-  display: inline-block;
-}
-.utilization-donut-chart-pf pf-c3-chart {
-  display: inline-block;
-}
-.utilization-donut-chart-pf .utilization-donut-chart-pf-block .utilization-donut-chart-pf-label {
+.pct-donut-chart-pf .pct-donut-chart-pf-block .pct-donut-chart-pf-label {
   display: block;
 }
-.utilization-donut-chart-pf .utilization-donut-chart-pf-left,
-.utilization-donut-chart-pf .utilization-donut-chart-pf-right {
+.pct-donut-chart-pf .pct-donut-chart-pf-left,
+.pct-donut-chart-pf .pct-donut-chart-pf-right {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.utilization-donut-chart-pf .utilization-donut-chart-pf-left {
+.pct-donut-chart-pf .pct-donut-chart-pf-left pf-c3-chart,
+.pct-donut-chart-pf .pct-donut-chart-pf-right pf-c3-chart {
+  display: inline-block;
+}
+.pct-donut-chart-pf .pct-donut-chart-pf-left {
   flex-direction: row-reverse;
 }
 .utilization-trend-chart-pf .donut-chart-pf {

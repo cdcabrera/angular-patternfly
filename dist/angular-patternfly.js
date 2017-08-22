@@ -4013,13 +4013,13 @@ angular.module('patternfly.card').component('pfCard', {
  * <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
  * <li>.centerLabelFn  - user defined function to customize the text of the center label (optional)
  * <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
- * <li>.label          - object containing properties for external label (optional)
+ * <li>.labelConfig    - object containing properties for external label (optional) - default: undefined
  *   <ul>
- *       <li>.orientation - string with possible values: 'left', 'right' (optional)
- *       <li>.title       - string representing a prefix or title (optional)
- *       <li>.label       - similar in to the center-label parameter, which specifies the contents of the donut's external label, values: 'used', 'available', 'percent', 'none' (optional)
- *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional)
- *       <li>.labelFn     - function to customize the text of the external label (optional)
+ *       <li>.orientation - string with possible values: 'left', 'right' (optional) - default: 'center'
+ *       <li>.title       - string representing a prefix or title (optional) - default: empty string
+ *       <li>.label       - the wording format to display, possible values: 'used', 'available', 'percent', 'none' (optional) - default: 'used'
+ *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional) - default: empty string
+ *       <li>.labelFn     - function to customize the text of the external label (optional) - default: undefined
  *   </ul>
  * </li>
  * </ul>
@@ -4062,11 +4062,11 @@ angular.module('patternfly.card').component('pfCard', {
                <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
              </p>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label>Warning Threshold</label>
              <pf-donut-pct-chart config="configWarn" data="dataWarn"></pf-donut-pct-chart>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label class="camelcase">{{threshLabel}} Threshold</label>
              <p class="text-left">
                <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
@@ -4074,7 +4074,7 @@ angular.module('patternfly.card').component('pfCard', {
                </pf-donut-pct-chart>
              </p>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label>No Threshold</label>
              <pf-donut-pct-chart config="configNoThresh" data="dataNoThresh"></pf-donut-pct-chart>
            </div>
@@ -4120,7 +4120,7 @@ angular.module('patternfly.card').component('pfCard', {
          </div>
          <div class="row">
            <div class="col-md-3">
-             <form role="form"">
+             <form role="form">
                <div class="form-group">
                  <label class="checkbox-inline">
                    <input type="checkbox" ng-model="custData.dataAvailable">Data Available</input>
@@ -4148,7 +4148,7 @@ angular.module('patternfly.card').component('pfCard', {
          'chartId': 'chartErr',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'orientation': 'left',
            'title': 'Example',
            'label': 'used',
@@ -4174,7 +4174,7 @@ angular.module('patternfly.card').component('pfCard', {
          'chartId': 'chartWarn',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'label': 'used',
            'units': 'GB'
          },
@@ -4196,7 +4196,7 @@ angular.module('patternfly.card').component('pfCard', {
          'chartId': 'chartOk',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'orientation': 'right',
            'labelFn': function () {
              return "<strong>Custom</strong><br/>" + $scope.dataDynamic.used + " GB used";
@@ -4238,7 +4238,7 @@ angular.module('patternfly.card').component('pfCard', {
        $scope.configNoThresh = {
          'chartId': 'chartNoThresh',
          'units': 'GB',
-         'label': {
+         'labelConfig': {
            'label': 'available',
            'units': 'GB'
          },
@@ -17377,7 +17377,7 @@ angular.module('patternfly.wizard').component('pfWizard', {
 
 
   $templateCache.put('charts/donut/donut-pct-chart.html',
-    "<span class=pct-donut-chart-pf><span ng-class=\"{'pct-donut-chart-pf-block': $ctrl.config.label.orientation !== 'left' && $ctrl.config.label.orientation !== 'right', 'pct-donut-chart-pf-left': $ctrl.config.label.orientation === 'left', 'pct-donut-chart-pf-right': $ctrl.config.label.orientation === 'right'}\"><span class=pct-donut-chart-pf-chart><pf-c3-chart ng-if=\"$ctrl.data.dataAvailable !== false\" id={{$ctrl.donutChartId}} config=$ctrl.config get-chart-callback=$ctrl.setChart></pf-c3-chart><pf-empty-chart ng-if=\"$ctrl.data.dataAvailable === false\" chart-height=$ctrl.chartHeight></pf-empty-chart></span> <span ng-if=\"$ctrl.data.dataAvailable !== false && $ctrl.config.label && !$ctrl.config.label.labelFn()\" class=pct-donut-chart-pf-label>{{$ctrl.config.label.title}} <span ng-if=$ctrl.data ng-switch=$ctrl.config.label.label><span ng-switch-when=none></span> <span ng-switch-when=available>{{$ctrl.data.available}} {{$ctrl.config.label.units}} available</span> <span ng-switch-when=percent>{{$ctrl.data.percent}}&#37; used</span> <span ng-switch-default=\"\">{{$ctrl.data.used}} {{$ctrl.config.label.units}} of {{$ctrl.data.total}} {{$ctrl.config.label.units}} used</span></span></span> <span ng-if=\"$ctrl.data.dataAvailable !== false && $ctrl.config.label && $ctrl.config.label.labelFn()\" class=pct-donut-chart-pf-label ng-bind-html=$ctrl.config.label.labelFn()></span></span></span>"
+    "<span class=pct-donut-chart-pf><span ng-class=\"{'pct-donut-chart-pf-block': $ctrl.config.labelConfig.orientation !== 'left' && $ctrl.config.labelConfig.orientation !== 'right', 'pct-donut-chart-pf-left': $ctrl.config.labelConfig.orientation === 'left', 'pct-donut-chart-pf-right': $ctrl.config.labelConfig.orientation === 'right'}\"><span class=pct-donut-chart-pf-chart><pf-c3-chart ng-if=\"$ctrl.data.dataAvailable !== false\" id={{$ctrl.donutChartId}} config=$ctrl.config get-chart-callback=$ctrl.setChart></pf-c3-chart><pf-empty-chart ng-if=\"$ctrl.data.dataAvailable === false\" chart-height=$ctrl.chartHeight></pf-empty-chart></span> <span ng-if=\"$ctrl.data.dataAvailable !== false && $ctrl.config.labelConfig && !$ctrl.config.labelConfig.labelFn()\" class=pct-donut-chart-pf-label>{{$ctrl.config.labelConfig.title}} <span ng-if=$ctrl.data ng-switch=$ctrl.config.labelConfig.label><span ng-switch-when=none></span> <span ng-switch-when=available>{{$ctrl.data.available}} {{$ctrl.config.labelConfig.units}} available</span> <span ng-switch-when=percent>{{$ctrl.data.percent}}&#37; used</span> <span ng-switch-default=\"\">{{$ctrl.data.used}} {{$ctrl.config.labelConfig.units}} of {{$ctrl.data.total}} {{$ctrl.config.labelConfig.units}} used</span></span></span> <span ng-if=\"$ctrl.data.dataAvailable !== false && $ctrl.config.labelConfig && $ctrl.config.labelConfig.labelFn()\" class=pct-donut-chart-pf-label ng-bind-html=$ctrl.config.labelConfig.labelFn()></span></span></span>"
   );
 
 

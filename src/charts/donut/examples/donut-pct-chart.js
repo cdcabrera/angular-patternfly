@@ -26,13 +26,13 @@
  * <li>.tooltipFn(d)   - user defined function to customize the tool tip (optional)
  * <li>.centerLabelFn  - user defined function to customize the text of the center label (optional)
  * <li>.onClickFn(d,i) - user defined function to handle when donut arc is clicked upon.
- * <li>.label          - object containing properties for external label (optional)
+ * <li>.labelConfig    - object containing properties for external label (optional) - default: undefined
  *   <ul>
- *       <li>.orientation - string with possible values: 'left', 'right' (optional)
- *       <li>.title       - string representing a prefix or title (optional)
- *       <li>.label       - similar in to the center-label parameter, which specifies the contents of the donut's external label, values: 'used', 'available', 'percent', 'none' (optional)
- *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional)
- *       <li>.labelFn     - function to customize the text of the external label (optional)
+ *       <li>.orientation - string with possible values: 'left', 'right' (optional) - default: 'center'
+ *       <li>.title       - string representing a prefix or title (optional) - default: empty string
+ *       <li>.label       - the wording format to display, possible values: 'used', 'available', 'percent', 'none' (optional) - default: 'used'
+ *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional) - default: empty string
+ *       <li>.labelFn     - function to customize the text of the external label (optional) - default: undefined
  *   </ul>
  * </li>
  * </ul>
@@ -75,11 +75,11 @@
                <pf-donut-pct-chart config="configErr" data="dataErr" chart="chartErr"></pf-donut-pct-chart>
              </p>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label>Warning Threshold</label>
              <pf-donut-pct-chart config="configWarn" data="dataWarn"></pf-donut-pct-chart>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label class="camelcase">{{threshLabel}} Threshold</label>
              <p class="text-left">
                <pf-donut-pct-chart config="configDynamic" data="dataDynamic" center-label="labelDynamic"
@@ -87,7 +87,7 @@
                </pf-donut-pct-chart>
              </p>
            </div>
-           <div class="col-md-3 text-center"">
+           <div class="col-md-3 text-center">
              <label>No Threshold</label>
              <pf-donut-pct-chart config="configNoThresh" data="dataNoThresh"></pf-donut-pct-chart>
            </div>
@@ -133,7 +133,7 @@
          </div>
          <div class="row">
            <div class="col-md-3">
-             <form role="form"">
+             <form role="form">
                <div class="form-group">
                  <label class="checkbox-inline">
                    <input type="checkbox" ng-model="custData.dataAvailable">Data Available</input>
@@ -161,7 +161,7 @@
          'chartId': 'chartErr',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'orientation': 'left',
            'title': 'Example',
            'label': 'used',
@@ -187,7 +187,7 @@
          'chartId': 'chartWarn',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'label': 'used',
            'units': 'GB'
          },
@@ -209,7 +209,7 @@
          'chartId': 'chartOk',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'label': {
+         'labelConfig': {
            'orientation': 'right',
            'labelFn': function () {
              return "<strong>Custom</strong><br/>" + $scope.dataDynamic.used + " GB used";
@@ -251,7 +251,7 @@
        $scope.configNoThresh = {
          'chartId': 'chartNoThresh',
          'units': 'GB',
-         'label': {
+         'labelConfig': {
            'label': 'available',
            'units': 'GB'
          },

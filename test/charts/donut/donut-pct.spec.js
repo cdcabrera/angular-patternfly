@@ -17,7 +17,7 @@ describe('Directive: pfDonutPctChart', function() {
     $scope.config = {
       'units': 'MHz',
       'thresholds':{'warning':'75.0','error':'90.00'},
-      'label': {
+      'labelConfig': {
         'orientation': 'right',
         'title': 'Lorem Ipsum',
         'label': 'available',

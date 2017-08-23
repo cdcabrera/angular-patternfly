@@ -1,5 +1,5 @@
 <span class="pct-donut-chart-pf">
-  <span ng-class="{'pct-donut-chart-pf-block': $ctrl.config.labelConfig.orientation !== 'left' && $ctrl.config.labelConfig.orientation !== 'right', 'pct-donut-chart-pf-left': $ctrl.config.labelConfig.orientation === 'left', 'pct-donut-chart-pf-right': $ctrl.config.labelConfig.orientation === 'right'}">
+  <span ng-class="{'pct-donut-chart-pf-left': $ctrl.config.labelConfig.orientation === 'left', 'pct-donut-chart-pf-right': $ctrl.config.labelConfig.orientation === 'right'}">
     <span class="pct-donut-chart-pf-chart">
       <pf-c3-chart ng-if="$ctrl.data.dataAvailable !== false" id="{{$ctrl.donutChartId}}" config="$ctrl.config"
                    get-chart-callback="$ctrl.setChart"></pf-c3-chart>

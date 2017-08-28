@@ -32,7 +32,7 @@
  *       <li>.title       - string representing a prefix or title (optional) - default: empty string
  *       <li>.label       - the wording format to display, possible values: 'used', 'available', 'percent', 'none' (optional) - default: 'used'
  *       <li>.units       - unit label for values, ex: 'MHz','GB', etc.. (optional) - default: empty string
- *       <li>.labelFn     - function to customize the text of the external label (optional) - default: undefined
+ *       <li>.labelFn     - function to customize the text of the external label. This callback returns no data. Updated display data can be accessed through the passed and updated parameter 'data'. (optional) - default: undefined
  *   </ul>
  * </li>
  * </ul>
@@ -40,6 +40,7 @@
  * @param {object} data the Total and Used values for the donut chart.  Available is calculated as Total - Used.<br/>
  * <ul style='list-style-type: none'>
  * <li>.used          - number representing the amount used
+ * <li>.percent       - number representing the percentage used
  * <li>.total         - number representing the total amount
  * <li>.dataAvailable - Flag if there is data available - default: true
  * </ul>

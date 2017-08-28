@@ -7,12 +7,14 @@ angular.module('patternfly.charts').component('pfDonutPctChart', {
     onThresholdChange: '&'
   },
   templateUrl: 'charts/donut/donut-pct-chart.html',
-  controller: function (pfUtils, $element, $timeout) {
+  controller: function (pfUtils, $scope) {
     'use strict';
     var ctrl = this, prevData;
+    ctrl.$id = $scope.$id;
 
     ctrl.$onInit = function () {
-      ctrl.donutChartId = 'donutPctChart';
+      ctrl.donutChartId = 'donutPctChart' + ctrl.$id;
+
       if (ctrl.config.chartId) {
         ctrl.donutChartId = ctrl.config.chartId + ctrl.donutChartId;
       }

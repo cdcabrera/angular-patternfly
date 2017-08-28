@@ -101,20 +101,45 @@
 
          <div class="row">
            <div class="col-md-3 text-center">
-             <pf-donut-pct-chart config="usedConfig" data="usedData" center-label="usedLabel"></pf-donut-pct-chart>
              <label>center-label = 'used'</label>
+             <pf-donut-pct-chart config="usedConfig" data="usedData" center-label="usedLabel"></pf-donut-pct-chart>
            </div>
            <div class="col-md-3 text-center">
-             <pf-donut-pct-chart config="availConfig" data="availData" center-label="availLabel"></pf-donut-pct-chart>
              <label>center-label = 'available'</label>
+             <pf-donut-pct-chart config="availConfig" data="availData" center-label="availLabel"></pf-donut-pct-chart>
            </div>
            <div class="col-md-3 text-center">
-             <pf-donut-pct-chart config="pctConfig" data="pctData" center-label="pctLabel"></pf-donut-pct-chart>
              <label>center-label = 'percent'</label>
+             <pf-donut-pct-chart config="pctConfig" data="pctData" center-label="pctLabel"></pf-donut-pct-chart>
            </div>
            <div class="col-md-3 text-center">
+             <label>center-label = 'none'</label>
              <pf-donut-pct-chart config="noneConfig" data="noneData" center-label="noLabel"></pf-donut-pct-chart>
-             <label>center-label = ' none'</label>
+           </div>
+         </div>
+
+         <div class="row">
+           <div class="col-md-12">
+             <hr>
+           </div>
+         </div>
+
+         <div class="row">
+           <div class="col-md-4 text-center">
+             <label>Sized with orientation left 'configLabel'</label>
+             <p class="text-right">
+               <pf-donut-pct-chart config="configOrientationLeft" data="dataOrientationLeft"></pf-donut-pct-chart>
+             </p>
+           </div>
+           <div class="col-md-4 text-center">
+             <label>Sized with 'configLabel'</label>
+             <pf-donut-pct-chart config="configOrientationCenter" data="dataOrientationCenter"></pf-donut-pct-chart>
+           </div>
+           <div class="col-md-4 text-center">
+             <label>Sized with orientation right 'configLabel'</label>
+             <p class="text-left">
+               <pf-donut-pct-chart config="configOrientationRight" data="dataOrientationRight"></pf-donut-pct-chart>
+             </p>
            </div>
          </div>
 
@@ -157,20 +182,11 @@
 
    <file name="script.js">
      angular.module( 'patternfly.charts' ).controller( 'ChartCtrl', function( $scope, $interval ) {
+       // start demo 1st row
        $scope.configErr = {
          'chartId': 'chartErr',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'labelConfig': {
-           'orientation': 'left',
-           'title': 'Example',
-           'label': 'used',
-           'units': 'GB'
-         },
-         'size': {
-           'height': 85,
-           'width': 85
-         },
          'centerLabelFn': function () {
            return $scope.dataErr.used + "GB";
          }
@@ -187,14 +203,6 @@
          'chartId': 'chartWarn',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'labelConfig': {
-           'label': 'used',
-           'units': 'GB'
-         },
-         'size': {
-           'height': 115,
-           'width': 115
-         },
          'centerLabelFn': function () {
            return $scope.dataWarn.used + "GB";
          }
@@ -209,16 +217,6 @@
          'chartId': 'chartOk',
          'units': 'GB',
          'thresholds':{'warning':'60','error':'90'},
-         'labelConfig': {
-           'orientation': 'right',
-           'labelFn': function () {
-             return "<strong>Custom</strong><br/>" + $scope.dataDynamic.used + " GB used";
-           }
-         },
-         'size': {
-           'height': 85,
-           'width': 85
-         },
          'centerLabelFn': function () {
            return $scope.dataDynamic.percent + "%";
          }
@@ -250,15 +248,7 @@
 
        $scope.configNoThresh = {
          'chartId': 'chartNoThresh',
-         'units': 'GB',
-         'labelConfig': {
-           'label': 'available',
-           'units': 'GB'
-         },
-         'size': {
-           'height': 115,
-           'width': 115
-         }
+         'units': 'GB'
        };
 
        $scope.dataNoThresh = {
@@ -266,6 +256,7 @@
          'total': '1000'
        };
 
+       //start demo 2nd row
        $scope.usedConfig = {
          'chartId': 'usedChart',
          'units': 'GB',
@@ -318,6 +309,76 @@
 
        $scope.noLabel = "none";
 
+       //start demo 3rd row
+       $scope.configOrientationLeft = {
+         'units': 'GB',
+         'thresholds':{'warning':'60','error':'90'},
+         'labelConfig': {
+           'orientation': 'left',
+           'labelFn': function () {
+             return "<strong>Lorem ipsum</strong><br/>" + $scope.dataOrientationLeft.used + " GB used";
+           }
+         },
+         'size': {
+           'height': 85,
+           'width': 85
+         },
+         'centerLabelFn': function () {
+           return $scope.dataOrientationLeft.used + "GB";
+         }
+       };
+
+       $scope.dataOrientationLeft = {
+         'used': '350',
+         'total': '1000'
+       };
+
+       $scope.configOrientationCenter = {
+         'units': 'GB',
+         'thresholds':{'warning':'60','error':'90'},
+         'labelConfig': {
+           'label': 'available',
+           'units': 'GB',
+           'title': 'Lorem ipsum,'
+         },
+         'size': {
+           'height': 115,
+           'width': 115
+         },
+         'centerLabelFn': function () {
+           return $scope.dataOrientationCenter.used + "GB";
+         }
+       };
+
+       $scope.dataOrientationCenter = {
+          'used': '350',
+          'total': '1000'
+        };
+
+       $scope.configOrientationRight = {
+         'units': 'GB',
+         'thresholds':{'warning':'60','error':'90'},
+         'labelConfig': {
+           'orientation': 'right',
+           'labelFn': function () {
+             return "<strong>Lorem ipsum</strong><br/>" + $scope.dataOrientationRight.percent + "% used";
+           }
+         },
+         'size': {
+           'height': 85,
+           'width': 85
+         },
+         'centerLabelFn': function () {
+           return $scope.dataOrientationRight.percent + "%";
+         }
+       };
+
+       $scope.dataOrientationRight = {
+         'used': '350',
+         'total': '1000'
+       };
+
+       //start demo 4th row
        $scope.custConfig = {
          'chartId': 'custChart',
          'units': 'MHz',

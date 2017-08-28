@@ -4176,10 +4176,7 @@ angular.module('patternfly.card').component('pfCard', {
        $scope.configErr = {
          'chartId': 'chartErr',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'},
-         'centerLabelFn': function () {
-           return $scope.dataErr.used + "GB";
-         }
+         'thresholds':{'warning':'60','error':'90'}
        };
 
        $scope.dataErr = {
@@ -4192,10 +4189,7 @@ angular.module('patternfly.card').component('pfCard', {
        $scope.configWarn = {
          'chartId': 'chartWarn',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'},
-         'centerLabelFn': function () {
-           return $scope.dataWarn.used + "GB";
-         }
+         'thresholds':{'warning':'60','error':'90'}
        };
 
        $scope.dataWarn = {
@@ -4206,10 +4200,7 @@ angular.module('patternfly.card').component('pfCard', {
        $scope.configDynamic = {
          'chartId': 'chartOk',
          'units': 'GB',
-         'thresholds':{'warning':'60','error':'90'},
-         'centerLabelFn': function () {
-           return $scope.dataDynamic.percent + "%";
-         }
+         'thresholds':{'warning':'60','error':'90'}
        };
 
        $scope.dataDynamic = {

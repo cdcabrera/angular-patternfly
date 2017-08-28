@@ -1,4 +1,4 @@
-<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/donut/examples/donut-pct-chart.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/c514361/src/charts/donut/examples/donut-pct-chart.js#L412" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfDonutPctChart</code>
+<a href="https://github.com/patternfly/angular-patternfly/edit/master/src/charts/donut/examples/donut-pct-chart.js" class="improve-docs"><i class="icon-edit"> </i>Improve this doc</a><a href="https://github.com/patternfly/angular-patternfly/blob/cf4c16c/src/charts/donut/examples/donut-pct-chart.js#L403" class="view-source"><i class="icon-eye-open"> </i>View source</a><h1><code ng:non-bindable="">pfDonutPctChart</code>
 <div><span class="hint">directive in module <code ng:non-bindable="">patternfly.charts</code>
 </span>
 </div>
@@ -191,10 +191,7 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configErr = {
       'chartId': 'chartErr',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'},
-      'centerLabelFn': function () {
-        return $scope.dataErr.used + "GB";
-      }
+      'thresholds':{'warning':'60','error':'90'}
     };
 
     $scope.dataErr = {
@@ -207,10 +204,7 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configWarn = {
       'chartId': 'chartWarn',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'},
-      'centerLabelFn': function () {
-        return $scope.dataWarn.used + "GB";
-      }
+      'thresholds':{'warning':'60','error':'90'}
     };
 
     $scope.dataWarn = {
@@ -221,10 +215,7 @@ See <a href="http://c3js.org/reference.html">http://c3js.org/reference.html</a> 
     $scope.configDynamic = {
       'chartId': 'chartOk',
       'units': 'GB',
-      'thresholds':{'warning':'60','error':'90'},
-      'centerLabelFn': function () {
-        return $scope.dataDynamic.percent + "%";
-      }
+      'thresholds':{'warning':'60','error':'90'}
     };
 
     $scope.dataDynamic = {

@@ -255,3 +255,4 @@ angular.module( 'patternfly.notification' ).component('pfToastNotification', {
     };
   }
 });
+

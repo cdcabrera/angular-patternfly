@@ -225,3 +225,4 @@ angular.module('patternfly.notification').component('pfToastNotificationList', {
     };
   }
 });
+

@@ -11356,6 +11356,7 @@ angular.module('patternfly.notification').component('pfToastNotificationList', {
     };
   }
 });
+
 ;/**
  * @ngdoc directive
  * @name patternfly.notification.component:pfToastNotification
@@ -11613,6 +11614,7 @@ angular.module( 'patternfly.notification' ).component('pfToastNotification', {
     };
   }]
 });
+
 ;/**
  * @ngdoc directive
  * @name patternfly.pagination.component:pfPagination

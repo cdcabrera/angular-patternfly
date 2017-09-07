@@ -239,3 +239,4 @@ describe('Component: pfToastNotification', function () {
     expect($scope.menuData).toBeUndefined();
   });
 });
+

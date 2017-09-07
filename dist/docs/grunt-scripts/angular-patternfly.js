@@ -11138,8 +11138,8 @@ angular.module('patternfly.notification').component('pfNotificationList', {
  * @param {Array} notifications The list of current notifications to display. Each notification should have the following (see pfToastNotification):
  *           <ul style='list-style-type: none'>
  *             <li>.type - (String) The type of the notification message. Allowed value is one of these: 'success','info','danger', 'warning'
- *             <li>.header - (String) The header to display for the notification (optional)
- *             <li>.message - (String) The main text message of the notification.
+ *             <li>.header - (String) The header to display for the notification, accepts HTML content. (optional)
+ *             <li>.message - (String) The main text message of the notification. Accepts HTML content.
  *             <li>.actionTitle Text to show for the primary action, optional.
  *             <li>.actionCallback (function(this notification)) Function to invoke when primary action is selected, optional
  *             <li>.menuActions  Optional list of actions to place in the kebab menu:<br/>
@@ -11249,7 +11249,7 @@ angular.module('patternfly.notification').component('pfNotificationList', {
 
        $scope.type = $scope.types[0];
        $scope.header = 'Default header.';
-       $scope.message = 'Default notification message.';
+       $scope.message = '<em>Default notification message.</em>';
        $scope.showClose = false;
        $scope.persistent = false;
 
@@ -11364,8 +11364,8 @@ angular.module('patternfly.notification').component('pfToastNotificationList', {
  * @scope
  *
  * @param {string} notificationType The type of the notification message. Allowed value is one of these: 'success','info','danger', 'warning'
- * @param {string} header The header text of the notification.
- * @param {string} message The main text message of the notification.
+ * @param {string} header The header text of the notification. Accepts HTML content.
+ * @param {string} message The main text message of the notification. Accepts HTML content.
  * @param {boolean} showClose Flag to show the close button, default: true
  * @param {function} closeCallback (function(data)) Function to invoke when close action is selected, optional
  * @param {string} actionTitle Text to show for the primary action, optional.
@@ -11466,7 +11466,7 @@ angular.module('patternfly.notification').component('pfToastNotificationList', {
        $scope.showClose = false;
 
        $scope.header = 'Default Header.';
-       $scope.message = 'Default Message.';
+       $scope.message = '<em>Default Message.</em>';
        $scope.primaryAction = '';
 
        $scope.updateType = function(item) {

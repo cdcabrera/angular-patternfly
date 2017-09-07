@@ -27,7 +27,7 @@ describe('Component: pfToastNotification', function () {
     $scope.message = "Test Toast Notification Message";
     $scope.showClose = showClose;
     $scope.primaryAction = primaryAction;
-    $scope.data = data
+    $scope.data = data;
 
     $scope.closeData = undefined;
     $scope.closeCallback = function (data) {
@@ -104,7 +104,7 @@ describe('Component: pfToastNotification', function () {
     header = element.find('.toast-pf span strong');
     expect(header.length).toBe(1);
     expect(header.text()).toBe("Test Header");
-    message = element.find('.toast-pf span');
+    message = element.find('.toast-pf > span');
     expect(message.length).toBe(2);
     expect(angular.element(message[1]).text()).toContain("Test Toast Notification Message");
   });
@@ -113,7 +113,7 @@ describe('Component: pfToastNotification', function () {
     setupHTML ("info", "", false, '', false);
     var header = element.find('.toast-pf span strong');
     expect(header.length).toBe(0);
-    var message = element.find('.toast-pf span');
+    var message = element.find('.toast-pf > span');
     expect(message.length).toBe(2);
     expect(angular.element(message[1]).text()).toContain("Test Toast Notification Message");
   });
@@ -239,3 +239,4 @@ describe('Component: pfToastNotification', function () {
     expect($scope.menuData).toBeUndefined();
   });
 });
+

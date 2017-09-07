@@ -193,7 +193,7 @@
            $scope.handleAction,
            ($scope.showMenu ? $scope.menuActions : undefined)
          );
-       }
+       };
 
        $scope.notifications = Notifications.data;
      });
@@ -225,3 +225,4 @@ angular.module('patternfly.notification').component('pfToastNotificationList', {
     };
   }
 });
+

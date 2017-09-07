@@ -190,7 +190,7 @@ angular.module( 'patternfly.notification' ).component('pfToastNotification', {
     'data': '=?'
   },
   templateUrl: 'notification/toast-notification.html',
-  controller: function () {
+  controller: function ($sce) {
     'use strict';
     var ctrl = this,
       _showClose;
@@ -248,6 +248,10 @@ angular.module( 'patternfly.notification' ).component('pfToastNotification', {
       if (changesObj.menuActions) {
         ctrl.updateShowClose();
       }
+    };
+
+    ctrl.trustAsHtml = function (html) {
+      return $sce.trustAsHtml(html);
     };
   }
 });

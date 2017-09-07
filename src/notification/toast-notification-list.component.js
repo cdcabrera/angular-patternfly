@@ -193,7 +193,7 @@
            $scope.handleAction,
            ($scope.showMenu ? $scope.menuActions : undefined)
          );
-       }
+       };
 
        $scope.notifications = Notifications.data;
      });

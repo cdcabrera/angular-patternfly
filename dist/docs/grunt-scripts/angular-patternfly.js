@@ -11249,7 +11249,7 @@ angular.module('patternfly.notification').component('pfNotificationList', {
 
        $scope.type = $scope.types[0];
        $scope.header = 'Default header.';
-       $scope.message = '<em>Default notification message.</em>';
+       $scope.message = 'Default <strong>notification</strong> message.';
        $scope.showClose = false;
        $scope.persistent = false;
 

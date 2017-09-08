@@ -107,7 +107,7 @@
        $scope.showClose = false;
 
        $scope.header = 'Default Header.';
-       $scope.message = '<em>Default Message.</em>';
+       $scope.message = 'Default <strong>notification</strong> message.';
        $scope.primaryAction = '';
 
        $scope.updateType = function(item) {

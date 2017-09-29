@@ -447,7 +447,7 @@ angular.module('patternfly.autofocus', []).directive('pfFocused', ["$timeout", f
     controller: ["$scope", "dragging", "$element", "$document", function CanvasController ($scope, dragging, $element, $document) {
       var controller = this;
 
-      $scope.chart = new pfCanvas.ChartViewModel($scope.chartDataModel);
+      $scope.chart = new pfCanvas.ChartViewModel(controller.chartDataModel);
       $scope.chartViewModel = $scope.chart;
       //
       // Reference to the document and jQuery, can be overridden for testting.

@@ -37,7 +37,7 @@
                        'mobile-nav-item-pf': item.isMobileItem && $ctrl.showMobileSecondary,
                        'mobile-secondary-item-pf': item.isMobileItem && $ctrl.showMobileTertiary}"
             ng-mouseenter="$ctrl.handlePrimaryHover(item)" ng-mouseleave="$ctrl.handlePrimaryUnHover(item)">
-          <a ng-click="$ctrl.handlePrimaryClick(item, $event)">
+          <a href="" ng-click="$ctrl.handlePrimaryClick(item, $event)" ng-keyup="$ctrl.handlePrimaryEnter(item, $event)">
             <span class="{{item.iconClass}}" ng-if="item.iconClass" ng-class="{hidden: $ctrl.hiddenIcons}"
               uib-tooltip="{{item.title}}"
               tooltip-append-to-body="true"

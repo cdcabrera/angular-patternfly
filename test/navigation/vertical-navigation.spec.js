@@ -270,7 +270,7 @@ describe('Component:  pfVerticalNavigation', function () {
     var collapseToggle = angular.element(secondaryMenu[0]).find('.secondary-collapse-toggle-pf');
     expect(collapseToggle.length).toBe(1);
 
-    eventFire(collapseToggle[0], 'click');
+    collapseToggle[0].click();
     $scope.$digest();
 
     collased = element.find('.collapsed-secondary-nav-pf');
@@ -288,7 +288,7 @@ describe('Component:  pfVerticalNavigation', function () {
     collapseToggle = angular.element(tertiaryMenu[0]).find('.tertiary-collapse-toggle-pf');
     expect(collapseToggle.length).toBe(1);
 
-    eventFire(collapseToggle[0], 'click');
+    collapseToggle[0].click();
     $scope.$digest();
 
     collased = element.find('.collapsed-tertiary-nav-pf');
@@ -330,7 +330,7 @@ describe('Component:  pfVerticalNavigation', function () {
     var navBarToggle = element.find('.navbar-header .navbar-toggle');
     expect(navBarToggle.length).toBe(1);
 
-    eventFire(navBarToggle[0], 'click');
+    navBarToggle[0].click();
     $scope.$digest();
 
     menu = element.find('.nav-pf-vertical');
@@ -375,13 +375,13 @@ describe('Component:  pfVerticalNavigation', function () {
     var primaryItems = element.find('.nav-pf-vertical > .list-group > .list-group-item > a');
     expect(primaryItems.length).toBe(6);
 
-    eventFire(primaryItems[0], 'click');
+    primaryItems[0].click();
     $scope.$digest();
 
     expect($scope.navigateItem).toBe($scope.navigationItems[0].title);
 
     // Clicking a non-final item
-    eventFire(primaryItems[2], 'click');
+    primaryItems[2].click();
     $scope.$digest();
 
     expect($scope.navigateItem).toBe($scope.navigationItems[2].children[0].children[0].title);
@@ -393,13 +393,13 @@ describe('Component:  pfVerticalNavigation', function () {
     var primaryItems = element.find('.nav-pf-vertical > .list-group > .list-group-item > a');
     expect(primaryItems.length).toBe(6);
 
-    eventFire(primaryItems[0], 'click');
+    primaryItems[0].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[0].title);
 
     // Clicking a non-final item
-    eventFire(primaryItems[2], 'click');
+    primaryItems[2].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[2].title);
@@ -418,7 +418,7 @@ describe('Component:  pfVerticalNavigation', function () {
     var activeTertiary =  element.find('.nav-pf-tertiary-nav > .list-group > .list-group-item.active');
     expect(activeTertiary.length).toBe(0);
 
-    eventFire(primaryItems[0], 'click');
+    primaryItems[0].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[0].title);
@@ -435,7 +435,7 @@ describe('Component:  pfVerticalNavigation', function () {
     expect($scope.navigateItem).toBe($scope.navigationItems[0].title);
 
     // Clicking a non-final item will set active items on sub menus
-    eventFire(primaryItems[2], 'click');
+    primaryItems[2].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[2].title);
@@ -460,7 +460,7 @@ describe('Component:  pfVerticalNavigation', function () {
     expect(secondaryItems.length).toBe(4);
 
     // Clicking a non-final item will set active items on self, parent, and first sub item
-    eventFire(secondaryItems[1], 'click');
+    secondaryItems[1].click();
     $scope.$digest();
 
     activePrimary =  element.find('.nav-pf-vertical > .list-group > .list-group-item.active');
@@ -475,7 +475,7 @@ describe('Component:  pfVerticalNavigation', function () {
     expect($scope.navigateItem).toBe($scope.navigationItems[2].children[1].children[0].title);
 
     // Clicking a final item will set active items on self and parent
-    eventFire(secondaryItems[3], 'click');
+    secondaryItems[3].click();
     $scope.$digest();
 
     activePrimary =  element.find('.nav-pf-vertical > .list-group > .list-group-item.active');
@@ -501,7 +501,7 @@ describe('Component:  pfVerticalNavigation', function () {
     expect(tertiaryItems.length).toBe(3);
 
     // Clicking a non-final item will set active items on self, parent, and first sub item
-    eventFire(tertiaryItems[1], 'click');
+    tertiaryItems[1].click();
     $scope.$digest();
 
     activePrimary =  element.find('.nav-pf-vertical > .list-group > .list-group-item.active');
@@ -516,7 +516,7 @@ describe('Component:  pfVerticalNavigation', function () {
     expect($scope.navigateItem).toBe($scope.navigationItems[2].children[2].children[1].title);
 
     // Clicking a final item will set active items on self and parent
-    eventFire(secondaryItems[3], 'click');
+    secondaryItems[3].click();
     $scope.$digest();
   });
 
@@ -550,7 +550,7 @@ describe('Component:  pfVerticalNavigation', function () {
     var activeTertiary =  element.find('.nav-pf-tertiary-nav > .list-group > .list-group-item.active');
     expect(activeTertiary.length).toBe(0);
 
-    eventFire(primaryItems[0], 'click');
+    primaryItems[0].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[0].title);
@@ -566,7 +566,7 @@ describe('Component:  pfVerticalNavigation', function () {
 
     expect($scope.navigateItem).toBe($scope.navigationItems[0].title);
 
-    eventFire(primaryItems[2], 'click');
+    primaryItems[2].click();
     $scope.$digest();
 
     expect($scope.clickItem).toBe($scope.navigationItems[2].title);

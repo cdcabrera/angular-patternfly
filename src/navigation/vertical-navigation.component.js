@@ -398,6 +398,14 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
       }
     };
 
+    ctrl.handlePrimaryEnter = function (item, keyEvent) {
+      if (item.children && item.children.length > 0 && keyEvent.which === 13) {
+        alert('I am an alert');
+        ctrl.handlePrimaryClick(item, keyEvent);
+        // ctrl.handlePrimaryHover(item);
+      }
+    };
+
     ctrl.handleSecondaryClick = function (primary, secondary, event) {
       if (ctrl.inMobileState) {
         if (secondary.children && secondary.children.length > 0) {

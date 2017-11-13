@@ -68,7 +68,7 @@
                              'is-hover': secondaryItem.isHover,
                              'mobile-nav-item-pf': secondaryItem.isMobileItem}"
                   ng-mouseenter="$ctrl.handleSecondaryHover(secondaryItem)" ng-mouseleave="$ctrl.handleSecondaryUnHover(secondaryItem)">
-                <a ng-click="$ctrl.handleSecondaryClick(item, secondaryItem, $event)">
+                <a href="" ng-click="$ctrl.handleSecondaryClick(item, secondaryItem, $event)">
                   <span class="list-group-item-value">{{secondaryItem.title}}</span>
                   <div ng-if="$ctrl.showBadges && secondaryItem.badges" class="badge-container-pf">
                     <div class="badge {{badge.badgeClass}}" ng-repeat="badge in secondaryItem.badges"
@@ -87,7 +87,7 @@
                   </div>
                   <ul class="list-group">
                     <li ng-repeat="tertiaryItem in secondaryItem.children" class="list-group-item" ng-class="{'active': tertiaryItem.isActive}">
-                      <a ng-click="$ctrl.handleTertiaryClick(item, secondaryItem, tertiaryItem, $event)">
+                      <a href="" ng-click="$ctrl.handleTertiaryClick(item, secondaryItem, tertiaryItem, $event)">
                         <span class="list-group-item-value">{{tertiaryItem.title}}</span>
                         <div ng-if="$ctrl.showBadges && tertiaryItem.badges" class="badge-container-pf">
                           <div class="badge {{badge.badgeClass}}" ng-repeat="badge in tertiaryItem.badges"

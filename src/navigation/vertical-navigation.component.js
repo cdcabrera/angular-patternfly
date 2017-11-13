@@ -400,9 +400,17 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
 
     ctrl.handlePrimaryEnter = function (item, keyEvent) {
       if (item.children && item.children.length > 0 && keyEvent.which === 13) {
-        alert('I am an alert');
-        ctrl.handlePrimaryClick(item, keyEvent);
-        // ctrl.handlePrimaryHover(item);
+        ctrl.handlePrimaryHover(item);
+      } if (item.children && item.children.length > 0 && item.isHover === true && keyEvent.which === 13) {
+        ctrl.handlePrimaryUnHover(item);
+      }
+    };
+
+    ctrl.handlePrimaryLeave = function (item, keyEvent) {
+      if (item.children && item.children.length > 0) {
+        ctrl.handlePrimaryUnHover(item);
+      } if (item.children && item.children.length > 0 && item.isHover === true && keyEvent.which === 13) {
+        ctrl.handlePrimaryUnHover(item);
       }
     };
 

@@ -371,6 +371,7 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
     ctrl.handleNavBarToggleClick = function () {
 
       if (ctrl.inMobileState) {
+
         // Toggle the mobile nav
         if (ctrl.showMobileNav) {
           ctrl.showMobileNav = false;
@@ -379,6 +380,7 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
           updateMobileMenu();
           ctrl.showMobileNav = true;
         }
+
       } else if (ctrl.navCollapsed) {
         expandMenu();
       } else {
@@ -386,8 +388,8 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
       }
     };
 
-    ctrl.handlePrimaryClick = function (item, event) {
-      if (ctrl.inMobileState) {
+    ctrl.handlePrimaryClick = function (event, item) {
+      /*if (ctrl.inMobileState) {
         if (item.children && item.children.length > 0) {
           updateMobileMenu(item);
         } else {
@@ -396,10 +398,46 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
         }
       } else {
         navigateToItem(item);
+      }*/
+
+      if (ctrl.inMobileState) {
+
+        if (item.children && item.children.length > 0) {
+          updateMobileMenu(item);
+        } else {
+          updateMobileMenu();
+          navigateToItem(item);
+        }
+
+      } else {
+
+        navigateToItem(item);
+
+        console.log(item.isHover);
+
+        if (item.isHover) {
+          ctrl.handlePrimaryUnHover(item);
+        } else {
+          ctrl.handlePrimaryHover(item);
+        }
+
+        /*if (openedItem !== undefined) {
+          ctrl.handlePrimaryUnHover(openedItem);
+          openedItem = undefined;
+        } else {
+          openedItem = item;
+        }*/
       }
     };
 
-    ctrl.handlePrimaryEnter = function (item, keyEvent) {
+    ctrl.handlePrimaryKeyUp = function (event, item) {
+
+      if (item.children && item.children.length > 0 && item.isHover === true && event.which === 27) {
+        ctrl.handlePrimaryUnHover(item);
+      }
+    };
+
+    /*ctrl.handlePrimaryEnter = function (item, keyEvent) {
       if (item.children && item.children.length > 0 && keyEvent.which === 13) {
 
         ctrl.handlePrimaryHover(item);
@@ -415,7 +453,7 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
         ctrl.handlePrimaryUnHover(item);
         openedItem = undefined;
       }
-    };
+    };*/
 
     ctrl.handleSecondaryEnter = function (item, keyEvent) {
       if (item.children && item.children.length > 0 && keyEvent.which === 13) {

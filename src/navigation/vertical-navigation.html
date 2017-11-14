@@ -37,7 +37,26 @@
                        'mobile-nav-item-pf': item.isMobileItem && $ctrl.showMobileSecondary,
                        'mobile-secondary-item-pf': item.isMobileItem && $ctrl.showMobileTertiary}"
             ng-mouseenter="$ctrl.handlePrimaryHover(item)" ng-mouseleave="$ctrl.handlePrimaryUnHover(item)">
-          <a href="" ng-click="$ctrl.handlePrimaryClick(item, $event)" ng-keyup="$ctrl.handlePrimaryEnter(item, $event)">
+          <a href="#0" ng-click="$ctrl.handlePrimaryClick($event, item);" ng-keyup="$ctrl.handlePrimaryKeyUp($event, item)">
+            <span class="{{item.iconClass}}" ng-if="item.iconClass" ng-class="{hidden: $ctrl.hiddenIcons}"
+                  uib-tooltip="{{item.title}}"
+                  tooltip-append-to-body="true"
+                  tooltip-enable="{{$ctrl.navCollapsed}}"
+                  tooltip-placement="bottom"
+                  tooltip-class="nav-pf-vertical-tooltip">
+            </span>
+            <span class="list-group-item-value">{{item.title}}</span>
+            <div ng-if="$ctrl.showBadges && item.badges" class="badge-container-pf">
+              <div class="badge {{badge.badgeClass}}" ng-repeat="badge in item.badges"
+                   uib-tooltip="{{badge.tooltip}}"
+                   tooltip-append-to-body="true"
+                   tooltip-placement="right">
+                <span ng-if="badge.count && badge.iconClass" class="{{badge.iconClass}}"></span>
+                <span ng-if="badge.count">{{badge.count}}</span>
+              </div>
+            </div>
+          </a>
+          <!--<a href="" ng-click="$ctrl.handlePrimaryClick(item, $event)" ng-keyup="$ctrl.handlePrimaryEnter(item, $event)">
             <span class="{{item.iconClass}}" ng-if="item.iconClass" ng-class="{hidden: $ctrl.hiddenIcons}"
               uib-tooltip="{{item.title}}"
               tooltip-append-to-body="true"
@@ -55,7 +74,7 @@
                 <span ng-if="badge.count">{{badge.count}}</span>
               </div>
             </div>
-          </a>
+          </a>-->
           <div ng-if="item.children && item.children.length > 0" class="nav-pf-secondary-nav">
             <div class="nav-item-pf-header">
               <a class="secondary-collapse-toggle-pf" ng-click="$ctrl.collapseSecondaryNav(item, $event)" ng-class="{'collapsed': item.secondaryCollapsed}"></a>

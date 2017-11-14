@@ -29,6 +29,7 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
     var explicitCollapse = false;
     var hoverDelay = 500;
     var hideDelay = hoverDelay + 200;
+    var openedItem;
 
     var getBodyContentElement = function () {
       return angular.element(document.querySelector('.container-pf-nav-pf-vertical'));
@@ -400,21 +401,19 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
 
     ctrl.handlePrimaryEnter = function (item, keyEvent) {
       if (item.children && item.children.length > 0 && keyEvent.which === 13) {
+
         ctrl.handlePrimaryHover(item);
-      }
-      if (item.children && item.children.length > 0 && item.isHover === true && keyEvent.which === 13) {
-        ctrl.handlePrimaryUnHover(item);
+
+        if (openedItem !== undefined) {
+          ctrl.handlePrimaryUnHover(openedItem);
+          openedItem = undefined;
+        } else {
+          openedItem = item;
+        }
       }
       if (item.children && item.children.length > 0 && item.isHover === true && keyEvent.which === 27) {
         ctrl.handlePrimaryUnHover(item);
-      }
-    };
-
-    ctrl.handlePrimaryLeave = function (item, keyEvent) {
-      if (item.children && item.children.length > 0) {
-        ctrl.handlePrimaryUnHover(item);
-      }  if (item.children && item.children.length > 0 && item.isHover === true && keyEvent.which === 13) {
-        ctrl.handlePrimaryUnHover(item);
+        openedItem = undefined;
       }
     };
 

@@ -37,7 +37,11 @@
                        'mobile-nav-item-pf': item.isMobileItem && $ctrl.showMobileSecondary,
                        'mobile-secondary-item-pf': item.isMobileItem && $ctrl.showMobileTertiary}"
             ng-mouseenter="$ctrl.handlePrimaryHover(item)" ng-mouseleave="$ctrl.handlePrimaryUnHover(item)">
-          <a href="#0" ng-click="$ctrl.handlePrimaryClick($event, item);" ng-keyup="$ctrl.handlePrimaryKeyUp($event, item)">
+
+          <a href="javascript:void(0)"
+             ng-click="$ctrl.handlePrimaryClick($event, item);"
+             ng-keyup="$ctrl.handlePrimaryKeyUp($event, item)">
+
             <span class="{{item.iconClass}}" ng-if="item.iconClass" ng-class="{hidden: $ctrl.hiddenIcons}"
                   uib-tooltip="{{item.title}}"
                   tooltip-append-to-body="true"
@@ -87,7 +91,11 @@
                              'is-hover': secondaryItem.isHover,
                              'mobile-nav-item-pf': secondaryItem.isMobileItem}"
                   ng-mouseenter="$ctrl.handleSecondaryHover(secondaryItem)" ng-mouseleave="$ctrl.handleSecondaryUnHover(secondaryItem)">
-                <a href="" ng-click="$ctrl.handleSecondaryClick(item, secondaryItem, $event)" ng-keyup="$ctrl.handleSecondaryEnter(secondaryItem, $event)">
+
+                <a href="javascript:void(0)"
+                   ng-click="$ctrl.handlePrimaryClick($event, item, secondaryItem);"
+                   ng-keyup="$ctrl.handlePrimaryKeyUp($event, null, secondaryItem)">
+
                   <span class="list-group-item-value">{{secondaryItem.title}}</span>
                   <div ng-if="$ctrl.showBadges && secondaryItem.badges" class="badge-container-pf">
                     <div class="badge {{badge.badgeClass}}" ng-repeat="badge in secondaryItem.badges"
@@ -106,7 +114,7 @@
                   </div>
                   <ul class="list-group">
                     <li ng-repeat="tertiaryItem in secondaryItem.children" class="list-group-item" ng-class="{'active': tertiaryItem.isActive}">
-                      <a ng-click="$ctrl.handleTertiaryClick(item, secondaryItem, tertiaryItem, $event)">
+                      <a href="javascript:void(0)" ng-click="$ctrl.handleTertiaryClick(item, secondaryItem, tertiaryItem, $event)">
                         <span class="list-group-item-value">{{tertiaryItem.title}}</span>
                         <div ng-if="$ctrl.showBadges && tertiaryItem.badges" class="badge-container-pf">
                           <div class="badge {{badge.badgeClass}}" ng-repeat="badge in tertiaryItem.badges"

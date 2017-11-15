@@ -388,17 +388,55 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
       }
     };
 
-    ctrl.handlePrimaryClick = function (event, item) {
-      /*if (ctrl.inMobileState) {
-        if (item.children && item.children.length > 0) {
-          updateMobileMenu(item);
+    ctrl.handlePrimaryClick = function (event, item, secondary) {
+
+      if (secondary) {
+
+        if (ctrl.inMobileState) {
+
+          if (secondary.children && secondary.children.length > 0) {
+            updateMobileMenu(item, secondary);
+          } else {
+            updateMobileMenu();
+            navigateToItem(secondary);
+          }
+
         } else {
-          updateMobileMenu();
-          navigateToItem(item);
+
+          navigateToItem(secondary);
+
+          if (secondary.isHover) {
+            ctrl.handleSecondaryUnHover(item, secondary);
+          } else {
+            ctrl.handleSecondaryHover(item, secondary);
+          }
         }
+
       } else {
-        navigateToItem(item);
-      }*/
+
+        if (ctrl.inMobileState) {
+
+          if (item.children && item.children.length > 0) {
+            updateMobileMenu(item);
+          } else {
+            updateMobileMenu();
+            navigateToItem(item);
+          }
+
+        } else {
+
+          navigateToItem(item);
+
+          if (item.isHover) {
+            ctrl.handlePrimaryUnHover(item);
+          } else {
+            ctrl.handlePrimaryHover(item);
+          }
+        }
+      }
+    };
+
+    /*ctrl.handlePrimaryClick = function (event, item) {
 
       if (ctrl.inMobileState) {
 
@@ -413,27 +451,24 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
 
         navigateToItem(item);
 
-        console.log(item.isHover);
-
         if (item.isHover) {
           ctrl.handlePrimaryUnHover(item);
         } else {
           ctrl.handlePrimaryHover(item);
         }
-
-        /*if (openedItem !== undefined) {
-          ctrl.handlePrimaryUnHover(openedItem);
-          openedItem = undefined;
-        } else {
-          openedItem = item;
-        }*/
       }
-    };
+    };*/
 
-    ctrl.handlePrimaryKeyUp = function (event, item) {
+    ctrl.handlePrimaryKeyUp = function (event, item, secondary) {
 
-      if (item.children && item.children.length > 0 && item.isHover === true && event.which === 27) {
-        ctrl.handlePrimaryUnHover(item);
+      if (event.which === 27) {
+        if (item && item.children && item.children.length > 0 && item.isHover === true) {
+          ctrl.handlePrimaryUnHover(item);
+        }
+
+        if (secondary && secondary.children && secondary.children.length > 0 && secondary.isHover === true) {
+          ctrl.handleSecondaryUnHover(item, secondary);
+        }
       }
     };
 
@@ -484,11 +519,25 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
 
     // Show secondary nav bar on hover of primary nav items
     ctrl.handlePrimaryHover = function (item) {
-      if (item.children && item.children.length > 0) {
-        if (!ctrl.inMobileState) {
+
+      if (ctrl.items) {
+        ctrl.items.forEach(function (item) {
           if (item.navUnHoverTimeout !== undefined) {
             $timeout.cancel(item.navUnHoverTimeout);
             item.navUnHoverTimeout = undefined;
+          }
+
+          item.isHover = false;
+        });
+      }
+
+      if (item.children && item.children.length > 0) {
+        if (!ctrl.inMobileState) {
+
+          if (item.navUnHoverTimeout !== undefined) {
+            $timeout.cancel(item.navUnHoverTimeout);
+            item.navUnHoverTimeout = undefined;
+
           } else if (ctrl.navHoverTimeout === undefined && !item.isHover) {
             item.navHoverTimeout = $timeout(function () {
               ctrl.hoverSecondaryNav = true;
@@ -518,8 +567,29 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
     };
 
     // Show tertiary nav bar on hover of secondary nav items
-    ctrl.handleSecondaryHover = function (item) {
-      if (item.children && item.children.length > 0) {
+    ctrl.handleSecondaryHover = function (prim, item) {
+
+      //var elements = //angular.element(item.parentNode().children());
+      //var elements = ;
+
+      //elements.forEach(function(value, i) {
+        //ctrl.handleSecondaryUnHover(value);
+      //});
+
+      //ctrl.handleSecondaryUnHover(item);
+
+      if (prim && prim.children) {
+        prim.children.forEach(function (item) {
+          if (item.navUnHoverTimeout !== undefined) {
+            $timeout.cancel(item.navUnHoverTimeout);
+            item.navUnHoverTimeout = undefined;
+          }
+
+          item.isHover = false;
+        });
+      }
+
+      if (item && item.children && item.children.length > 0) {
         if (!ctrl.inMobileState) {
           if (item.navUnHoverTimeout !== undefined) {
             $timeout.cancel(item.navUnHoverTimeout);
@@ -535,8 +605,15 @@ angular.module('patternfly.navigation').component('pfVerticalNavigation', {
       }
     };
 
-    ctrl.handleSecondaryUnHover = function (item) {
-      if (item.children && item.children.length > 0) {
+    ctrl.handleSecondaryUnHover = function (prim, item) {
+
+      /*if (prim && prim.children) {
+        prim.children.forEach(function (value) {
+          value.isHover = false;
+        });
+      }*/
+
+      if (item && item.children && item.children.length > 0) {
         if (item.navHoverTimeout !== undefined) {
           $timeout.cancel(item.navHoverTimeout);
           item.navHoverTimeout = undefined;
